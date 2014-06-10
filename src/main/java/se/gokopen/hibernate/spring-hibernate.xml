@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+       http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
+
+ 
+  
+	<bean id="myDataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<property name="url" value="jdbc:mysql://localhost:3306/gokopen" />
+		<property name="username" value="gokopen" />
+		<property name="password" value="gokopen" />
+	</bean>
+	<bean id="mySessionFactory" class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+		<property name="dataSource" ref="myDataSource" />
+		<property name="annotatedClasses">
+			<list>
+				<value>se.gokopen.model.PatrolImpl</value>
+				<value>se.gokopen.model.ScoreImpl</value>
+				<value>se.gokopen.model.Station</value>
+				<value>se.gokopen.model.Track</value>
+			</list>
+		</property>
+		<property name="hibernateProperties">
+			<value>hibernate.dialect=org.hibernate.dialect.HSQLDialect</value>
+		</property>
+	</bean>
+	<bean id="hibernateTemplate" class="org.springframework.orm.hibernate3.HibernateTemplate">
+		<property name="sessionFactory">
+			<ref bean="mySessionFactory" />
+		</property>
+	</bean>
+	<bean id="PatrolDAO" class="se.gokopen.dao.PatrolDAO">
+		<property name="hibernateTemplate">
+			<ref bean="hibernateTemplate" />
+		</property>
+	</bean>
+	<bean id="ScoreDAO" class="se.gokopen.dao.ScoreDAO">
+		<property name="hibernateTemplate">
+			<ref bean="hibernateTemplate" />
+		</property>
+	</bean>
+	<bean id="StationDAO" class="se.gokopen.dao.StationDAO">
+		<property name="hibernateTemplate">
+			<ref bean="hibernateTemplate" />
+		</property>
+	</bean>
+	<bean id="TrackDAO" class="se.gokopen.dao.TrackDAO">
+		<property name="hibernateTemplate">
+			<ref bean="hibernateTemplate" />
+		</property>
+	</bean>
+</beans>
