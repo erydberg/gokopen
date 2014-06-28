@@ -109,7 +109,7 @@ public class ScoreController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		request.setAttribute("saveurl", "/gokopen/score/savescore");
+		request.setAttribute("saveurl", request.getContextPath() + "/score/savescore");
 		// List<PatrolImpl> patrols = patrolService.getAllPatrols();
 		// request.setAttribute("patrols", patrols);
 		request.setAttribute("patrol", score.getPatrol());
@@ -164,7 +164,7 @@ public class ScoreController {
 		}
 		Integer trackid = score.getPatrol().getTrack().getTrackId();
 		request.setAttribute("backurl",
-				"/gokopen/patrol/viewpatrolfromlisttrack/" + patrolid
+		        request.getContextPath() + "/patrol/viewpatrolfromlisttrack/" + patrolid
 				+ "/track/" + trackid);
 
 		if(validateUser(score)){
@@ -182,7 +182,7 @@ public class ScoreController {
 				e.printStackTrace();
 			}
 			request.setAttribute("errormsg", "Du har inte behörighet att ändra denna poäng.");
-			request.setAttribute("backurl",	"/gokopen/reports/patrols");
+			request.setAttribute("backurl",	request.getContextPath() + "/reports/patrols");
 			return new ModelAndView("viewpatrol","patrol",patrol);		
 		}
 
@@ -262,10 +262,7 @@ public class ScoreController {
 		// Integer trackid = patrolReloaded.getTrack().getTrackId();
 		// request.setAttribute("backurl", "/gokopen/reports/bytrack/" +
 		// trackid);
-		request.setAttribute("backurl", "/gokopen/reports/patrols"); // f�r att
-		// det
-		// �r
-		// vanligast....
+		request.setAttribute("backurl", request.getContextPath() + "/reports/patrols"); // för att det är vanligast....
 		return new ModelAndView("viewpatrol", "patrol", patrolReloaded);
 	}
 
@@ -304,7 +301,7 @@ public class ScoreController {
 			e.printStackTrace();
 		}
 
-		request.setAttribute("backurl", "/gokopen/reports/patrols");
+		request.setAttribute("backurl", request.getContextPath() + "/reports/patrols");
 		return new ModelAndView("viewpatrol", "patrol", patrol);
 	}
 

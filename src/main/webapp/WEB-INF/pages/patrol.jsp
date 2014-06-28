@@ -10,7 +10,7 @@
 </head>
 <body>
 <h1>Patrull</h1>
-<form:form commandName="patrol" method="post" action="/gokopen/patrol" cssClass="form-general">
+<form:form commandName="patrol" method="post" action="${pageContext.request.contextPath}/patrol" cssClass="form-general">
 <form:hidden path="patrolId" id="patrolId"/>
 <div class="form-box">
 <fieldset>
@@ -49,7 +49,7 @@
 <form:textarea path="note" rows="7" cols="30" />
 </fieldset>
 <div class="submit-area">
-<input type="submit" name="savePatrol" value="Spara"/> | <a href="/gokopen/patrol">Avbryt</a>
+<input type="submit" name="savePatrol" value="Spara"/> | <a href="${pageContext.request.contextPath}/patrol">Avbryt</a>
 </div>
 </div>
 </form:form>

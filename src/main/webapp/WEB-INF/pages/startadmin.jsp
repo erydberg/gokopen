@@ -4,17 +4,18 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Gök Open Admin</title>
+<title>${config.name } admin</title>
 <jsp:include page="include_metadata.jsp" flush="false"></jsp:include>
 </head>
 <body>
 <div class="nav-box">
-<h1>GökOpen administration</h1>
+<h1>${config.name } administration</h1>
 <ul>
-<li class="nav-item"><a href="/gokopen/patrol">Visa patruller</a></li>
-<li class="nav-item"><a href="/gokopen/admin/station">Visa kontroller</a></li>
-<li class="nav-item"><a href="/gokopen/admin/track">Visa klasser</a></li>
-<li class="nav-item"><a href="/gokopen">Till huvudmenyn</a>
+<li class="nav-item"><a href="${pageContext.request.contextPath}/patrol">Visa patruller</a></li>
+<li class="nav-item"><a href="${pageContext.request.contextPath}/admin/station">Visa kontroller</a></li>
+<li class="nav-item"><a href="${pageContext.request.contextPath}/admin/track">Visa klasser</a></li>
+<li class="nav-item"><a href="${pageContext.request.contextPath}//admin/config">Konfiguration</a>
+<li class="nav-item"><a href="${pageContext.request.contextPath}">Till huvudmenyn</a>
 </ul>
 </div>
 </body>

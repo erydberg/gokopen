@@ -10,10 +10,10 @@
 </head>
 <body>
 		<div class="nav-box">
-		<a href="/gokopen">Tillbaka</a>
+		<a href="${pageContext.request.contextPath}">Tillbaka</a>
 		<ul>
 		<c:forEach items="${tracks }" var="track">
-			<li class="nav-item-small"><a href="/gokopen/reports/bytrack/${track.trackId }">${track.trackName }</a></li> 
+			<li class="nav-item-small"><a href="${pageContext.request.contextPath}/reports/bytrack/${track.trackId }">${track.trackName }</a></li> 
 		</c:forEach>
 		</ul>
 		</div>
@@ -25,7 +25,7 @@
 	<c:if test="${not empty patrols }">
 	<c:forEach items="${patrols }" var="patrol" varStatus="status">
 	<div class="scoreitem">
-	<a href="/gokopen/patrol/viewpatrolfromlisttrack/${patrol.patrolId}/track/${trackid}">${status.count }. ${patrol.patrolName }</a><br/>
+	<a href="${pageContext.request.contextPath}/patrol/viewpatrolfromlisttrack/${patrol.patrolId}/track/${trackid}">${status.count }. ${patrol.patrolName }</a><br/>
 	${patrol.troop }<br/>
 	<strong>Totalt: ${patrol.totalScore }</strong><br/>
 	(${patrol.totalScorePoint } poäng + ${patrol.totalStylePoint} stilpoäng)<br/>

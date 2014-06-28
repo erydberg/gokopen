@@ -11,13 +11,13 @@
 <body>
 <div class="nav-box">
 <div>
-<a href="/gokopen/">Tillbaka</a>
+<a href="${pageContext.request.contextPath}/">Tillbaka</a>
 </div>
 <h1>Alla patruller</h1>
 	<c:if test="${not empty patrols }">
 	<c:forEach items="${patrols }" var="patrol" varStatus="status">
 	<div class="scoreitem">
-	<a href="/gokopen/patrol/viewpatrolfrompatrollist/${patrol.patrolId}">${patrol.patrolName }</a> (${patrol.track.trackName })<br/>
+	<a href="${pageContext.request.contextPath}/patrol/viewpatrolfrompatrollist/${patrol.patrolId}">${patrol.patrolName }</a> (${patrol.track.trackName })<br/>
 	${patrol.troop }<br/>
 	Antal stationer: ${patrol.totalReportedStations }
 	</div>

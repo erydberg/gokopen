@@ -9,5 +9,6 @@
         <mapping class="se.gokopen.model.ScoreImpl" />
         <mapping class="se.gokopen.model.Station" />
         <mapping class="se.gokopen.model.Track" />
+        <mapping class="se.gokopen.model.Config"/>
     </session-factory>	
 </hibernate-configuration>

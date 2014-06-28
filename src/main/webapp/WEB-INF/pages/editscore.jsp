@@ -12,7 +12,7 @@
 	<h1>Ändra poäng</h1>
 	
 <c:if test="${not empty score.station }">
-	<form:form commandName="score" method="post" action="/gokopen/score/savescorefrompatrol" cssClass="form-general">
+	<form:form commandName="score" method="post" action="${pageContext.request.contextPath}/score/savescorefrompatrol" cssClass="form-general">
 	<form:hidden path="scoreId" id="scoreId" />
 Kontroll: ${score.station.stationName }<br>
 Patrull: ${score.patrol.patrolName }<br/>
@@ -47,7 +47,7 @@ Patrull: ${score.patrol.patrolName }<br/>
 </c:if>
 <br/><br/><br/>
 <div class="form-box">
-<a href="/gokopen/score/delete/${score.scoreId}/patrolid/${score.patrol.patrolId}">Ta bort</a>
+<a href="${pageContext.request.contextPath}/score/delete/${score.scoreId}/patrolid/${score.patrol.patrolId}">Ta bort</a>
 </div>
 </body>
 </html>

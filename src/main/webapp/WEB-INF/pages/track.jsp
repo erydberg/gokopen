@@ -8,7 +8,7 @@
 <title>Klass - ${track.trackName }</title>
 </head>
 <body>
-<form:form commandName="track" method="post" action="/gokopen/admin/track">
+<form:form commandName="track" method="post" action="${pageContext.request.contextPath}/admin/track">
 <form:hidden path="trackId" id="trackId"/>
 <table>
 <tr>
@@ -16,7 +16,7 @@
 <td><form:input path="trackName" id="trackName"/></td>
 </tr>
 <tr>
-<tr><td><input type="submit" name="saveTrack" value="Spara"/> | <a href="/gokopen/admin/track">Tillbaka</a></td>
+<tr><td><input type="submit" name="saveTrack" value="Spara"/> | <a href="${pageContext.request.contextPath}/admin/track">Tillbaka</a></td>
 </tr>
 </table>
 </form:form>

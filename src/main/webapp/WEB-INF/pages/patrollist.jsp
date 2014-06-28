@@ -10,7 +10,7 @@
 </head>
 <body>
 <p>
-<a href="/gokopen/patrol/admin/newpatrol">Lägg till ny patrull</a> | <a href="/gokopen/admin">Tillbaka</a>
+<a href="${pageContext.request.contextPath}/patrol/admin/newpatrol">Lägg till ny patrull</a> | <a href="${pageContext.request.contextPath}/admin">Tillbaka</a>
 </p>
 <table>
 <tr><th>Patrullnamn</th>
@@ -28,12 +28,12 @@
 <tr class="odd"> 
  </c:otherwise>
  </c:choose>
-<td><a href="/gokopen/patrol/viewpatrol/${patrol.patrolId}">${patrol.patrolName }</a></td>
+<td><a href="${pageContext.request.contextPath}/patrol/viewpatrol/${patrol.patrolId}">${patrol.patrolName }</a></td>
 <td>${patrol.track.trackName }</td>
 <td>${patrol.troop }</td>
 <td>${patrol.leaderContact}</td>
-<td><a href="/gokopen/patrol/admin/edit/${patrol.patrolId}">Redigera</a></td>
-<td><a href="/gokopen/patrol/admin/delete/${patrol.patrolId}">Ta bort</a></td>
+<td><a href="${pageContext.request.contextPath}/patrol/admin/edit/${patrol.patrolId}">Redigera</a></td>
+<td><a href="${pageContext.request.contextPath}/patrol/admin/delete/${patrol.patrolId}">Ta bort</a></td>
 </tr>
 </c:forEach>
 </table>

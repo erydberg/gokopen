@@ -85,7 +85,8 @@ public class PatrolController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		request.setAttribute("backurl",	"/gokopen/patrol");
+		
+		request.setAttribute("backurl",	request.getContextPath() + "/patrol");
 		return new ModelAndView("viewpatrol","patrol",patrol);		
 	}
 	
@@ -101,7 +102,7 @@ public class PatrolController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		request.setAttribute("backurl",	"/gokopen/reports/bytrack/" + trackid);
+		request.setAttribute("backurl",	request.getContextPath() + "/reports/bytrack/" + trackid);
 		return new ModelAndView("viewpatrol","patrol",patrol);
 		
 	}
@@ -118,7 +119,7 @@ public class PatrolController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		request.setAttribute("backurl",	"/gokopen/reports/patrols");
+		request.setAttribute("backurl",	request.getContextPath() + "/reports/patrols");
 		return new ModelAndView("viewpatrol","patrol",patrol);
 		
 	}

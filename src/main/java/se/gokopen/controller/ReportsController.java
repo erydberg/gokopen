@@ -91,10 +91,8 @@ public class ReportsController {
 		}
 		request.setAttribute("trackid", track.getTrackId());
 		request.setAttribute("selectedTrack", track.getTrackName());
-		request.setAttribute("backurl", "/gokopen/reports/bytrack/" + track.getTrackId());
+		request.setAttribute("backurl", request.getContextPath() + "/reports/bytrack/" + track.getTrackId());
 		List<PatrolImpl> patrols = patrolService.getAllPatrolsByTrack(track);
 		return new ModelAndView("viewpatrolsbytrack","patrols",patrols);
-		
 	}
-
 }
