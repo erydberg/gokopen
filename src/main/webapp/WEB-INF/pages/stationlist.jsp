@@ -10,7 +10,7 @@
 </head>
 <body>
 <p>
-<a href="/gokopen/admin/station/newstation">Lägg till ny kontroll</a> | <a href="/gokopen/admin">Tillbaka</a>
+<a href="${pageContext.request.contextPath}/admin/station/newstation">Lägg till ny kontroll</a> | <a href="${pageContext.request.contextPath}/admin">Tillbaka</a>
 </p>
 <table>
 		<tr>
@@ -26,8 +26,8 @@
 <td>${station.stationName }</td>
 <td>${station.stationContact }</td>
 <td>${station.stationPhonenumber }</td>
-<td><a href="/gokopen/admin/station/edit/${station.stationId}">Redigera</a></td>
-<td><a href="/gokopen/admin/station/delete/${station.stationId}">Ta bort</a></td>
+<td><a href="${pageContext.request.contextPath}/admin/station/edit/${station.stationId}">Redigera</a></td>
+<td><a href="${pageContext.request.contextPath}/admin/station/delete/${station.stationId}">Ta bort</a></td>
 </tr>
 </c:forEach>
 </table>

@@ -37,7 +37,7 @@ ${errormsg}
 <div>
 <c:forEach items="${patrol.scores}" var="score">
 <div class="scoreitem">
-	<a href="/gokopen/score/editscorefrompatrol/${score.scoreId}/returnto/${patrol.patrolId}">${score.station.stationNumber}. ${score.station.stationName}</a><br/>
+	<a href="${pageContext.request.contextPath}/score/editscorefrompatrol/${score.scoreId}/returnto/${patrol.patrolId}">${score.station.stationNumber}. ${score.station.stationName}</a><br/>
 	Poäng: ${score.scorePoint }<br/>
 	Stilpoäng: ${score.stylePoint }
 </div>

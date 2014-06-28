@@ -8,7 +8,7 @@
 <title>Kontroll - ${station.stationName }</title>
 </head>
 <body>
-<form:form commandName="station" method="post" action="/gokopen/admin/station">
+<form:form commandName="station" method="post" action="${pageContext.request.contextPath}/admin/station">
 <form:hidden path="stationId" id="stationId"/>
 <table>
 <tr>
@@ -45,11 +45,11 @@
 <td><form:input path="stationPhonenumber" id="stationPhonenumber"/></td>
 </tr>
 <tr>
-<td><label>Användare som får lägga till poäng: </label></td>
+<td><label>Användare som får lägga till poäng ()utöver admin-konton): </label></td>
 <td><form:input path="stationUser" id="stationUser"/></td>
 </tr>
 
-<tr><td><input type="submit" name="saveStation" value="Spara"/> | <a href="/gokopen/admin/station">Tillbaka</a></td>
+<tr><td><input type="submit" name="saveStation" value="Spara"/> | <a href="${pageContext.request.contextPath}/admin/station">Tillbaka</a></td>
 </tr>
 </table>
 </form:form>

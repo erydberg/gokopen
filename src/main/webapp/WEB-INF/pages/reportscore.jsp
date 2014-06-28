@@ -21,7 +21,7 @@ ${errormsg}
 </c:if>
 	<h1>Rapportera poäng</h1>
 	<c:if test="${empty score.station }">
-	<form:form commandName="score" method="post" action="/gokopen/score/selectstation" cssClass="form-general">
+	<form:form commandName="score" method="post" action="${pageContext.request.contextPath}/score/selectstation" cssClass="form-general">
 		<form:hidden path="scoreId" id="scoreId" />
 		<div class="form-box">
 		<fieldset>
@@ -33,13 +33,13 @@ ${errormsg}
 		</fieldset>
 		</div>
 		<div class="submit-area">
-		<input type="submit" name="saveStation" value="Fortsätt"/> | <a href="/gokopen/">Avbryt</a>
+		<input type="submit" name="saveStation" value="Fortsätt"/> | <a href="${pageContext.request.contextPath}/">Avbryt</a>
 		</div>
 		
 	</form:form>
 </c:if>
 <c:if test="${not empty score.station }">
-	<form:form commandName="score" method="post" action="/gokopen/score/savescore" cssClass="form-general">
+	<form:form commandName="score" method="post" action="${pageContext.request.contextPath}/score/savescore" cssClass="form-general">
 	<form:hidden path="scoreId" id="scoreId" />
 	<fieldset>
 Vald kontroll: ${score.station.stationName }
@@ -75,7 +75,7 @@ Vald kontroll: ${score.station.stationName }
 </fieldset>
 </div>
 <div class="submit-area">
-<input type="submit" name="saveScore" value="Spara"/> | <a href="/gokopen/">Avbryt</a>
+<input type="submit" name="saveScore" value="Spara"/> | <a href="${pageContext.request.contextPath}/">Avbryt</a>
 </div>
 </form:form>
 </c:if>

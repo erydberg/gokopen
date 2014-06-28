@@ -10,10 +10,10 @@
 </head>
 <body>
 		<div class="nav-box">
-		<a href="/gokopen">Tillbaka</a>
+		<a href="${pageContext.request.contextPath}">Tillbaka</a>
 		<ul>
 		<c:forEach items="${tracks }" var="track">
-			<li class="nav-item-small"><a href="/gokopen/print/bytrack/${track.trackId }">${track.trackName }</a></li> 
+			<li class="nav-item-small"><a href="${pageContext.request.contextPath}/print/bytrack/${track.trackId }">${track.trackName }</a></li> 
 		</c:forEach>
 		</ul>
 		</div>

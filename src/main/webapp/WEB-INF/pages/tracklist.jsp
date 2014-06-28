@@ -10,7 +10,7 @@
 </head>
 <body>
 <p>
-<a href="/gokopen/admin/track/newtrack">Lägg till ny klass</a> | <a href="/gokopen/admin">Tillbaka</a>
+<a href="${pageContext.request.contextPath}/admin/track/newtrack">Lägg till ny klass</a> | <a href="${pageContext.request.contextPath}/admin">Tillbaka</a>
 </p>
 <table>
 		<tr>
@@ -20,8 +20,8 @@
 		<c:forEach items="${tracks}" var="track">
 <tr> 
 <td>${track.trackName }</td>
-<td><a href="/gokopen/admin/track/edit/${track.trackId}">Redigera</a></td>
-<td><a href="/gokopen/admin/track/delete/${track.trackId}">Ta bort</a></td>
+<td><a href="${pageContext.request.contextPath}/admin/track/edit/${track.trackId}">Redigera</a></td>
+<td><a href="${pageContext.request.contextPath}/admin/track/delete/${track.trackId}">Ta bort</a></td>
 </tr>
 </c:forEach>
 </table>
