@@ -11,12 +11,13 @@ import se.gokopen.model.PatrolImpl;
 
 public class TestSpringDaoForPatrol {
 
-	/**
+	private static ApplicationContext context;
+
+    /**
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		ApplicationContext context=new ClassPathXmlApplicationContext("se/gokopen/hibernate/spring-hibernate.xml");
+		context = new ClassPathXmlApplicationContext("se/gokopen/hibernate/spring-hibernate.xml");
 
 		PatrolDAO patrolDao = (PatrolDAO)context.getBean("PatrolDAO");
 		
