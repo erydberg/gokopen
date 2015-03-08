@@ -8,8 +8,8 @@
 	<hibernate-configuration>
 	<session-factory>
 	<!-- egen mysql-installation-->
-	<property name="connection.url">jdbc:mysql://192.168.1.165:3306/GOKOPEN</property>
-    <!-- <property name="connection.username">root</property>
+	<property name="connection.url">jdbc:mysql://127.0.0.1:3306/GOKOPEN</property>
+    <!-- <property name="connection.username">gokmysqluser</property>
     <property name="connection.password">qwerty1</property>
      -->
      <property name="connection.username">gokopen</property>

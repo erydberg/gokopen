@@ -1,18 +1,14 @@
 package se.gokopen.dao;
 
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
 
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.orm.hibernate3.HibernateTemplate;
+import org.springframework.stereotype.Repository;
+
 import se.gokopen.model.PatrolImpl;
 import se.gokopen.model.Track;
-
-import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 //@Component("PatrolDAO")
 @Repository
