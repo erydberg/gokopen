@@ -14,7 +14,7 @@
 <li class="nav-item"><a href="${pageContext.request.contextPath}/patrol">Visa patruller</a></li>
 <li class="nav-item"><a href="${pageContext.request.contextPath}/admin/station">Visa kontroller</a></li>
 <li class="nav-item"><a href="${pageContext.request.contextPath}/admin/track">Visa klasser</a></li>
-<li class="nav-item"><a href="${pageContext.request.contextPath}//admin/config">Konfiguration</a>
+<li class="nav-item"><a href="${pageContext.request.contextPath}/admin/config">Konfiguration</a>
 <li class="nav-item"><a href="${pageContext.request.contextPath}">Till huvudmenyn</a>
 </ul>
 </div>
