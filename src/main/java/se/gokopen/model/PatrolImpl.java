@@ -30,11 +30,6 @@ public class PatrolImpl implements Patrol, Comparable<PatrolImpl> {
 	private String endTime;
 	private String members;
 	private String note;
-	private String patrolInfo;
-	private Integer totalStylePoint;
-	private Integer totalScorePoint;
-	private Integer totalScore;
-	private Integer totalReportedStations;
 	private Set <ScoreImpl> scores = new LinkedHashSet<ScoreImpl>();
 	private String leaderContact;
 	
@@ -217,7 +212,7 @@ public class PatrolImpl implements Patrol, Comparable<PatrolImpl> {
 	
 	@Transient
 	public String getPatrolInfo(){
-		return patrolName + " - " + track.getTrackName() + " (" + troop + ")";
+		return getPatrolName() + " - " + (track != null ? track.getTrackName() : "(odefinierad klass)") + " (" + getTroop() + ")";
 	}
 	
 	@Transient
