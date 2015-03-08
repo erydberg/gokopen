@@ -94,7 +94,8 @@ public class TestSavePatrolWithScore {
 		
 	}
 
-	private Track getTrackByName(String name) {
+	@SuppressWarnings("unused")
+    private Track getTrackByName(String name) {
 		Session session = null;
 		Track track = null;
 		try{
@@ -115,7 +116,8 @@ public class TestSavePatrolWithScore {
 		return track;
 	}
 
-	private void saveScore(ScoreImpl score){
+	@SuppressWarnings("unused")
+    private void saveScore(ScoreImpl score){
 		System.out.println("Spara score");
 		Session session = null;
 		try{
