@@ -28,11 +28,12 @@ ${errormsg}
 		Sluttid: ${patrol.endTime }</p>
 		<p>Medlemmar:<br>
 		${patrol.members }</p>
-</div>
+	</div>
 	<div class="form-box">
 	<h2>Poäng</h2>
 <p>Totalpoäng: ${patrol.totalScore }</p> 
 (Poäng: ${patrol.totalScorePoint } + stilpoäng: ${patrol.totalStylePoint })
+	</div>
 
 <div>
 <c:forEach items="${patrol.scores}" var="score">
