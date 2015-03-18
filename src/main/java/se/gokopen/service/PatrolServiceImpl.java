@@ -1,10 +1,7 @@
 package se.gokopen.service;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-
-import javax.persistence.Transient;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -73,8 +70,6 @@ public class PatrolServiceImpl implements PatrolService {
 	public List<PatrolImpl> getAllPatrolsLeftOnStation(Integer stationId) {
 		List<PatrolImpl> allPatrols = patrolDao.getAllPatrols();
 		
-		List<PatrolImpl> patrolsLeftOnStation = new ArrayList<PatrolImpl>();
-		List<PatrolImpl> patrolsToRemove = new ArrayList<PatrolImpl>();
 		Iterator<PatrolImpl> itt = allPatrols.iterator();
 		while(itt.hasNext()){
 			PatrolImpl patrol = (PatrolImpl) itt.next();

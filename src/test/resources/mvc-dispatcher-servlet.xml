@@ -24,7 +24,8 @@
 	</bean>
 	<bean id="propertyConfigurer"
         class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"
-        p:location="/WEB-INF/jdbc.properties" />
+        p:location="/jdbc.properties" />
+<!-- min gamla databaskoppling -->
 	<bean id="dataSource"
         class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close"
         p:driverClassName="${jdbc.driverClassName}"
@@ -43,7 +44,7 @@
     <bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
         <property name="dataSource" ref="dataSource" />
         <property name="configLocation">
-            <value>/WEB-INF/hibernate.cfg.xml</value>
+            <value>/hibernate.cfg.xml</value>
         </property>
         <property name="hibernateProperties">
             <props>

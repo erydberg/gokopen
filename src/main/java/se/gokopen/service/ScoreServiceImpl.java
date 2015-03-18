@@ -14,42 +14,61 @@ import se.gokopen.model.ScoreImpl;
 @Service
 public class ScoreServiceImpl implements ScoreService {
 
-	@Autowired
-	private ScoreDAO scoreDao;
-	
-	@Override
-	@Transactional
-	public void saveScore(ScoreImpl score) throws ScoreNotSavedException {
-		scoreDao.save(score);
-	}
+    @Autowired
+    private ScoreDAO scoreDao;
 
-	@Override
-	@Transactional
-	public List<ScoreImpl> getAllScores() {
-		return scoreDao.getAllScores();
-	}
+    @Override
+    @Transactional
+    public void saveScore(ScoreImpl score) throws ScoreNotSavedException {
+        if(!hasScoreBeenSavedBefore(score)){ 
+            scoreDao.save(score);
+        }else{
+            throw new ScoreNotSavedException("Det finns redan poäng registrerat för denna patrull på denna kontroll.");
+        }
+    }
 
-	@Override
-	@Transactional
-	public List<ScoreImpl> getScoreByPatrolId(Integer id) {
-		return scoreDao.getAllScoresByPatrolId(id);
-	}
+    @Override
+    @Transactional
+    public List<ScoreImpl> getAllScores() {
+        return scoreDao.getAllScores();
+    }
 
-	@Override
-	@Transactional
-	public void deleteScore(ScoreImpl score) throws ScoreNotFoundException {
-		scoreDao.delete(score);
-	}
+    @Override
+    @Transactional
+    public List<ScoreImpl> getScoreByPatrolId(Integer id) {
+        return scoreDao.getAllScoresByPatrolId(id);
+    }
 
-	@Override
-	@Transactional
-	public void deleteScoreById(Integer id) throws ScoreNotFoundException {
-		scoreDao.deleteById(id);
-	}
+    @Override
+    @Transactional
+    public void deleteScore(ScoreImpl score) throws ScoreNotFoundException {
+        scoreDao.delete(score);
+    }
 
-	@Override
-	@Transactional
-	public ScoreImpl getScoreById(Integer id) throws ScoreNotFoundException {
-		return scoreDao.getById(id);
-	}
+    @Override
+    @Transactional
+    public void deleteScoreById(Integer id) throws ScoreNotFoundException {
+        scoreDao.deleteById(id);
+    }
+
+    @Override
+    @Transactional
+    public ScoreImpl getScoreById(Integer id) throws ScoreNotFoundException {
+        return scoreDao.getById(id);
+    }
+
+    
+    private boolean hasScoreBeenSavedBefore(ScoreImpl score){
+        Integer patrolId = score.getPatrol().getPatrolId();
+        Integer stationId = score.getStation().getStationId();
+        System.out.println("patrullid: " + patrolId + " kontrollid: " + stationId);
+        try{
+            ScoreImpl prevscore = scoreDao.getScoreForPatrolOnStation(patrolId, stationId);   
+            System.out.println("Hittar poäng (" + prevscore.getScorePoint() + ") för patrullid: " + patrolId + " för kontroll " + stationId);
+        }catch(ScoreNotFoundException e){
+            System.out.println("Hittar inget poäng, ok att spara");
+            return false;
+        }
+        return true;
+    }
 }

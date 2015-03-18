@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -59,5 +58,14 @@ public class ScoreDAO {
 	public List<ScoreImpl> getAllScoresByPatrolId(Integer id){
 		List<ScoreImpl> scores = sessionFactory.getCurrentSession().createQuery("from ScoreImpl as score where score.fk_patrol=? order by score.fk_station").setParameter(0, id).list();
 		return scores;
+	}
+	
+	@SuppressWarnings("unchecked")
+    public ScoreImpl getScoreForPatrolOnStation(Integer patrolId, Integer stationId) throws ScoreNotFoundException{
+	    List<ScoreImpl> scores = sessionFactory.getCurrentSession().createQuery("from ScoreImpl as score where score.patrol.patrolId= :patrolid and score.station.stationId=:stationid").setParameter("patrolid", patrolId).setParameter("stationid",stationId).list();
+	    if(scores==null||scores.isEmpty()){
+	        throw new ScoreNotFoundException("Hittar ingen sparad poäng för denna patrull på denna kontroll");
+	    }
+	    return scores.get(0);
 	}
 }

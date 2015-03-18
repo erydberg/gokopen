@@ -217,8 +217,7 @@ public class ScoreController {
 				request.setAttribute("oldScore", score);
 
 			} catch (ScoreNotSavedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			    request.setAttribute("errormsg",e.getErrorMsg());
 			}
 		}
 
@@ -247,8 +246,7 @@ public class ScoreController {
 		try {
 			scoreService.saveScore(score);
 		} catch (ScoreNotSavedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		    request.setAttribute("errormsg",e.getErrorMsg());
 		}
 
 		Integer patrolId = score.getPatrol().getPatrolId();

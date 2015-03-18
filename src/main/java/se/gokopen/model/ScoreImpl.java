@@ -10,7 +10,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="score")
-public class ScoreImpl implements Score {
+public class ScoreImpl {
 	private Integer scoreId = null;
 	private Station station;
 	private int scorePoint;
@@ -51,7 +51,6 @@ public class ScoreImpl implements Score {
 		return scorePoint;
 	}
 
-	@Override
 	public void setScorePoint(int scorePoint) {
 		this.scorePoint = scorePoint;
 	}
@@ -63,7 +62,6 @@ public class ScoreImpl implements Score {
 	}
 
 
-	@Override
 	public void setStylePoint(int stylePoint) {
 		this.stylePoint = stylePoint;
 	}
