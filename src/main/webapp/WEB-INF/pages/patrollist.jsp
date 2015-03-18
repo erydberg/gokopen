@@ -23,11 +23,11 @@
 		</tr>
 
 		<c:forEach items="${patrols}" var="patrol" varStatus="status">
-			<tr
-				<c:choose>
- 					<c:when test="${(status.index)%2 eq 1}">class="odd"</c:when>
- 				</c:choose>
- 			>
+		<c:set var='trclass' value=''></c:set>
+		<c:choose>
+ 			<c:when test="${(status.index)%2 eq 1}"><c:set var='trclass' value='class="odd"'></c:set></c:when>
+ 		</c:choose>
+			<tr ${trclass}>
 				<td><a
 					href="${pageContext.request.contextPath}/patrol/viewpatrol/${patrol.patrolId}">${patrol.patrolName }</a></td>
 				<td>${patrol.track.trackName }</td>

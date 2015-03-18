@@ -21,7 +21,7 @@ import org.hibernate.annotations.Cascade;
 
 @Entity
 @Table(name="patrol")
-public class PatrolImpl implements Patrol, Comparable<PatrolImpl> {
+public class PatrolImpl implements Comparable<PatrolImpl> {
 	private Integer patrolId;
 	private String patrolName;
 	private String troop;
@@ -49,13 +49,9 @@ public class PatrolImpl implements Patrol, Comparable<PatrolImpl> {
 	}
 
 
-
-
 	public void setPatrolId(Integer patrolId) {
 		this.patrolId = patrolId;
 	}
-
-
 
 	@Column(name="patrolname", length=120)
 	public String getPatrolName() {
@@ -151,7 +147,6 @@ public class PatrolImpl implements Patrol, Comparable<PatrolImpl> {
 	 @Cascade(org.hibernate.annotations.CascadeType.DELETE)
 	@OrderBy("station asc")
 	@JoinColumn(name="fk_patrol")
-	@Override
 	public Set<ScoreImpl> getScores() {
 		return scores;
 	}
@@ -159,13 +154,7 @@ public class PatrolImpl implements Patrol, Comparable<PatrolImpl> {
 		this.scores = scores;
 	}
 
-	@Override
-	public void addScore() {
-		// TODO Auto-generated method stub
 
-	}
-
-	@Override
 	public void deleteScore(ScoreImpl scoreRemove) {
 		//find in set of scores and delete it
 		Iterator<ScoreImpl> itt = scores.iterator();
@@ -178,28 +167,11 @@ public class PatrolImpl implements Patrol, Comparable<PatrolImpl> {
 		}
 	}
 
-	@Override
-	public void updateScore() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	@Transient
-	public ScoreImpl getScore() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-
 
 	@Column(name="leadercontact", length=100)
 	public String getLeaderContact() {
 		return leaderContact;
 	}
-
-
-
 
 	public void setLeaderContact(String leaderContact) {
 		this.leaderContact = leaderContact;
@@ -251,7 +223,6 @@ public class PatrolImpl implements Patrol, Comparable<PatrolImpl> {
 //			stylePoints = stylePoints + score.getStylePoint();
 //		}
 //		return points + stylePoints;
-		
 	}
 
 
@@ -266,6 +237,4 @@ public class PatrolImpl implements Patrol, Comparable<PatrolImpl> {
 		//här borde finnas logik för att hitta flest högpoänger
 		return comp;
 	}
-	
-	
 }

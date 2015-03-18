@@ -59,4 +59,13 @@ public class ScoreDAO {
 		List<ScoreImpl> scores = sessionFactory.getCurrentSession().createQuery("from ScoreImpl as score where score.fk_patrol=? order by score.fk_station").setParameter(0, id).list();
 		return scores;
 	}
+	
+	@SuppressWarnings("unchecked")
+    public ScoreImpl getScoreForPatrolOnStation(Integer patrolId, Integer stationId) throws ScoreNotFoundException{
+	    List<ScoreImpl> scores = sessionFactory.getCurrentSession().createQuery("from ScoreImpl as score where score.patrol.patrolId= :patrolid and score.station.stationId=:stationid").setParameter("patrolid", patrolId).setParameter("stationid",stationId).list();
+	    if(scores==null||scores.isEmpty()){
+	        throw new ScoreNotFoundException("Hittar ingen sparad poäng för denna patrull på denna kontroll");
+	    }
+	    return scores.get(0);
+	}
 }
