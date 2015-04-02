@@ -1,5 +1,6 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -10,6 +11,11 @@
 <body>
 
 <div class="nav-box">
+<c:if test="${not empty errormsg }">
+<div class="errorblock">
+${errormsg}
+</div>
+</c:if>
 <h1>${config.name }</h1>
 <ul>
 <li class="nav-item"><a href="${pageContext.request.contextPath}/score/">Rapportera poäng</a></li>

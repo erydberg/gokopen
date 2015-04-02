@@ -8,22 +8,30 @@
 <jsp:include page="include_metadata.jsp" flush="false"></jsp:include>
 <title>Klasser</title>
 </head>
+<script>
+function confirmDelete(id){
+	var r=confirm("Vill du ta bort klassen?");
+	if (r==true)
+	  {
+		window.location.href = '${pageContext.request.contextPath}/admin/track/delete/'+id;
+	  }
+	else
+	  {
+	  return false;
+	  }
+	}
+</script>
 <body>
-<p>
+<div class="nav-box">
+<h1>Klasser</h1>
 <a href="${pageContext.request.contextPath}/admin/track/newtrack">Lägg till ny klass</a> | <a href="${pageContext.request.contextPath}/admin">Tillbaka</a>
-</p>
-<table>
-		<tr>
-			<th>Klass</th>
-		</tr>
-
-		<c:forEach items="${tracks}" var="track">
-<tr> 
-<td>${track.trackName }</td>
-<td><a href="${pageContext.request.contextPath}/admin/track/edit/${track.trackId}">Redigera</a></td>
-<td><a href="${pageContext.request.contextPath}/admin/track/delete/${track.trackId}">Ta bort</a></td>
-</tr>
+</div>
+<div class="notepad">
+<ul class="list">
+<c:forEach items="${tracks}" var="track">
+<li><a href="${pageContext.request.contextPath}/admin/track/edit/${track.trackId}">${track.trackName }</a> <a href="#" onclick="return confirmDelete(${track.trackId});" class="del"><img src="${pageContext.request.contextPath}/css/delete.png"></a></li>
 </c:forEach>
-</table>
+</ul>
+</div>
 </body>
 </html>

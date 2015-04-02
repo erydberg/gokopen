@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
@@ -79,14 +80,14 @@ public class ScoreController {
 	@RequestMapping(value = "/selectstation", method = RequestMethod.POST)
 	public ModelAndView selectStation(ScoreImpl score, BindingResult errors,
 			HttpServletRequest request, HttpServletResponse response) {
-		if(validateUser(score)){
+		if(isEditAllowedForCurrentUser(score)){
 			List<PatrolImpl> patrols = patrolService
 			.getAllPatrolsLeftOnStation(score.getStation().getStationId());
 			// List<PatrolImpl> patrols = patrolService.getAllPatrols();
 			request.setAttribute("patrols", patrols);
 			return new ModelAndView("reportscore", "score", score);
 		}else{
-			request.setAttribute("errormsg", "Du har inte behörighet att ge poäng på denna kontroll");
+			request.setAttribute("errormsg", "Du har inte behörighet att ge poäng på denna kontroll.");
 			score = new ScoreImpl();
 			return new ModelAndView("reportscore", "score", score);
 
@@ -117,36 +118,6 @@ public class ScoreController {
 
 	}
 
-	// EditScoreFromStation
-	// be able to edit a score from the previous set score directly from link at
-	// the register score-page
-	// should update and then return to the register score page with the correct
-	// station selected.
-	// incoming, scoreId to edit
-	// selected station to return to
-
-	// returning
-	// an edit view for the score with the correct return parameter
-	// @RequestMapping(value="/editscorefromstation/{id}/returnto/{stationid}")
-	// public ModelAndView editScoreFromStation(@PathVariable String id,
-	// @PathVariable String stationid, HttpServletRequest request){
-	// ScoreImpl score = null;
-	// try {
-	// score = scoreService.getScoreById(Integer.parseInt(id));
-	// } catch (NumberFormatException e) {
-	// // TODO Auto-generated catch block
-	// e.printStackTrace();
-	// } catch (ScoreNotFoundException e) {
-	// // TODO Auto-generated catch block
-	// e.printStackTrace();
-	// }
-	// // Integer stationid = score.getStation().getStationId();
-	// request.setAttribute("backurl", "/gokopen/score/selectstation" +
-	// patrolid+"/track/" + trackid);
-	// //TODO här är jag
-	// return new ModelAndView("editscore","score",score);
-	//
-	// }
 
 	@RequestMapping(value = "/editscorefrompatrol/{id}/returnto/{patrolid}")
 	public ModelAndView editScoreFromPatrolView(@PathVariable String id,
@@ -156,18 +127,18 @@ public class ScoreController {
 		try {
 			score = scoreService.getScoreById(Integer.parseInt(id));
 		} catch (NumberFormatException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (ScoreNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		    request.setAttribute("errormsg", "Hittar inte poängen i systemet.");
+            return new ModelAndView("start");
 		}
+		
 		Integer trackid = score.getPatrol().getTrack().getTrackId();
 		request.setAttribute("backurl",
 		        request.getContextPath() + "/patrol/viewpatrolfromlisttrack/" + patrolid
 				+ "/track/" + trackid);
 
-		if(validateUser(score)){
+		if(isEditAllowedForCurrentUser(score)){
 			return new ModelAndView("editscore", "score", score);	
 		}else{
 			//Får inte redigera därmed tillbaka till patrullen
@@ -257,9 +228,6 @@ public class ScoreController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		// Integer trackid = patrolReloaded.getTrack().getTrackId();
-		// request.setAttribute("backurl", "/gokopen/reports/bytrack/" +
-		// trackid);
 		request.setAttribute("backurl", request.getContextPath() + "/reports/patrols"); // för att det är vanligast....
 		return new ModelAndView("viewpatrol", "patrol", patrolReloaded);
 	}
@@ -278,40 +246,46 @@ public class ScoreController {
 			patrolService.savePatrol(patrol);
 		} catch (NumberFormatException e1) {
 			System.out.println("NumberFormatException: Problem deleting score " + id);
-			System.out.println(e1);
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		} catch (ScoreNotFoundException e1) {
 			System.out.println("ScoreNotFoundException: Problem deleting score " + id);
-			System.out.println(e1);
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
+			request.setAttribute("errormsg", "Hittar inte poängen att ta bort.");
+            return new ModelAndView("start");
 		} 
 		catch (PatrolNotFoundException e) {
 			System.out.println("PatrolNotFoundException: Problem deleting score " + id);
-			System.out.println(e);
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			request.setAttribute("errormsg", "Hittar inte patrullen att ta bort poängen från.");
+            return new ModelAndView("start");
 		} catch (PatrolNotSavedException e) {
 			System.out.println("PatrolNotSavedException: Problem deleting score " + id);
-			System.out.println(e);
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			request.setAttribute("errormsg", "Kunde inte spara patrullen och dess poängt.");
+            return new ModelAndView("start");
 		}
 
 		request.setAttribute("backurl", request.getContextPath() + "/reports/patrols");
 		return new ModelAndView("viewpatrol", "patrol", patrol);
 	}
 
-	private boolean validateUser(ScoreImpl score) {
-		User user = (User) SecurityContextHolder.getContext()
-		.getAuthentication().getPrincipal();
+	private boolean isEditAllowedForCurrentUser(ScoreImpl score) {
+	    User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String name = user.getUsername();
 		if ((name.equalsIgnoreCase(score.getStation().getStationUser()))
-				|| (name.equalsIgnoreCase("admin"))) {
+				|| (isUserAdmin(user))) {
 			return true;
 		} else {
 			return false;
 		}
+	}
+	
+	private boolean isUserAdmin(User user){
+	    for(GrantedAuthority authority : user.getAuthorities()){
+	        if(authority.getAuthority().equalsIgnoreCase("ROLE_ADMIN")){
+	            return true;
+	        }
+	    }
+	    return false;
 	}
 }

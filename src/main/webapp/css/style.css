@@ -181,3 +181,43 @@ fieldset {
 	font-size:65%;
 	
 }
+
+.notepad{
+
+}
+
+.notepad ul {
+	margin-left:10px;
+}
+.notepad .list {
+  color: #555;
+  font-size: 22px;
+  padding: 0 !important;
+  border: 1px solid #dedede;
+  margin-right:10px;
+}
+.notepad .list li {
+  list-style: none;
+  border-bottom: 1px dotted #ccc;
+  height: auto;
+  padding: 10px;
+  }
+.notepad .list li:hover {
+  background-color: #f0f0f0;
+  -webkit-transition: all 0.2s;
+  -moz-transition:    all 0.2s;
+  -ms-transition:     all 0.2s;
+  -o-transition:      all 0.2s;
+}
+.notepad .lines {
+  border-left: 1px solid #ffaa9f;
+  border-right: 1px solid #ffaa9f;
+  width: 2px;
+  float: left;
+  height: 495px;
+  margin-left: 40px;
+}
+
+.del{
+	float: right;
+}
