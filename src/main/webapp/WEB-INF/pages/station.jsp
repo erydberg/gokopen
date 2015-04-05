@@ -8,50 +8,39 @@
 <title>Kontroll - ${station.stationName }</title>
 </head>
 <body>
-<form:form commandName="station" method="post" action="${pageContext.request.contextPath}/admin/station">
+<div class="nav-box">
+<h1>Kontroll</h1>
+<form:form commandName="station" method="post" action="${pageContext.request.contextPath}/admin/station" cssClass="form-general">
 <form:hidden path="stationId" id="stationId"/>
-<table>
-<tr>
-<td><label>Kontrollens nummer:</label></td>
-<td><form:input path="stationNumber" id="stationNumber"/></td>
-</tr>
-<tr>
-<td><label>Namn:</label></td>
-<td><form:input path="stationName" id="stationName"/></td>
-</tr>
-<tr>
-<td><label>Minsta poäng: </label></td>
-<td><form:input path="minScore" id="minScore"/></td>
-</tr>
-<tr>
-<td><label>Max poäng: </label></td>
-<td><form:input path="maxScore" id="maxScore"/></td>
-</tr>
-<tr>
-<tr>
-<td><label>Minsta stilpoäng: </label></td>
-<td><form:input path="minStyleScore" id="minStyleScore"/></td>
-</tr>
-<tr>
-<td><label>Max stilpoäng: </label></td>
-<td><form:input path="maxStyleScore" id="maxStyleScore"/></td>
-</tr>
-<tr>
-<td><label>Ansvarig på kontrollen: </label></td>
-<td><form:input path="stationContact" id="stationContact"/></td>
-</tr>
-<tr>
-<td><label>Telefonnummer till ansvarig: </label></td>
-<td><form:input path="stationPhonenumber" id="stationPhonenumber"/></td>
-</tr>
-<tr>
-<td><label>Användare som får lägga till poäng ()utöver admin-konton): </label></td>
-<td><form:input path="stationUser" id="stationUser"/></td>
-</tr>
 
-<tr><td><input type="submit" name="saveStation" value="Spara"/> | <a href="${pageContext.request.contextPath}/admin/station">Tillbaka</a></td>
-</tr>
-</table>
+<div class="form-box">
+<fieldset>
+<div class="text size-3">
+<label>Kontrollens nummer:</label>
+<form:input path="stationNumber" id="stationNumber"/>
+<label>Namn:</label>
+<form:input path="stationName" id="stationName"/>
+<label>Minsta poäng: </label>
+<form:input path="minScore" id="minScore"/>
+<label>Max poäng: </label>
+<form:input path="maxScore" id="maxScore"/>
+<label>Minsta stilpoäng: </label>
+<form:input path="minStyleScore" id="minStyleScore"/>
+<label>Max stilpoäng: </label>
+<form:input path="maxStyleScore" id="maxStyleScore"/>
+<label>Ansvarig på kontrollen: </label>
+<form:input path="stationContact" id="stationContact"/>
+<label>Telefonnummer till ansvarig: </label>
+<form:input path="stationPhonenumber" id="stationPhonenumber"/>
+<label>Användare som får lägga till poäng (utöver admin-konton): </label>
+<form:input path="stationUser" id="stationUser"/>
+</div>
+</fieldset>
+<div class="submit-area">
+<input type="submit" name="saveStation" value="Spara"/> | <a href="${pageContext.request.contextPath}/admin/station">Tillbaka</a>
+</div>
+</div>
 </form:form>
+</div>
 </body>
 </html>
