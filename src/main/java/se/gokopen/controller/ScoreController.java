@@ -66,11 +66,6 @@ public class ScoreController {
 		return stationService.getAllStations();
 	}
 
-	// @ModelAttribute("patrols")
-	// public List<PatrolImpl> populatePatrols() {
-	// return patrolService.getAllPatrols();
-	// }
-
 	@RequestMapping(method = RequestMethod.GET)
 	public ModelAndView startScore() {
 		ScoreImpl score = new ScoreImpl();
@@ -80,26 +75,20 @@ public class ScoreController {
 	@RequestMapping(value = "/selectstation", method = RequestMethod.POST)
 	public ModelAndView selectStation(ScoreImpl score, BindingResult errors,
 			HttpServletRequest request, HttpServletResponse response) {
-		if(isEditAllowedForCurrentUser(score)){
-			List<PatrolImpl> patrols = patrolService
-			.getAllPatrolsLeftOnStation(score.getStation().getStationId());
-			// List<PatrolImpl> patrols = patrolService.getAllPatrols();
+		if(SecurityChecker.isEditAllowedForCurrentUser(score)){
+			List<PatrolImpl> patrols = patrolService.getAllPatrolsLeftOnStation(score.getStation().getStationId());
 			request.setAttribute("patrols", patrols);
 			return new ModelAndView("reportscore", "score", score);
 		}else{
 			request.setAttribute("errormsg", "Du har inte behörighet att ge poäng på denna kontroll.");
 			score = new ScoreImpl();
 			return new ModelAndView("reportscore", "score", score);
-
-
 		}
-
 	}
+	
 	//Används nog inte
 	@RequestMapping(value = "/editscore/{id}")
-	public ModelAndView editScore(@PathVariable String id,
-			HttpServletRequest request) {
-
+	public ModelAndView editScore(@PathVariable String id, HttpServletRequest request) {
 		ScoreImpl score = null;
 		try {
 			score = scoreService.getScoreById(Integer.parseInt(id));
@@ -111,8 +100,6 @@ public class ScoreController {
 			e.printStackTrace();
 		}
 		request.setAttribute("saveurl", request.getContextPath() + "/score/savescore");
-		// List<PatrolImpl> patrols = patrolService.getAllPatrols();
-		// request.setAttribute("patrols", patrols);
 		request.setAttribute("patrol", score.getPatrol());
 		return new ModelAndView("reportscore", "score", score);
 
@@ -120,9 +107,7 @@ public class ScoreController {
 
 
 	@RequestMapping(value = "/editscorefrompatrol/{id}/returnto/{patrolid}")
-	public ModelAndView editScoreFromPatrolView(@PathVariable String id,
-			@PathVariable String patrolid, HttpServletRequest request) {
-
+	public ModelAndView editScoreFromPatrolView(@PathVariable String id, @PathVariable String patrolid, HttpServletRequest request) {
 		ScoreImpl score = null;
 		try {
 			score = scoreService.getScoreById(Integer.parseInt(id));
@@ -138,7 +123,7 @@ public class ScoreController {
 		        request.getContextPath() + "/patrol/viewpatrolfromlisttrack/" + patrolid
 				+ "/track/" + trackid);
 
-		if(isEditAllowedForCurrentUser(score)){
+		if(SecurityChecker.isEditAllowedForCurrentUser(score)){
 			return new ModelAndView("editscore", "score", score);	
 		}else{
 			//Får inte redigera därmed tillbaka till patrullen
@@ -146,17 +131,14 @@ public class ScoreController {
 			try {
 				patrol = patrolService.getPatrolById(Integer.parseInt(patrolid));
 			} catch (NumberFormatException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (PatrolNotFoundException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			request.setAttribute("errormsg", "Du har inte behörighet att ändra denna poäng.");
 			request.setAttribute("backurl",	request.getContextPath() + "/reports/patrols");
 			return new ModelAndView("viewpatrol","patrol",patrol);		
 		}
-
 	}
 
 	@RequestMapping(value = "/viewscore/{id}")
@@ -166,10 +148,8 @@ public class ScoreController {
 		try {
 			score = scoreService.getScoreById(Integer.parseInt(id));
 		} catch (NumberFormatException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (ScoreNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return new ModelAndView("viewscore", "score", score);
@@ -267,25 +247,5 @@ public class ScoreController {
 
 		request.setAttribute("backurl", request.getContextPath() + "/reports/patrols");
 		return new ModelAndView("viewpatrol", "patrol", patrol);
-	}
-
-	private boolean isEditAllowedForCurrentUser(ScoreImpl score) {
-	    User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		String name = user.getUsername();
-		if ((name.equalsIgnoreCase(score.getStation().getStationUser()))
-				|| (isUserAdmin(user))) {
-			return true;
-		} else {
-			return false;
-		}
-	}
-	
-	private boolean isUserAdmin(User user){
-	    for(GrantedAuthority authority : user.getAuthorities()){
-	        if(authority.getAuthority().equalsIgnoreCase("ROLE_ADMIN")){
-	            return true;
-	        }
-	    }
-	    return false;
 	}
 }

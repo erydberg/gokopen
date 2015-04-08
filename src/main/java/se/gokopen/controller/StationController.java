@@ -30,7 +30,6 @@ public class StationController {
 		try {
 			stationService.saveStation(station);
 		} catch (StationNotSavedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -75,12 +74,12 @@ public class StationController {
 	public ModelAndView deleteStation(@PathVariable String id, HttpServletRequest request){
 		try {
 			stationService.deleteStationById(Integer.parseInt(id));
-		} catch (NumberFormatException e) {
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (StationNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			request.setAttribute("errormsg", "Det gick inte att ta bort kontrollen just nu.");
+			List<Station> stations = stationService.getAllStations();
+			return new ModelAndView("stationlist","stations",stations);
 		}
 		
 		//Return to list of existing patrols

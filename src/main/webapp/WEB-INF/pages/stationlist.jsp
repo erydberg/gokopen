@@ -9,9 +9,14 @@
 <title>Kontroller</title>
 </head>
 <body>
-<p>
+<c:if test="${not empty errormsg }">
+<div class="errorblock">
+${errormsg}
+</div>
+</c:if>
+<div class="nav-box">
 <a href="${pageContext.request.contextPath}/admin/station/newstation">Lägg till ny kontroll</a> | <a href="${pageContext.request.contextPath}/admin">Tillbaka</a>
-</p>
+</div>
 <table>
 		<tr>
 			<th>Nr</th>
@@ -23,11 +28,10 @@
 		<c:forEach items="${stations}" var="station">
 <tr> 
 <td>${station.stationNumber }</td>
-<td>${station.stationName }</td>
+<td><a href="${pageContext.request.contextPath}/admin/station/edit/${station.stationId}">${station.stationName }</a></td>
 <td>${station.stationContact }</td>
 <td>${station.stationPhonenumber }</td>
-<td><a href="${pageContext.request.contextPath}/admin/station/edit/${station.stationId}">Redigera</a></td>
-<td><a href="${pageContext.request.contextPath}/admin/station/delete/${station.stationId}">Ta bort</a></td>
+<td><a href="${pageContext.request.contextPath}/admin/station/delete/${station.stationId}"><img src="${pageContext.request.contextPath}/css/delete.png"></a></td>
 </tr>
 </c:forEach>
 </table>
