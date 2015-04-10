@@ -163,7 +163,7 @@ public class ScoreController {
 			request.setAttribute("errormsg", "Du måste välja en patrull innan du sparar poängen.");
 		}else{
 		try {
-				scoreService.saveScore(score);
+				scoreService.saveScore(score, false);
 				request.setAttribute("oldPatr", score.getPatrol());
 				request.setAttribute("oldScore", score);
 
@@ -195,7 +195,7 @@ public class ScoreController {
 			BindingResult errors, HttpServletRequest request,
 			HttpServletResponse response) {
 		try {
-			scoreService.saveScore(score);
+			scoreService.saveScore(score, true);
 		} catch (ScoreNotSavedException e) {
 		    request.setAttribute("errormsg",e.getErrorMsg());
 		}

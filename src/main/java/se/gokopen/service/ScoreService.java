@@ -8,7 +8,7 @@ import se.gokopen.model.ScoreImpl;
 
 
 public interface ScoreService {
-	public void saveScore(ScoreImpl score) throws ScoreNotSavedException;
+	public void saveScore(ScoreImpl score, boolean force) throws ScoreNotSavedException;
 	public List<ScoreImpl> getAllScores();
 	public List<ScoreImpl> getScoreByPatrolId(Integer id);
 	public void deleteScore(ScoreImpl score) throws ScoreNotFoundException;
