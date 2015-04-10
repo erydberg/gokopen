@@ -20,9 +20,11 @@ public class ScoreServiceImpl implements ScoreService {
     @Override
     @Transactional
     public void saveScore(ScoreImpl score) throws ScoreNotSavedException {
-        if(!hasScoreBeenSavedBefore(score)){ 
+        //Kan kolla om score har ett id eller om det är samma id på båda instanserna?
+        if(isScoreInEditMode(score) || !hasScoreBeenSavedBefore(score)){
             scoreDao.save(score);
-        }else{
+        }
+        else{
             throw new ScoreNotSavedException("Det finns redan poäng registrerat för denna patrull på denna kontroll.");
         }
     }
@@ -61,7 +63,6 @@ public class ScoreServiceImpl implements ScoreService {
     private boolean hasScoreBeenSavedBefore(ScoreImpl score){
         Integer patrolId = score.getPatrol().getPatrolId();
         Integer stationId = score.getStation().getStationId();
-        System.out.println("patrullid: " + patrolId + " kontrollid: " + stationId);
         try{
             ScoreImpl prevscore = scoreDao.getScoreForPatrolOnStation(patrolId, stationId);   
             System.out.println("Hittar poäng (" + prevscore.getScorePoint() + ") för patrullid: " + patrolId + " för kontroll " + stationId);
@@ -69,6 +70,15 @@ public class ScoreServiceImpl implements ScoreService {
             System.out.println("Hittar inget poäng, ok att spara");
             return false;
         }
+        
         return true;
+    }
+    
+    private boolean isScoreInEditMode(ScoreImpl score){
+        if(score.getScoreId()==null || score.getScoreId()==0){
+            return false;
+        }else{
+            return true;
+        }
     }
 }
