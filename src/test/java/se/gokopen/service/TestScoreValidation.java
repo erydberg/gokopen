@@ -73,7 +73,7 @@ public class TestScoreValidation {
         score1.setScorePoint(10);
         
         try{
-            scoreService.saveScore(score1);    
+            scoreService.saveScore(score1, false);    
         }catch(ScoreNotSavedException e){
             System.out.println("meddelande " + e.getErrorMsg());
         }
@@ -86,7 +86,7 @@ public class TestScoreValidation {
         score2.setStation(station1);
         score2.setScorePoint(8);
         try {
-            scoreService.saveScore(score2);
+            scoreService.saveScore(score2, false);
         } catch (ScoreNotSavedException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -99,7 +99,7 @@ public class TestScoreValidation {
         score3.setStation(station1);
         score3.setScorePoint(9);
         try {
-            scoreService.saveScore(score3);
+            scoreService.saveScore(score3, false);
         } catch (ScoreNotSavedException e) {
             assertNotNull(e);
         }

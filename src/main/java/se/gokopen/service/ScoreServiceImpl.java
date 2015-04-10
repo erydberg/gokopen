@@ -19,8 +19,8 @@ public class ScoreServiceImpl implements ScoreService {
 
     @Override
     @Transactional
-    public void saveScore(ScoreImpl score) throws ScoreNotSavedException {
-        if(!hasScoreBeenSavedBefore(score)){ 
+    public void saveScore(ScoreImpl score, boolean force) throws ScoreNotSavedException {
+        if(force || !hasScoreBeenSavedBefore(score)){ 
             scoreDao.save(score);
         }else{
             throw new ScoreNotSavedException("Det finns redan poäng registrerat för denna patrull på denna kontroll.");
