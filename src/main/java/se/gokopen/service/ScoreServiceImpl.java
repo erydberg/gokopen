@@ -20,7 +20,6 @@ public class ScoreServiceImpl implements ScoreService {
     @Override
     @Transactional
     public void saveScore(ScoreImpl score) throws ScoreNotSavedException {
-        //Kan kolla om score har ett id eller om det är samma id på båda instanserna?
         if(isScoreInEditMode(score) || !hasScoreBeenSavedBefore(score)){
             scoreDao.save(score);
         }
