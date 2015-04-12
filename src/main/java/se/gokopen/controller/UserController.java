@@ -1,7 +1,8 @@
 package se.gokopen.controller;
 
+import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.logging.Logger;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -21,10 +22,18 @@ import se.gokopen.service.UserService;
 @RequestMapping("/admin/user")
 @Controller
 public class UserController {
-    private static final Logger logger = Logger.getLogger("se.rydberg.handla.controller.UserController");
     
     @Autowired
     private UserService userService;
+    
+    @ModelAttribute("userroles")
+    public Map<String,String> populateUserRoles(){
+        Map<String,String> userroles = new LinkedHashMap<String,String>();
+        userroles.put("ROLE_USER", "Kontrollant");
+        userroles.put("ROLE_STARTFINISH", "Start-mål-admin");
+        userroles.put("ROLE_ADMIN", "Administratör");
+        return userroles;
+    }
     
     @RequestMapping(method=RequestMethod.GET)
     public ModelAndView listUser(HttpServletRequest request){

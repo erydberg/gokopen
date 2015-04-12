@@ -1,6 +1,7 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,7 +12,9 @@
 
 	<div class="nav-box">
 		<h1>Användare</h1>
-		<form:form commandName="user" method="post" action="${pageContext.request.contextPath}/admin/user/save" cssClass="form-general">
+		<form:form commandName="user" method="post"
+			action="${pageContext.request.contextPath}/admin/user/save"
+			cssClass="form-general">
 			<form:hidden path="id" id="id" />
 
 			<div class="form-box">
@@ -25,8 +28,10 @@
 						<form:input path="password" id="password" />
 					</div>
 					<div class="text size-3">
-						<label>Roll (vanligtvis ROLE_USER)</label>
-						<form:input path="role" id="role" />
+							<form:select path="role">
+							<option value="Select" label="Välj en roll"></option>
+							<form:options items="${userroles}" />
+						</form:select>
 					</div>
 				</fieldset>
 				<div class="submit-area">

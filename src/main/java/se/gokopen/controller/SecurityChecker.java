@@ -16,7 +16,7 @@ public class SecurityChecker {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String name = user.getUsername();
         if ((name.equalsIgnoreCase(score.getStation().getStationUser()))
-                || (isUserAdmin(user))) {
+                || (isUserAdmin(user) || (isUserStartFinshAdmin(user)))) {
             return true;
         } else {
             return false;
@@ -26,6 +26,15 @@ public class SecurityChecker {
     public static boolean isUserAdmin(User user){
         for(GrantedAuthority authority : user.getAuthorities()){
             if(authority.getAuthority().equalsIgnoreCase("ROLE_ADMIN")){
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    public static boolean isUserStartFinshAdmin(User user){
+        for(GrantedAuthority authority : user.getAuthorities()){
+            if(authority.getAuthority().equalsIgnoreCase("ROLE_STARTFINISH")){
                 return true;
             }
         }

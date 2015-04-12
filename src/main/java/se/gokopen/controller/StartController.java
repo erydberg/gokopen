@@ -55,4 +55,9 @@ public class StartController {
 		return "login";
  
 	}
+	
+	@RequestMapping(value="/403", method = RequestMethod.GET)
+	public String accessDenied(HttpServletRequest request){
+	    return "accessdenied";
+	}
 }
