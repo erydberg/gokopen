@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,9 +16,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+
 import se.gokopen.dao.PatrolNotFoundException;
 import se.gokopen.dao.PatrolNotSavedException;
 import se.gokopen.model.PatrolImpl;
+import se.gokopen.model.Status;
 import se.gokopen.model.Track;
 import se.gokopen.service.PatrolService;
 import se.gokopen.service.TrackService;
@@ -27,7 +30,6 @@ import se.gokopen.service.TrackService;
 @Controller
 public class PatrolController {
 	
-	//Skjuter in PatrolService
 	@Autowired
 	private PatrolService patrolService;
 	@Autowired
@@ -70,6 +72,7 @@ public class PatrolController {
 		PatrolImpl patrol = new PatrolImpl();
 		ModelMap map = new ModelMap();
 		map.put("patrol", patrol);
+		map.put("statuslist", Status.values());
 		return new ModelAndView("patrol",map);
 	}
 	
@@ -144,7 +147,13 @@ public class PatrolController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return new ModelAndView("patrol","patrol",patrol);
+		
+		ModelMap map = new ModelMap();
+        map.put("patrol", patrol);
+        map.put("statuslist", Status.values());
+        return new ModelAndView("patrol",map);
+        
+//		return new ModelAndView("patrol","patrol",patrol);
 	}
 	
 	

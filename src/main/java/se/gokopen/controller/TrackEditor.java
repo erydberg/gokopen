@@ -10,33 +10,32 @@ import se.gokopen.service.TrackService;
 public class TrackEditor extends PropertyEditorSupport {
 
 
-	private TrackService trackService;
+    private TrackService trackService;
 
-	public TrackEditor(TrackService trackService) {
+    public TrackEditor(TrackService trackService) {
         this.trackService = trackService;
     }
 
-	@Override
-	public void setAsText(String text) throws IllegalArgumentException {
-		Track track = null;
-		try {
-			track = trackService.getTrackById(Integer.parseInt(text));
-		} catch (TrackNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		setValue(track);
-	}
-	
-	 @Override
-	    public String getAsText() {
-	        Track track = (Track) getValue();
-	        if (track == null) {
-	            return null;
-	        } else {
-	            return track.getTrackId().toString();
-	        }
-	    }
+    @Override
+    public void setAsText(String text) throws IllegalArgumentException {
+        Track track = null;
+        try {
+            track = trackService.getTrackById(Integer.parseInt(text));
+        } catch (TrackNotFoundException e) {
+            e.printStackTrace();
+        }
+        setValue(track);
+    }
+
+    @Override
+    public String getAsText() {
+        Track track = (Track) getValue();
+        if (track == null) {
+            return null;
+        } else {
+            return track.getTrackId().toString();
+        }
+    }
 }
 
 

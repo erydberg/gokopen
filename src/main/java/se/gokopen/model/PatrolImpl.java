@@ -7,6 +7,8 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -22,7 +24,7 @@ import org.hibernate.annotations.Cascade;
 @Entity
 @Table(name="patrol")
 public class PatrolImpl implements Comparable<PatrolImpl> {
-	private Integer patrolId;
+    private Integer patrolId;
 	private String patrolName;
 	private String troop;
 	private Track track;
@@ -32,13 +34,12 @@ public class PatrolImpl implements Comparable<PatrolImpl> {
 	private String note;
 	private Set <ScoreImpl> scores = new LinkedHashSet<ScoreImpl>();
 	private String leaderContact;
+	private Status status;
 	
 	
 	public PatrolImpl(){
 		
 	}
-	
-	
 	
 
 	@Id
@@ -48,23 +49,19 @@ public class PatrolImpl implements Comparable<PatrolImpl> {
 		return patrolId;
 	}
 
-
 	public void setPatrolId(Integer patrolId) {
 		this.patrolId = patrolId;
 	}
 
+	
 	@Column(name="patrolname", length=120)
 	public String getPatrolName() {
 		return patrolName;
 	}
 
-
-
-
 	public void setPatrolName(String patrolName) {
 		this.patrolName = patrolName;
 	}
-
 
 
 	@Column(name="troop", length=100)
@@ -72,15 +69,9 @@ public class PatrolImpl implements Comparable<PatrolImpl> {
 		return troop;
 	}
 
-
-
-
 	public void setTroop(String troop) {
 		this.troop = troop;
 	}
-
-
-
 
 	@ManyToOne
 	@JoinColumn(name="fk_track")
@@ -88,13 +79,9 @@ public class PatrolImpl implements Comparable<PatrolImpl> {
 		return track;
 	}
 
-
-
-
 	public void setTrack(Track track) {
 		this.track = track;
 	}
-
 
 
 	@Column(name="starttime", length=10)
@@ -102,13 +89,9 @@ public class PatrolImpl implements Comparable<PatrolImpl> {
 		return startTime;
 	}
 
-
-
-
 	public void setStartTime(String startTime) {
 		this.startTime = startTime;
 	}
-
 
 
 	@Column(name="endtime", length=10)
@@ -116,13 +99,9 @@ public class PatrolImpl implements Comparable<PatrolImpl> {
 		return endTime;
 	}
 
-
-
-
 	public void setEndTime(String endTime) {
 		this.endTime = endTime;
 	}
-
 
 
 	@Column(name="members", length=500)
@@ -134,6 +113,7 @@ public class PatrolImpl implements Comparable<PatrolImpl> {
 		this.members = members;
 	}
 
+	
 	@Column(name="note", length=500)
 	public String getNote() {
 		return note;
@@ -143,6 +123,7 @@ public class PatrolImpl implements Comparable<PatrolImpl> {
 		this.note = note;
 	}
 
+	
 	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER, orphanRemoval = true)
 	 @Cascade(org.hibernate.annotations.CascadeType.DELETE)
 	@OrderBy("station asc")
@@ -177,7 +158,19 @@ public class PatrolImpl implements Comparable<PatrolImpl> {
 		this.leaderContact = leaderContact;
 	}
 	
-	@Override
+	
+	@Enumerated(EnumType.STRING)
+	@Column(name = "status")
+	public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
+
+    @Override
 	public String toString(){
 		return String.valueOf(patrolId);
 	}
@@ -213,24 +206,13 @@ public class PatrolImpl implements Comparable<PatrolImpl> {
 	@Transient
 	public Integer getTotalScore(){
 		return this.getTotalStylePoint() + this.getTotalScorePoint();
-//		Integer points = 0;
-//		for (ScoreImpl score:scores){
-//			points = points + score.getScorePoint();
-//		}
-//	
-//		Integer stylePoints = 0;
-//		for (ScoreImpl score:scores){
-//			stylePoints = stylePoints + score.getStylePoint();
-//		}
-//		return points + stylePoints;
+
 	}
 
 
 	@Override
 	public int compareTo(PatrolImpl p) {
 		int comp = p.getTotalScore().compareTo(getTotalScore());
-//		System.out.println("compare: " + p.getTotalScore() + " " + getTotalScore() + comp);
-//		if(p.getTotalScore().equals(getTotalScore())){
 		if (comp==0){
 			comp = p.getTotalScorePoint().compareTo(getTotalScorePoint());
 		}

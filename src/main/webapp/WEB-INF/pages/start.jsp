@@ -23,6 +23,7 @@ ${errormsg}
 <li class="nav-item"><a href="${pageContext.request.contextPath}/reports/patrols">Patruller</a></li>
 <li class="nav-item"><a href="${pageContext.request.contextPath}/reports/bytrack">Resultat per klass</a></li>
 <sec:authorize access="hasRole('ROLE_ADMIN')">
+<li class="nav-item"><a href="${pageContext.request.contextPath}/startfinish">Start- och måladministration</a>
 <li class="nav-item"><a href="${pageContext.request.contextPath}/print/start">Skriv ut listor</a></li>
 <li class="nav-item"><a href="${pageContext.request.contextPath}/admin/">Administration</a></li>
 </sec:authorize>

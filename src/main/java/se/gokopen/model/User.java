@@ -17,7 +17,7 @@ public class User {
     private String password;
     private boolean enabled = true;
     private String role;
-//    private List<ShopList> shoplists;
+
     
     public User(){
         

@@ -48,31 +48,17 @@ public class ReportsController {
 		return trackService.getAllTracks();
 	}
 	
-//	@ModelAttribute("stations")
-//    public List<Station> populateStations() {
-//		return stationService.getAllStations();
-//	}
-//	
-//	@ModelAttribute("patrols")
-//    public List<PatrolImpl> populatePatrols() {
-//		return patrolService.getAllPatrols();
-//	}
-	
 	@RequestMapping(value="/patrols")
 	public ModelAndView viewPatrols(HttpServletRequest request){
-		
 		List<PatrolImpl> patrols = patrolService.getAllPatrols();
 		return new ModelAndView("viewpatrollist","patrols",patrols);
 	}
 	
 	@RequestMapping(value="/bytrack")
 	public String startPatrolsByTrack(HttpServletRequest request){
-		
-		
-		return "viewpatrolsbytrack";
+	    return "viewpatrolsbytrack";
 	}
-	
-	
+		
 	@RequestMapping(value="/bytrack/{id}")
 	public ModelAndView startPatrolsByTrack(@PathVariable String id,HttpServletRequest request){
 		
