@@ -20,12 +20,12 @@
 		<h1>Start och målgång</h1>
 		<table>
 			<tr>
-				<th>Status</th>
-				<th>Patrull</th>
-				<th>Klass</th>
-				<th>Kår</th>
-				<th>Antal kontroller</th>
-				<th>Antal poäng</th>
+				<th>Status <a href="${pageContext.request.contextPath}/startfinish/sortbystatus"><img src="${pageContext.request.contextPath}/css/arrow-down.png"></a></th>
+				<th>Patrull <a href="${pageContext.request.contextPath}/startfinish/"><img src="${pageContext.request.contextPath}/css/arrow-down.png"></a></th>
+				<th>Klass <a href="${pageContext.request.contextPath}/startfinish/sortbyclass"><img src="${pageContext.request.contextPath}/css/arrow-down.png"></a></th>
+				<th>Kår <a href="${pageContext.request.contextPath}/startfinish/sortbytroop"><img src="${pageContext.request.contextPath}/css/arrow-down.png"></a></th>
+				<th>Antal kontroller <a href="${pageContext.request.contextPath}/startfinish/sortbycompletedstations"><img src="${pageContext.request.contextPath}/css/arrow-down.png"></a></th>
+				<th>Antal poäng <a href="${pageContext.request.contextPath}/startfinish/sortbyscore"><img src="${pageContext.request.contextPath}/css/arrow-down.png"></a></th>
 			</tr>
 			<c:forEach items="${patrols }" var="patrol" varStatus="status">
 			<c:set var='trclass' value=''></c:set>
@@ -33,8 +33,29 @@
  				<c:when test="${(status.index)%2 eq 1}"><c:set var='trclass' value='class="odd"'></c:set></c:when>
  			</c:choose>
 			<tr ${trclass}>
-
-					<td>status</td>
+					<c:if test="${patrol.status=='REGISTERED' }">
+					<td class="left">
+						<img src="${pageContext.request.contextPath}/css/waiting.png">
+					</td>
+					</c:if>
+					<c:if test="${patrol.status=='ACTIVE' }">
+					<td class="center">
+						<img src="${pageContext.request.contextPath}/css/walking.png">
+					</td>
+					</c:if>
+					<c:if test="${patrol.status=='FINISHED' }">
+					<td class="right">
+						<img src="${pageContext.request.contextPath}/css/finished.png">
+					</td>
+					</c:if>
+					<c:if test="${patrol.status=='RESIGNED' }">
+					<td class="center">
+						<img src="${pageContext.request.contextPath}/css/canceled.png">
+					</td>
+					</c:if>
+					<c:if test="${empty patrol.status }">
+						<td></td>
+					</c:if>
 					<td><a href="">${patrol.patrolName }</a></td>
 					<td>${patrol.track.trackName }</td>
 					<td>${patrol.troop }</td>

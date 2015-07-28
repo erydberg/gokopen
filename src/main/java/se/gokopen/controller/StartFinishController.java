@@ -30,11 +30,21 @@ public class StartFinishController {
     }
     
     
-    @RequestMapping(value="/sortby/{sortcol}",method=RequestMethod.GET)
-    public ModelAndView sortTableByColumn(@PathVariable String id,HttpServletRequest request){
-        
-        
-        return new ModelAndView("startfinish");
+    @RequestMapping(value="/sortbystatus",method=RequestMethod.GET)
+    public ModelAndView sortTableByStatus(HttpServletRequest request){
+        List<PatrolImpl> patrols = patrolService.getAllPatrolsSortedByStatus();
+        return new ModelAndView("startfinish", "patrols", patrols);
+    }
+    
+    @RequestMapping(value="/sortbytroop",method=RequestMethod.GET)
+    public ModelAndView sortTableByTroop(HttpServletRequest request){
+        List<PatrolImpl> patrols = patrolService.getAllPatrolsSortedByTroop();
+        return new ModelAndView("startfinish", "patrols", patrols);
     }
 
+    @RequestMapping(value="/sortbycompletedstations",method=RequestMethod.GET)
+    public ModelAndView sortTableByCompletedStations(HttpServletRequest request){
+        List<PatrolImpl> patrols = patrolService.getAllPatrolsSortedByNumberOfStations();
+        return new ModelAndView("startfinish", "patrols", patrols);
+    }
 }

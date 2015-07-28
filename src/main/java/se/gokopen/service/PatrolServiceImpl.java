@@ -1,5 +1,6 @@
 package se.gokopen.service;
 
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
@@ -87,4 +88,24 @@ public class PatrolServiceImpl implements PatrolService {
 
 		return allPatrols;
 	}
+
+    @Override
+    @Transactional
+    public List<PatrolImpl> getAllPatrolsSortedByStatus() {
+        return patrolDao.getAllPatrolsSortedByStatus();
+    }
+
+    @Override
+    @Transactional
+    public List<PatrolImpl> getAllPatrolsSortedByTroop() {
+        return patrolDao.getAllPatrolsSortedByTroop();
+    }
+
+    @Override
+    @Transactional
+    public List<PatrolImpl> getAllPatrolsSortedByNumberOfStations() {
+        List<PatrolImpl> patrols = patrolDao.getAllPatrols();
+        Collections.sort(patrols, new BeanComparator("totalReportedStations"));
+        return patrols;
+    }
 }

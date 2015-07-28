@@ -10,9 +10,7 @@ import org.springframework.stereotype.Repository;
 import se.gokopen.model.PatrolImpl;
 import se.gokopen.model.Track;
 
-//@Component("PatrolDAO")
 @Repository
-//@Transactional
 public class PatrolDAO {
 	
 	@Autowired
@@ -50,7 +48,6 @@ public class PatrolDAO {
 		return patrols;
 	}
 	
-
 	@SuppressWarnings("unchecked")
 	public List<PatrolImpl> getPatrolsByTrackId(Integer trackId){
 		List<PatrolImpl> patrols = sessionFactory.getCurrentSession().createQuery("from PatrolImpl patr where patr.fk_track=? order by patr.patrolName asc").setParameter(0,trackId).list();
@@ -63,6 +60,23 @@ public class PatrolDAO {
 		Collections.sort(patrols);
 		return patrols;
 	}
-
+	
+	@SuppressWarnings("unchecked")
+	public List<PatrolImpl> getAllPatrolsSortedByStatus(){
+	    List<PatrolImpl> patrols = sessionFactory.getCurrentSession().createQuery("from PatrolImpl patr order by patr.status asc").list();
+	    return patrols;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<PatrolImpl> getAllPatrolsSortedByTroop(){
+	    List<PatrolImpl> patrols = sessionFactory.getCurrentSession().createQuery("from PatrolImpl patr order by patr.troop asc").list();
+        return patrols;
+	}
+	
+	@SuppressWarnings("unchecked")
+    public List<PatrolImpl> getAllPatrolsSortedByNumberOfStations(){
+        List<PatrolImpl> patrols = sessionFactory.getCurrentSession().createQuery("from PatrolImpl patr order by patr.troop asc").list();
+        return patrols;
+    }
 }
 

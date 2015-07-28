@@ -8,7 +8,7 @@ public class TestStatus {
     
     @Test
     public void shouldReturnAllPossibleStatus(){
-        assertEquals(Status.values().length,(3));
+        assertEquals(Status.values().length,(4));
     }
 
 }
