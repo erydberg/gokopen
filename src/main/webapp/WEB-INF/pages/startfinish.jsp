@@ -22,7 +22,7 @@
 			<tr>
 				<th>Status <a href="${pageContext.request.contextPath}/startfinish/sortbystatus"><img src="${pageContext.request.contextPath}/css/arrow-down.png"></a></th>
 				<th>Patrull <a href="${pageContext.request.contextPath}/startfinish/"><img src="${pageContext.request.contextPath}/css/arrow-down.png"></a></th>
-				<th>Klass <a href="${pageContext.request.contextPath}/startfinish/sortbyclass"><img src="${pageContext.request.contextPath}/css/arrow-down.png"></a></th>
+				<th>Klass <a href="${pageContext.request.contextPath}/startfinish/sortbytrack"><img src="${pageContext.request.contextPath}/css/arrow-down.png"></a></th>
 				<th>Kår <a href="${pageContext.request.contextPath}/startfinish/sortbytroop"><img src="${pageContext.request.contextPath}/css/arrow-down.png"></a></th>
 				<th>Antal kontroller <a href="${pageContext.request.contextPath}/startfinish/sortbycompletedstations"><img src="${pageContext.request.contextPath}/css/arrow-down.png"></a></th>
 				<th>Antal poäng <a href="${pageContext.request.contextPath}/startfinish/sortbyscore"><img src="${pageContext.request.contextPath}/css/arrow-down.png"></a></th>
@@ -34,27 +34,29 @@
  			</c:choose>
 			<tr ${trclass}>
 					<c:if test="${patrol.status=='REGISTERED' }">
-					<td class="left">
-						<img src="${pageContext.request.contextPath}/css/waiting.png">
+					<td class="center">
+						<a href="${pageContext.request.contextPath}/startfinish/movetoactive/${patrol.patrolId}"><img src="${pageContext.request.contextPath}/css/waiting.png" alt="Starta patrullen"></a>
 					</td>
 					</c:if>
 					<c:if test="${patrol.status=='ACTIVE' }">
 					<td class="center">
-						<img src="${pageContext.request.contextPath}/css/walking.png">
+						<a href="${pageContext.request.contextPath}/startfinish/movetofinished/${patrol.patrolId}"><img src="${pageContext.request.contextPath}/css/walking.png" alt="Gå i mål"></a>
 					</td>
 					</c:if>
 					<c:if test="${patrol.status=='FINISHED' }">
-					<td class="right">
-						<img src="${pageContext.request.contextPath}/css/finished.png">
+					<td class="center">
+						<a href="${pageContext.request.contextPath}/startfinish/movetoresigned/${patrol.patrolId}"><img src="${pageContext.request.contextPath}/css/finished.png" alt="Avboka patrullen"></a>
 					</td>
 					</c:if>
 					<c:if test="${patrol.status=='RESIGNED' }">
 					<td class="center">
-						<img src="${pageContext.request.contextPath}/css/canceled.png">
+						<a href="${pageContext.request.contextPath}/startfinish/movetoregistered/${patrol.patrolId}"><img src="${pageContext.request.contextPath}/css/canceled.png" alt="Aktivera patrullen"></a>
 					</td>
 					</c:if>
 					<c:if test="${empty patrol.status }">
-						<td></td>
+						<td class="center">
+							<a href="${pageContext.request.contextPath}/startfinish/movetoactive/${patrol.patrolId}"><img src="${pageContext.request.contextPath}/css/waiting.png" alt="Starta patrullen"></a>
+						</td>
 					</c:if>
 					<td><a href="">${patrol.patrolName }</a></td>
 					<td>${patrol.track.trackName }</td>

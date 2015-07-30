@@ -19,4 +19,7 @@ public interface PatrolService {
 	public List<PatrolImpl> getAllPatrolsSortedByStatus();
 	public List<PatrolImpl> getAllPatrolsSortedByTroop();
 	public List<PatrolImpl> getAllPatrolsSortedByNumberOfStations();
+    public List<PatrolImpl> getAllPatrolsSortedByTrack();
+    public List<PatrolImpl> getAllPatrolsSortedByScore();
 }
+

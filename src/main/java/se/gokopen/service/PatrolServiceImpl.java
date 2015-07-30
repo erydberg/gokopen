@@ -63,7 +63,9 @@ public class PatrolServiceImpl implements PatrolService {
 	@Override
 	@Transactional
 	public List<PatrolImpl> getAllPatrolsByTrack(Track track) {
-		return patrolDao.getPatrolsByTrack(track);
+	    List<PatrolImpl> patrols = patrolDao.getPatrolsByTrack(track);
+	    Collections.sort(patrols); //sorterar efter högst poäng (standardsortering för patrolsklassen)
+		return patrols;
 	}
 
 	@Override
@@ -108,4 +110,21 @@ public class PatrolServiceImpl implements PatrolService {
         Collections.sort(patrols, new BeanComparator("totalReportedStations"));
         return patrols;
     }
+
+    @Override
+    @Transactional
+    public List<PatrolImpl> getAllPatrolsSortedByTrack() {
+        List<PatrolImpl> patrols = patrolDao.getAllPatrolsSortedByTrack();
+        return patrols;
+    }
+
+    @Override
+    @Transactional
+    public List<PatrolImpl> getAllPatrolsSortedByScore() {
+        List<PatrolImpl> patrols = patrolDao.getAllPatrols();
+        Collections.sort(patrols, Collections.reverseOrder(new BeanComparator("totalScore")));
+        return patrols;
+    }
+    
+    
 }

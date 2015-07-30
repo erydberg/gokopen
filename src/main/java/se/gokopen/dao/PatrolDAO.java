@@ -57,7 +57,6 @@ public class PatrolDAO {
 	@SuppressWarnings("unchecked")
 	public List<PatrolImpl> getPatrolsByTrack(Track track){
 		List<PatrolImpl> patrols = sessionFactory.getCurrentSession().createQuery("from PatrolImpl patr where patr.track=? order by patr.patrolName asc").setParameter(0,track).list();
-		Collections.sort(patrols);
 		return patrols;
 	}
 	
@@ -74,8 +73,8 @@ public class PatrolDAO {
 	}
 	
 	@SuppressWarnings("unchecked")
-    public List<PatrolImpl> getAllPatrolsSortedByNumberOfStations(){
-        List<PatrolImpl> patrols = sessionFactory.getCurrentSession().createQuery("from PatrolImpl patr order by patr.troop asc").list();
+    public List<PatrolImpl> getAllPatrolsSortedByTrack() {
+        List<PatrolImpl> patrols = sessionFactory.getCurrentSession().createQuery("from PatrolImpl patr order by patr.track asc").list();
         return patrols;
     }
 }
