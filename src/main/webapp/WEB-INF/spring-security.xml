@@ -5,6 +5,7 @@
 	http://www.springframework.org/schema/security
 	http://www.springframework.org/schema/security/spring-security-3.2.xsd">
 	<http pattern="/css/**" security="none"/>
+	<http pattern="/js/**" security="none"/>
 	<http auto-config="true" use-expressions="true">
 	<access-denied-handler error-page="/403" />
 	<intercept-url pattern="/login/**" access="permitAll"/>

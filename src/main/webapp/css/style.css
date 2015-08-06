@@ -268,8 +268,9 @@ fieldset {
 .right{
 	text-align: right;
 }
-.center{
+.patrolstatus{
 	text-align: center;
+	cursor:pointer;
 }
 .left{
 	text-align: left;
