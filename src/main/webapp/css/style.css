@@ -166,7 +166,13 @@ fieldset {
 .odd {
 	background: none repeat scroll 0 0 #f6f3ec;
 }
-
+.toolbar{
+	float: right;
+	margin-top: 5px;
+}
+.toolitem{
+	margin-right: 10px;
+}
 .nav-box {
 	background: none repeat scroll 0 0 #F6F3EC;
 	border-bottom: 1px solid #E0D8C1;

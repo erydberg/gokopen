@@ -88,6 +88,10 @@ function changetoregistered(obj, id) {
 		}
 	});
 }
+function reloadPage(){
+	   window.location = window.location.pathname;
+}
+
     </script>
 </head>
 <body>
@@ -95,8 +99,10 @@ function changetoregistered(obj, id) {
 		<c:if test="${not empty errormsg }">
 			<div class="errorblock">${errormsg}</div>
 		</c:if>
-
+		<span class="toolbar"><a class="toolitem" href="#" onClick="reloadPage();"><img src="${pageContext.request.contextPath}/css/reload.png"></a></span>
 		<h1>Start och målgång</h1>
+		</div>
+		<div>
 		<table>
 			<tr>
 				<th>Status <a href="${pageContext.request.contextPath}/startfinish/sortbystatus"><img src="${pageContext.request.contextPath}/css/arrow-down.png"></a></th>
