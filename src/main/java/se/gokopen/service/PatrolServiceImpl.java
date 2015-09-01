@@ -139,7 +139,7 @@ public class PatrolServiceImpl implements PatrolService {
     public List<PatrolImpl> getActiveAndWaitingPatolsFromList(List<PatrolImpl> patrols) {
         List<PatrolImpl> onlyActivePatrols = new ArrayList<PatrolImpl>();
         for(PatrolImpl patrol:patrols){
-            if(patrol.getStatus().equals(Status.REGISTERED) || patrol.getStatus().equals(Status.ACTIVE)){
+            if(patrol.getStatus()!=null && (patrol.getStatus().equals(Status.REGISTERED) || patrol.getStatus().equals(Status.ACTIVE))){
                 onlyActivePatrols.add(patrol);
             }
         }
