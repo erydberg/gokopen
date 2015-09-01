@@ -129,6 +129,7 @@ public class PatrolServiceImpl implements PatrolService {
     }
 
     @Override
+    @Transactional
     public List<PatrolImpl> getAllActivePatrolsLeftOnStation(Integer stationId) {
         List<PatrolImpl> patrols = getAllPatrolsLeftOnStation(stationId);
         List<PatrolImpl> activePatrols = getActiveAndWaitingPatolsFromList(patrols);
@@ -144,6 +145,4 @@ public class PatrolServiceImpl implements PatrolService {
         }
         return onlyActivePatrols;
     }
-    
-    
 }

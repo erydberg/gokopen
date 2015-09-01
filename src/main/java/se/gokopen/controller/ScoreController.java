@@ -73,7 +73,7 @@ public class ScoreController {
 	public ModelAndView selectStation(ScoreImpl score, BindingResult errors,
 			HttpServletRequest request, HttpServletResponse response) {
 		if(SecurityChecker.isEditAllowedForCurrentUser(score)){
-			List<PatrolImpl> patrols = patrolService.getAllPatrolsLeftOnStation(score.getStation().getStationId());
+			List<PatrolImpl> patrols = patrolService.getAllActivePatrolsLeftOnStation(score.getStation().getStationId());
 			request.setAttribute("patrols", patrols);
 			return new ModelAndView("reportscore", "score", score);
 		}else{
@@ -172,16 +172,12 @@ public class ScoreController {
 		ScoreImpl scorenew = new ScoreImpl();
 		Station stationTest = new Station();
 		try {
-			stationTest = stationService.getStationById(score.getStation()
-					.getStationId());
+			stationTest = stationService.getStationById(score.getStation().getStationId());
 		} catch (StationNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		scorenew.setStation(stationTest);
-		List<PatrolImpl> patrols = patrolService
-		.getAllPatrolsLeftOnStation(score.getStation().getStationId());
-		// List<PatrolImpl> patrols = patrolService.getAllPatrols();
+		List<PatrolImpl> patrols = patrolService.getAllActivePatrolsLeftOnStation(score.getStation().getStationId());
 		request.setAttribute("patrols", patrols);
 
 		return new ModelAndView("reportscore", "score", scorenew);

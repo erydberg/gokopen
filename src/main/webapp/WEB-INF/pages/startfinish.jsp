@@ -15,7 +15,7 @@
 var path = '${pageContext.request.contextPath}';
 var csspath = path + '/css/';
 $(document).ready(function(){
-	$('.nav-box').on("click", ".patrol", function(){
+	$('.switchstatus').on("click", ".patrol", function(){
 		var status = $(this).data('status');
 		var patrolid = $(this).data('id');
 		if(status=="registered"){
@@ -102,7 +102,7 @@ function reloadPage(){
 		<span class="toolbar"><a class="toolitem" href="#" onClick="reloadPage();"><img src="${pageContext.request.contextPath}/css/reload.png"></a></span>
 		<h1>Start och målgång</h1>
 		</div>
-		<div>
+		<div class="switchstatus">
 		<table>
 			<tr>
 				<th>Status <a href="${pageContext.request.contextPath}/startfinish/sortbystatus"><img src="${pageContext.request.contextPath}/css/arrow-down.png"></a></th>
