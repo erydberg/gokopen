@@ -1,5 +1,6 @@
 package se.gokopen.service;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
@@ -13,6 +14,7 @@ import se.gokopen.dao.PatrolNotFoundException;
 import se.gokopen.dao.PatrolNotSavedException;
 import se.gokopen.model.PatrolImpl;
 import se.gokopen.model.ScoreImpl;
+import se.gokopen.model.Status;
 import se.gokopen.model.Track;
 
 @Service
@@ -125,6 +127,22 @@ public class PatrolServiceImpl implements PatrolService {
         Collections.sort(patrols, Collections.reverseOrder(new BeanComparator("totalScore")));
         return patrols;
     }
-    
-    
+
+    @Override
+    @Transactional
+    public List<PatrolImpl> getAllActivePatrolsLeftOnStation(Integer stationId) {
+        List<PatrolImpl> patrols = getAllPatrolsLeftOnStation(stationId);
+        List<PatrolImpl> activePatrols = getActiveAndWaitingPatolsFromList(patrols);
+        return activePatrols;
+    }
+
+    public List<PatrolImpl> getActiveAndWaitingPatolsFromList(List<PatrolImpl> patrols) {
+        List<PatrolImpl> onlyActivePatrols = new ArrayList<PatrolImpl>();
+        for(PatrolImpl patrol:patrols){
+            if(patrol.getStatus()!=null && (patrol.getStatus().equals(Status.REGISTERED) || patrol.getStatus().equals(Status.ACTIVE))){
+                onlyActivePatrols.add(patrol);
+            }
+        }
+        return onlyActivePatrols;
+    }
 }
