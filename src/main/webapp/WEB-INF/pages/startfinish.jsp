@@ -10,96 +10,22 @@
 <head>
 <title>Start och målgång</title>
 <jsp:include page="include_metadata.jsp" flush="false"></jsp:include>
-<script src="${pageContext.request.contextPath}/js/jquery-2.1.4.min.js"></script>
 <script>
-var path = '${pageContext.request.contextPath}';
-var csspath = path + '/css/';
-$(document).ready(function(){
-	$('.switchstatus').on("click", ".patrol", function(){
-		var status = $(this).data('status');
-		var patrolid = $(this).data('id');
-		if(status=="registered"){
-			changetoactive(this, patrolid);
-		}
-		if(status=="active"){
-			changetofinished(this, patrolid);
-		}
-		if(status=="finished"){
-			changetoresigned(this, patrolid);
-		}
-		if(status=="resigned"){
-			changetoregistered(this, patrolid);
-		}
-	}); 
-	});
-function changetoactive(obj, id){
-    jQuery.ajax({
-     url    : path + '/startfinish/activate/'+id,
-     type   : 'PUT',
+	var path = '${pageContext.request.contextPath}';
+</script>
+<script src="${pageContext.request.contextPath}/js/jquery-2.1.4.min.js"></script>
+<script src="${pageContext.request.contextPath}/js/gokopen.js"></script>
 
-     success : function(data){
-    	 	$(obj).data('status','active');
-			$(obj).attr("src",csspath + "active.png");
-               },
-      error : function(errorData){
-				alert("Det gick inte att uppdatera statusen");
-              }
-    });
-}
-function changetofinished(obj, id) {
-	jQuery.ajax({
-		url : path + '/startfinish/finished/' + id,
-		type : 'PUT',
-
-		success : function(data) {
-			$(obj).data('status','finished');
-			$(obj).attr("src",csspath + "finished.png");
-		},
-		error : function(errorData) {
-			alert("Det gick inte att uppdatera statusen");
-		}
-	});
-}
-function changetoresigned(obj, id) {
-	jQuery.ajax({
-		url : path + '/startfinish/resigned/' + id,
-		type : 'PUT',
-
-		success : function(data) {
-			$(obj).data('status','resigned');
-			$(obj).attr("src",csspath + "resigned.png");
-		},
-		error : function(errorData) {
-			alert("Det gick inte att uppdatera statusen");
-		}
-	});
-}
-function changetoregistered(obj, id) {
-	jQuery.ajax({
-		url : path + '/startfinish/registered/' + id,
-		type : 'PUT',
-
-		success : function(data) {
-			$(obj).data('status','registered');
-			$(obj).attr("src",csspath + "registered.png");
-		},
-		error : function(errorData) {
-			alert("Det gick inte att uppdatera statusen");
-		}
-	});
-}
-function reloadPage(){
-	   window.location = window.location.pathname;
-}
-
-    </script>
 </head>
 <body>
 	<div class="nav-box">
 		<c:if test="${not empty errormsg }">
 			<div class="errorblock">${errormsg}</div>
 		</c:if>
-		<span class="toolbar"><a class="toolitem" href="#" onClick="reloadPage();"><img src="${pageContext.request.contextPath}/css/reload.png"></a></span>
+		<span class="toolbar">
+			<a class="toolitem" href="${pageContext.request.contextPath}/"><img src="${pageContext.request.contextPath}/css/back2.png"></a>
+			<a class="toolitem" href="#" onClick="reloadPage();"><img src="${pageContext.request.contextPath}/css/reload.png"></a>
+		</span>
 		<h1>Start och målgång</h1>
 		</div>
 		<div class="switchstatus">
