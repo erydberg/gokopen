@@ -9,11 +9,16 @@
 <title>Visa patruller</title>
 </head>
 <body>
-<div class="nav-box">
-<div>
-<a href="${pageContext.request.contextPath}/">Tillbaka</a>
-</div>
-<h1>Alla patruller</h1>
+	<div class="nav-box">
+		<c:if test="${not empty errormsg }">
+			<div class="errorblock">${errormsg}</div>
+		</c:if>
+		<span class="toolbar">
+			<a class="toolitem" href="${pageContext.request.contextPath}/"><img src="${pageContext.request.contextPath}/css/back2.png"></a>
+			<a class="toolitem" href="#" onClick="reloadPage();"><img src="${pageContext.request.contextPath}/css/reload.png"></a>
+		</span>
+		<h1>Alla patruller</h1>
+		</div>
 	<c:if test="${not empty patrols }">
 	<c:forEach items="${patrols }" var="patrol" varStatus="status">
 	<div class="scoreitem">
@@ -23,6 +28,5 @@
 	</div>
 	</c:forEach>
 	</c:if>
-	</div>
 </body>
 </html>
