@@ -25,11 +25,6 @@
 		  authorities-by-username-query=
 		    "select username, role from users where username =?  " />
 	  </authentication-provider>
-	  <authentication-provider>
-	  	<user-service>
-	  		<user name="megaadmin" password="megaadmin" authorities="ROLE_ADMIN"/>
-	  	</user-service>
-	  </authentication-provider>
 	</authentication-manager>
 	
 </beans:beans>
