@@ -116,7 +116,21 @@ public class StartFinishController {
     }
 
 
-    //gamla, länkbaserade lösningen
+    @RequestMapping(value="/viewpatrol/{id}")
+    public ModelAndView viewPatrolFromPatrolList(@PathVariable String id, HttpServletRequest request){
+        PatrolImpl patrol = null;
+        try {
+            patrol = patrolService.getPatrolById(Integer.parseInt(id));
+        } catch (NumberFormatException | PatrolNotFoundException e) {
+            e.printStackTrace();
+        }
+        request.setAttribute("backurl", request.getContextPath() + "/startfinish");
+        return new ModelAndView("viewpatrol","patrol",patrol);
+        
+    }
+    
+    
+    //gamla, länkbaserade lösningen - borde kunna tas bort!
     @RequestMapping(value="/movetoactive/{id}",method=RequestMethod.GET)
     public ModelAndView moveToActive(@PathVariable String id, HttpServletRequest request){
         PatrolImpl patrol = null;
