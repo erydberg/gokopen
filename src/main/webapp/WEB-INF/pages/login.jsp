@@ -3,9 +3,11 @@
 <html>
 <head>
 <jsp:include page="include_metadata.jsp" flush="false"></jsp:include>
-<title>Gok Open - Logga in</title>
+<title>Logga in</title>
 </head>
 <body onload='document.f.j_username.focus();'>
+<form name="f" action="j_spring_security_check" method="POST" class="form-general">
+	<div class="form-box">
 	<h3>Logga in</h3>
  
 	<c:if test="${not empty error}">
@@ -14,8 +16,7 @@
 		</div>
 	</c:if>
  
-	<form name="f" action="j_spring_security_check" method="POST" class="form-general">
-	<div class="form-box">
+	
 <label for="j_username">Användarnamn:</label>
 <input type="text" name="j_username" id="j_username">
 <label for="j_password">Lösenord:</label>
