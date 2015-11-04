@@ -3,7 +3,7 @@ package se.gokopen.controller;
 import java.beans.PropertyEditorSupport;
 
 import se.gokopen.dao.PatrolNotFoundException;
-import se.gokopen.model.PatrolImpl;
+import se.gokopen.model.Patrol;
 import se.gokopen.service.PatrolService;
 
 public class PatrolEditor extends PropertyEditorSupport {
@@ -17,7 +17,7 @@ public class PatrolEditor extends PropertyEditorSupport {
 
     @Override
     public void setAsText(String text) throws IllegalArgumentException {
-        PatrolImpl patrol = null;
+        Patrol patrol = null;
         try {
             patrol = patrolService.getPatrolById(Integer.parseInt(text));
         } catch (PatrolNotFoundException e) {
@@ -28,7 +28,7 @@ public class PatrolEditor extends PropertyEditorSupport {
 
     @Override
     public String getAsText() {
-        PatrolImpl patrol = (PatrolImpl) getValue();
+        Patrol patrol = (Patrol) getValue();
         if (patrol == null) {
             return null;
         } else {

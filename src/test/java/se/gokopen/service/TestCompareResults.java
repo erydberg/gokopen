@@ -10,19 +10,19 @@ import java.util.Set;
 import org.junit.Before;
 import org.junit.Test;
 
-import se.gokopen.model.PatrolImpl;
-import se.gokopen.model.ScoreImpl;
+import se.gokopen.model.Patrol;
+import se.gokopen.model.Score;
 
 public class TestCompareResults {
     
-    private PatrolImpl patrol1;
-    private PatrolImpl patrol2;
+    private Patrol patrol1;
+    private Patrol patrol2;
     
     
     @Before
     public void init(){
-        patrol1 = new PatrolImpl();
-        patrol2 = new PatrolImpl();
+        patrol1 = new Patrol();
+        patrol2 = new Patrol();
     }
     
     @Test
@@ -61,32 +61,32 @@ public class TestCompareResults {
         assertThat(patrol1.compareTo(patrol2),is(equalTo(-1)));
     }
     
-    private PatrolImpl addScores(PatrolImpl patrol) {
+    private Patrol addScores(Patrol patrol) {
         patrol.setScores(createBasicScores());
         return patrol;
     }
     
-    private void addStylePointsToScores(Set<ScoreImpl> scores){
-        for(ScoreImpl score:scores){
+    private void addStylePointsToScores(Set<Score> scores){
+        for(Score score:scores){
             score.setStylePoint(1);
         }
     }
     
-    private PatrolImpl addMoreScores(PatrolImpl patrol){
-        ScoreImpl score = new ScoreImpl();
+    private Patrol addMoreScores(Patrol patrol){
+        Score score = new Score();
         score.setScorePoint(2);
         patrol.getScores().add(score);
         
         return patrol;
     }
     
-    private Set<ScoreImpl> createBasicScores(){
-        ScoreImpl score1 = new ScoreImpl();
+    private Set<Score> createBasicScores(){
+        Score score1 = new Score();
         score1.setScorePoint(9);
-        ScoreImpl score2 = new ScoreImpl();
+        Score score2 = new Score();
         score2.setScorePoint(8);
         
-        Set<ScoreImpl> scores1 = new LinkedHashSet<ScoreImpl>();
+        Set<Score> scores1 = new LinkedHashSet<Score>();
         scores1.add(score1);
         scores1.add(score2);
         return scores1;

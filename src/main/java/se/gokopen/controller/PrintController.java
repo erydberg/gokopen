@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import se.gokopen.dao.TrackNotFoundException;
-import se.gokopen.model.PatrolImpl;
+import se.gokopen.model.Patrol;
 import se.gokopen.model.Station;
 import se.gokopen.model.Track;
 import se.gokopen.service.PatrolService;
@@ -39,7 +39,7 @@ public class PrintController {
 	@InitBinder
     protected void initBinder(WebDataBinder binder) {
 		binder.registerCustomEditor(Station.class, new StationEditor(this.stationService));
-		binder.registerCustomEditor(PatrolImpl.class, new PatrolEditor(this.patrolService));
+		binder.registerCustomEditor(Patrol.class, new PatrolEditor(this.patrolService));
 		binder.registerCustomEditor(Track.class, new TrackEditor(this.trackService));
     }
 	
@@ -47,16 +47,6 @@ public class PrintController {
     public List<Track> populateTracks() {
 		return trackService.getAllTracks();
 	}
-	
-//	@ModelAttribute("stations")
-//    public List<Station> populateStations() {
-//		return stationService.getAllStations();
-//	}
-//	
-//	@ModelAttribute("patrols")
-//    public List<PatrolImpl> populatePatrols() {
-//		return patrolService.getAllPatrols();
-//	}
 	
 	@RequestMapping(value="/start")
 	public String printScoreCardsStart(HttpServletRequest request){
@@ -76,7 +66,7 @@ public class PrintController {
 			e.printStackTrace();
 		}
 		request.setAttribute("selectedTrack", track.getTrackName());
-		List<PatrolImpl> patrols = patrolService.getAllPatrolsByTrack(track);
+		List<Patrol> patrols = patrolService.getAllPatrolsByTrack(track);
 		List<Station> stations = stationService.getAllStations();
 		request.setAttribute("stations", stations);
 		

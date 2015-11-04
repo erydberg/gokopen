@@ -4,7 +4,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 
-import se.gokopen.model.ScoreImpl;
+import se.gokopen.model.Score;
 
 public class SecurityChecker {
 
@@ -12,7 +12,7 @@ public class SecurityChecker {
         
     }
     
-    public static boolean isEditAllowedForCurrentUser(ScoreImpl score) {
+    public static boolean isEditAllowedForCurrentUser(Score score) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String name = user.getUsername();
         if ((name.equalsIgnoreCase(score.getStation().getStationUser()))

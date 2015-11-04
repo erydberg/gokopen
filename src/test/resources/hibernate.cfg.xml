@@ -3,8 +3,8 @@
  
 <hibernate-configuration>
     <session-factory>
-        <mapping class="se.gokopen.model.PatrolImpl" />
-        <mapping class="se.gokopen.model.ScoreImpl" />
+        <mapping class="se.gokopen.model.Patrol" />
+        <mapping class="se.gokopen.model.Score" />
         <mapping class="se.gokopen.model.Station" />
         <mapping class="se.gokopen.model.Track" />
         <mapping class="se.gokopen.model.Config"/>

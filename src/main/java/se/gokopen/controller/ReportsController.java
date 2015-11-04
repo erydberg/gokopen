@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import se.gokopen.dao.TrackNotFoundException;
-import se.gokopen.model.PatrolImpl;
+import se.gokopen.model.Patrol;
 import se.gokopen.model.Station;
 import se.gokopen.model.Track;
 import se.gokopen.service.PatrolService;
@@ -39,7 +39,7 @@ public class ReportsController {
 	@InitBinder
     protected void initBinder(WebDataBinder binder) {
 		binder.registerCustomEditor(Station.class, new StationEditor(this.stationService));
-		binder.registerCustomEditor(PatrolImpl.class, new PatrolEditor(this.patrolService));
+		binder.registerCustomEditor(Patrol.class, new PatrolEditor(this.patrolService));
 		binder.registerCustomEditor(Track.class, new TrackEditor(this.trackService));
     }
 	
@@ -50,7 +50,7 @@ public class ReportsController {
 	
 	@RequestMapping(value="/patrols")
 	public ModelAndView viewPatrols(HttpServletRequest request){
-		List<PatrolImpl> patrols = patrolService.getAllPatrols();
+		List<Patrol> patrols = patrolService.getAllPatrols();
 		return new ModelAndView("viewpatrollist","patrols",patrols);
 	}
 	
@@ -75,7 +75,7 @@ public class ReportsController {
 		request.setAttribute("trackid", track.getTrackId());
 		request.setAttribute("selectedTrack", track.getTrackName());
 		request.setAttribute("backurl", request.getContextPath() + "/reports/bytrack/" + track.getTrackId());
-		List<PatrolImpl> patrols = patrolService.getAllPatrolsByTrack(track);
+		List<Patrol> patrols = patrolService.getAllPatrolsByTrack(track);
 		return new ModelAndView("viewpatrolsbytrack","patrols",patrols);
 	}
 }

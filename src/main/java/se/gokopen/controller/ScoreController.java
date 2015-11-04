@@ -21,8 +21,8 @@ import se.gokopen.dao.PatrolNotSavedException;
 import se.gokopen.dao.ScoreNotFoundException;
 import se.gokopen.dao.ScoreNotSavedException;
 import se.gokopen.dao.StationNotFoundException;
-import se.gokopen.model.PatrolImpl;
-import se.gokopen.model.ScoreImpl;
+import se.gokopen.model.Patrol;
+import se.gokopen.model.Score;
 import se.gokopen.model.Station;
 import se.gokopen.model.Track;
 import se.gokopen.service.PatrolService;
@@ -47,7 +47,7 @@ public class ScoreController {
 	protected void initBinder(WebDataBinder binder) {
 		binder.registerCustomEditor(Station.class, new StationEditor(
 				this.stationService));
-		binder.registerCustomEditor(PatrolImpl.class, new PatrolEditor(
+		binder.registerCustomEditor(Patrol.class, new PatrolEditor(
 				this.patrolService));
 		binder.registerCustomEditor(Track.class, new TrackEditor(
 				this.trackService));
@@ -65,20 +65,20 @@ public class ScoreController {
 
 	@RequestMapping(method = RequestMethod.GET)
 	public ModelAndView startScore() {
-		ScoreImpl score = new ScoreImpl();
+		Score score = new Score();
 		return new ModelAndView("reportscore", "score", score);
 	}
 
 	@RequestMapping(value = "/selectstation", method = RequestMethod.POST)
-	public ModelAndView selectStation(ScoreImpl score, BindingResult errors,
+	public ModelAndView selectStation(Score score, BindingResult errors,
 			HttpServletRequest request, HttpServletResponse response) {
 		if(SecurityChecker.isEditAllowedForCurrentUser(score)){
-			List<PatrolImpl> patrols = patrolService.getAllActivePatrolsLeftOnStation(score.getStation().getStationId());
+			List<Patrol> patrols = patrolService.getAllActivePatrolsLeftOnStation(score.getStation().getStationId());
 			request.setAttribute("patrols", patrols);
 			return new ModelAndView("reportscore", "score", score);
 		}else{
 			request.setAttribute("errormsg", "Du har inte behörighet att ge poäng på denna kontroll.");
-			score = new ScoreImpl();
+			score = new Score();
 			return new ModelAndView("reportscore", "score", score);
 		}
 	}
@@ -86,7 +86,7 @@ public class ScoreController {
 	//Används nog inte
 	@RequestMapping(value = "/editscore/{id}")
 	public ModelAndView editScore(@PathVariable String id, HttpServletRequest request) {
-		ScoreImpl score = null;
+		Score score = null;
 		try {
 			score = scoreService.getScoreById(Integer.parseInt(id));
 		} catch (NumberFormatException e) {
@@ -105,7 +105,7 @@ public class ScoreController {
 
 	@RequestMapping(value = "/editscorefrompatrol/{id}/returnto/{patrolid}")
 	public ModelAndView editScoreFromPatrolView(@PathVariable String id, @PathVariable String patrolid, HttpServletRequest request) {
-		ScoreImpl score = null;
+		Score score = null;
 		try {
 			score = scoreService.getScoreById(Integer.parseInt(id));
 		} catch (NumberFormatException e) {
@@ -124,7 +124,7 @@ public class ScoreController {
 			return new ModelAndView("editscore", "score", score);	
 		}else{
 			//Får inte redigera därmed tillbaka till patrullen
-			PatrolImpl patrol = null;
+			Patrol patrol = null;
 			try {
 				patrol = patrolService.getPatrolById(Integer.parseInt(patrolid));
 			} catch (NumberFormatException e) {
@@ -141,7 +141,7 @@ public class ScoreController {
 	@RequestMapping(value = "/viewscore/{id}")
 	public ModelAndView viewScore(@PathVariable String id,
 			HttpServletRequest request) {
-		ScoreImpl score = null;
+		Score score = null;
 		try {
 			score = scoreService.getScoreById(Integer.parseInt(id));
 		} catch (NumberFormatException e) {
@@ -153,7 +153,7 @@ public class ScoreController {
 	}
 
 	@RequestMapping(value = "/savescore", method = RequestMethod.POST)
-	public ModelAndView saveScore(ScoreImpl score, BindingResult errors,
+	public ModelAndView saveScore(Score score, BindingResult errors,
 			HttpServletRequest request, HttpServletResponse response) {
 
 		if(score.getPatrol()==null){
@@ -169,7 +169,7 @@ public class ScoreController {
 			}
 		}
 
-		ScoreImpl scorenew = new ScoreImpl();
+		Score scorenew = new Score();
 		Station stationTest = new Station();
 		try {
 			stationTest = stationService.getStationById(score.getStation().getStationId());
@@ -177,14 +177,14 @@ public class ScoreController {
 			e.printStackTrace();
 		}
 		scorenew.setStation(stationTest);
-		List<PatrolImpl> patrols = patrolService.getAllActivePatrolsLeftOnStation(score.getStation().getStationId());
+		List<Patrol> patrols = patrolService.getAllActivePatrolsLeftOnStation(score.getStation().getStationId());
 		request.setAttribute("patrols", patrols);
 
 		return new ModelAndView("reportscore", "score", scorenew);
 	}
 
 	@RequestMapping(value = "/savescorefrompatrol", method = RequestMethod.POST)
-	public ModelAndView saveScoreFromPatrol(ScoreImpl score,
+	public ModelAndView saveScoreFromPatrol(Score score,
 			BindingResult errors, HttpServletRequest request,
 			HttpServletResponse response) {
 		try {
@@ -194,7 +194,7 @@ public class ScoreController {
 		}
 
 		Integer patrolId = score.getPatrol().getPatrolId();
-		PatrolImpl patrolReloaded = null;
+		Patrol patrolReloaded = null;
 		try {
 			patrolReloaded = patrolService.getPatrolById(patrolId);
 		} catch (PatrolNotFoundException e) {
@@ -209,8 +209,8 @@ public class ScoreController {
 	public ModelAndView deleteScore(@PathVariable String id,
 			@PathVariable String patrolid, HttpServletRequest request) {
 		// return to viewpatrol with value to back-link
-		ScoreImpl score = null;
-		PatrolImpl patrol = null;
+		Score score = null;
+		Patrol patrol = null;
 		try {
 			score = scoreService.getScoreById(Integer.parseInt(id));
 			System.out.println("deleting: found score: " + score.getScoreId() + " score: " + score.getScorePoint() + " at station: " + score.getStation().getStationName());

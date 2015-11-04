@@ -12,8 +12,8 @@ import org.springframework.transaction.annotation.Transactional;
 import se.gokopen.dao.PatrolDAO;
 import se.gokopen.dao.PatrolNotFoundException;
 import se.gokopen.dao.PatrolNotSavedException;
-import se.gokopen.model.PatrolImpl;
-import se.gokopen.model.ScoreImpl;
+import se.gokopen.model.Patrol;
+import se.gokopen.model.Score;
 import se.gokopen.model.Status;
 import se.gokopen.model.Track;
 
@@ -25,19 +25,19 @@ public class PatrolServiceImpl implements PatrolService {
 	
 	@Override
 	@Transactional
-	public void savePatrol(PatrolImpl patrol) throws PatrolNotSavedException {
+	public void savePatrol(Patrol patrol) throws PatrolNotSavedException {
 		patrolDao.save(patrol);
 	}
 
 	@Override
 	@Transactional
-	public List<PatrolImpl> getAllPatrols() {
+	public List<Patrol> getAllPatrols() {
 		return patrolDao.getAllPatrols();
 	}
 
 	@Override
 	@Transactional
-	public void deletePatrol(PatrolImpl patrol) throws PatrolNotFoundException {
+	public void deletePatrol(Patrol patrol) throws PatrolNotFoundException {
 		patrolDao.delete(patrol);
 
 	}
@@ -51,7 +51,7 @@ public class PatrolServiceImpl implements PatrolService {
 
 	@Override
 	@Transactional
-	public PatrolImpl getPatrolById(Integer id) throws PatrolNotFoundException {
+	public Patrol getPatrolById(Integer id) throws PatrolNotFoundException {
 		return patrolDao.getById(id);
 	}
 	
@@ -59,28 +59,28 @@ public class PatrolServiceImpl implements PatrolService {
 
 	@Override
 	@Transactional
-	public List<PatrolImpl> getAllPatrolsByTrackId(Integer trackId) {
+	public List<Patrol> getAllPatrolsByTrackId(Integer trackId) {
 		return patrolDao.getPatrolsByTrackId(trackId);
 	}
 	@Override
 	@Transactional
-	public List<PatrolImpl> getAllPatrolsByTrack(Track track) {
-	    List<PatrolImpl> patrols = patrolDao.getPatrolsByTrack(track);
+	public List<Patrol> getAllPatrolsByTrack(Track track) {
+	    List<Patrol> patrols = patrolDao.getPatrolsByTrack(track);
 	    Collections.sort(patrols); //sorterar efter högst poäng (standardsortering för patrolsklassen)
 		return patrols;
 	}
 
 	@Override
 	@Transactional
-	public List<PatrolImpl> getAllPatrolsLeftOnStation(Integer stationId) {
-		List<PatrolImpl> allPatrols = patrolDao.getAllPatrols();
+	public List<Patrol> getAllPatrolsLeftOnStation(Integer stationId) {
+		List<Patrol> allPatrols = patrolDao.getAllPatrols();
 		
-		Iterator<PatrolImpl> itt = allPatrols.iterator();
+		Iterator<Patrol> itt = allPatrols.iterator();
 		while(itt.hasNext()){
-			PatrolImpl patrol = (PatrolImpl) itt.next();
-			Iterator<ScoreImpl> scores = patrol.getScores().iterator();
+			Patrol patrol = (Patrol) itt.next();
+			Iterator<Score> scores = patrol.getScores().iterator();
 			while(scores.hasNext()){
-				ScoreImpl score = scores.next();
+				Score score = scores.next();
 				if(score.getStation().getStationId()==stationId){
 					itt.remove();
 					break;
@@ -95,50 +95,50 @@ public class PatrolServiceImpl implements PatrolService {
 
     @Override
     @Transactional
-    public List<PatrolImpl> getAllPatrolsSortedByStatus() {
+    public List<Patrol> getAllPatrolsSortedByStatus() {
         return patrolDao.getAllPatrolsSortedByStatus();
     }
 
     @Override
     @Transactional
-    public List<PatrolImpl> getAllPatrolsSortedByTroop() {
+    public List<Patrol> getAllPatrolsSortedByTroop() {
         return patrolDao.getAllPatrolsSortedByTroop();
     }
 
     @Override
     @Transactional
-    public List<PatrolImpl> getAllPatrolsSortedByNumberOfStations() {
-        List<PatrolImpl> patrols = patrolDao.getAllPatrols();
+    public List<Patrol> getAllPatrolsSortedByNumberOfStations() {
+        List<Patrol> patrols = patrolDao.getAllPatrols();
         Collections.sort(patrols, new BeanComparator("totalReportedStations"));
         return patrols;
     }
 
     @Override
     @Transactional
-    public List<PatrolImpl> getAllPatrolsSortedByTrack() {
-        List<PatrolImpl> patrols = patrolDao.getAllPatrolsSortedByTrack();
+    public List<Patrol> getAllPatrolsSortedByTrack() {
+        List<Patrol> patrols = patrolDao.getAllPatrolsSortedByTrack();
         return patrols;
     }
 
     @Override
     @Transactional
-    public List<PatrolImpl> getAllPatrolsSortedByScore() {
-        List<PatrolImpl> patrols = patrolDao.getAllPatrols();
+    public List<Patrol> getAllPatrolsSortedByScore() {
+        List<Patrol> patrols = patrolDao.getAllPatrols();
         Collections.sort(patrols, Collections.reverseOrder(new BeanComparator("totalScore")));
         return patrols;
     }
 
     @Override
     @Transactional
-    public List<PatrolImpl> getAllActivePatrolsLeftOnStation(Integer stationId) {
-        List<PatrolImpl> patrols = getAllPatrolsLeftOnStation(stationId);
-        List<PatrolImpl> activePatrols = getActiveAndWaitingPatolsFromList(patrols);
+    public List<Patrol> getAllActivePatrolsLeftOnStation(Integer stationId) {
+        List<Patrol> patrols = getAllPatrolsLeftOnStation(stationId);
+        List<Patrol> activePatrols = getActiveAndWaitingPatolsFromList(patrols);
         return activePatrols;
     }
 
-    public List<PatrolImpl> getActiveAndWaitingPatolsFromList(List<PatrolImpl> patrols) {
-        List<PatrolImpl> onlyActivePatrols = new ArrayList<PatrolImpl>();
-        for(PatrolImpl patrol:patrols){
+    public List<Patrol> getActiveAndWaitingPatolsFromList(List<Patrol> patrols) {
+        List<Patrol> onlyActivePatrols = new ArrayList<Patrol>();
+        for(Patrol patrol:patrols){
             if(patrol.getStatus()!=null && (patrol.getStatus().equals(Status.REGISTERED) || patrol.getStatus().equals(Status.ACTIVE))){
                 onlyActivePatrols.add(patrol);
             }

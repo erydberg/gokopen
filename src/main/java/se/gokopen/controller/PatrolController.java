@@ -19,7 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import se.gokopen.dao.PatrolNotFoundException;
 import se.gokopen.dao.PatrolNotSavedException;
-import se.gokopen.model.PatrolImpl;
+import se.gokopen.model.Patrol;
 import se.gokopen.model.Status;
 import se.gokopen.model.Track;
 import se.gokopen.service.PatrolService;
@@ -46,12 +46,12 @@ public class PatrolController {
 	}
 
 	@RequestMapping(method=RequestMethod.POST)
-	public ModelAndView save(PatrolImpl patrol, BindingResult errors, HttpServletRequest request, HttpServletResponse response) throws PatrolNotSavedException{
+	public ModelAndView save(Patrol patrol, BindingResult errors, HttpServletRequest request, HttpServletResponse response) throws PatrolNotSavedException{
 		System.out.println("Saving a patrol");
 		
 		//Check to see if there is a saved patrol already since we otherwise empty the scores
 		try {
-			PatrolImpl patrolOnDisc = patrolService.getPatrolById(patrol.getPatrolId());
+			Patrol patrolOnDisc = patrolService.getPatrolById(patrol.getPatrolId());
 			patrol.setScores(patrolOnDisc.getScores());
 			
 		} catch (PatrolNotFoundException e) {
@@ -62,14 +62,14 @@ public class PatrolController {
 		
 		
 		//Return to list of existing patrols
-		List<PatrolImpl> patrols = patrolService.getAllPatrols();
+		List<Patrol> patrols = patrolService.getAllPatrols();
 		return new ModelAndView("patrollist","patrols",patrols);
 	}
 	
 	@RequestMapping(value="/admin/newpatrol",method=RequestMethod.GET)
 	public ModelAndView newPatrol(){
 		System.out.println("Entering newPatrol");
-		PatrolImpl patrol = new PatrolImpl();
+		Patrol patrol = new Patrol();
 		ModelMap map = new ModelMap();
 		map.put("patrol", patrol);
 		map.put("statuslist", Status.values());
@@ -78,7 +78,7 @@ public class PatrolController {
 	
 	@RequestMapping(value="/viewpatrol/{id}")
 	public ModelAndView viewPatrol(@PathVariable String id, HttpServletRequest request){
-		PatrolImpl patrol = null;
+		Patrol patrol = null;
 		try {
 			patrol = patrolService.getPatrolById(Integer.parseInt(id));
 		} catch (NumberFormatException e) {
@@ -95,7 +95,7 @@ public class PatrolController {
 	
 	@RequestMapping(value="/viewpatrolfromlisttrack/{id}/track/{trackid}")
 	public ModelAndView viewPatrolFromTrackList(@PathVariable String id,@PathVariable String trackid, HttpServletRequest request){
-		PatrolImpl patrol = null;
+		Patrol patrol = null;
 		try {
 			patrol = patrolService.getPatrolById(Integer.parseInt(id));
 		} catch (NumberFormatException e) {
@@ -112,7 +112,7 @@ public class PatrolController {
 	
 	@RequestMapping(value="/viewpatrolfrompatrollist/{id}")
 	public ModelAndView viewPatrolFromPatrolList(@PathVariable String id, HttpServletRequest request){
-		PatrolImpl patrol = null;
+		Patrol patrol = null;
 		try {
 			patrol = patrolService.getPatrolById(Integer.parseInt(id));
 		} catch (NumberFormatException e) {
@@ -130,14 +130,14 @@ public class PatrolController {
 	@RequestMapping(method=RequestMethod.GET)
 	public ModelAndView listAllPatrols(){
 		//Return to list of existing patrols
-		List<PatrolImpl> patrols = patrolService.getAllPatrols();
+		List<Patrol> patrols = patrolService.getAllPatrols();
 		return new ModelAndView("patrollist","patrols",patrols);
 	}
 	
 	//Edit patrol
 	@RequestMapping(value="/admin/edit/{id}")
 	public ModelAndView editPatrol(@PathVariable String id, HttpServletRequest request){
-		PatrolImpl patrol = null;
+		Patrol patrol = null;
 		try {
 			patrol = patrolService.getPatrolById(Integer.parseInt(id));
 		} catch (NumberFormatException e) {
@@ -171,7 +171,7 @@ public class PatrolController {
 		}
 		
 		//Return to list of existing patrols
-		List<PatrolImpl> patrols = patrolService.getAllPatrols();
+		List<Patrol> patrols = patrolService.getAllPatrols();
 		return new ModelAndView("patrollist","patrols",patrols);
 	}
 }

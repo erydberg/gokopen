@@ -10,15 +10,15 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="score")
-public class ScoreImpl {
+public class Score {
 	private Integer scoreId = null;
 	private Station station;
 	private int scorePoint;
 	private int stylePoint;
-	private PatrolImpl patrol;
+	private Patrol patrol;
 	
 
-	public ScoreImpl(){
+	public Score(){
 		
 	}
 
@@ -66,13 +66,13 @@ public class ScoreImpl {
 		this.stylePoint = stylePoint;
 	}
 
-	public void setPatrol(PatrolImpl patrol) {
+	public void setPatrol(Patrol patrol) {
 		this.patrol = patrol;
 	}
 
 	@ManyToOne
 	@JoinColumn(name="fk_patrol")
-	public PatrolImpl getPatrol() {
+	public Patrol getPatrol() {
 		return patrol;
 	}
 }

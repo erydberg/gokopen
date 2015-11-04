@@ -16,8 +16,8 @@ import se.gokopen.dao.ScoreNotFoundException;
 import se.gokopen.dao.ScoreNotSavedException;
 import se.gokopen.dao.StationNotFoundException;
 import se.gokopen.dao.StationNotSavedException;
-import se.gokopen.model.PatrolImpl;
-import se.gokopen.model.ScoreImpl;
+import se.gokopen.model.Patrol;
+import se.gokopen.model.Score;
 import se.gokopen.model.Station;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -28,8 +28,8 @@ public class TestScoreValidation {
 
     private Station station1;
     private Station station2;
-    private PatrolImpl patrol1;
-    private PatrolImpl patrol2;
+    private Patrol patrol1;
+    private Patrol patrol2;
     
 
     @Autowired
@@ -48,8 +48,8 @@ public class TestScoreValidation {
 
     @Test
     public void shouldNotSaveIfScoreAlreadySaved() throws PatrolNotSavedException, StationNotSavedException{
-        patrol1 = new PatrolImpl();
-        patrol2 = new PatrolImpl();
+        patrol1 = new Patrol();
+        patrol2 = new Patrol();
         station1 = new Station();
         station2 = new Station();
         
@@ -67,7 +67,7 @@ public class TestScoreValidation {
         
         stationService.saveStation(station2);
         
-        ScoreImpl score1 = new ScoreImpl();
+        Score score1 = new Score();
         score1.setPatrol(patrol1);
         score1.setStation(station1);
         score1.setScorePoint(10);
@@ -81,7 +81,7 @@ public class TestScoreValidation {
         
         assertNotNull(score1.getScoreId());
         
-        ScoreImpl score2 = new ScoreImpl();
+        Score score2 = new Score();
         score2.setPatrol(patrol2);
         score2.setStation(station1);
         score2.setScorePoint(8);
@@ -94,7 +94,7 @@ public class TestScoreValidation {
         
         assertNotNull(score2.getScoreId());
         
-        ScoreImpl score3 = new ScoreImpl();
+        Score score3 = new Score();
         score3.setPatrol(patrol2);
         score3.setStation(station1);
         score3.setScorePoint(9);

@@ -23,7 +23,7 @@ import org.hibernate.annotations.Cascade;
 
 @Entity
 @Table(name="patrol")
-public class PatrolImpl implements Comparable<PatrolImpl> {
+public class Patrol implements Comparable<Patrol> {
     private Integer patrolId;
 	private String patrolName;
 	private String troop;
@@ -32,12 +32,12 @@ public class PatrolImpl implements Comparable<PatrolImpl> {
 	private String endTime;
 	private String members;
 	private String note;
-	private Set <ScoreImpl> scores = new LinkedHashSet<ScoreImpl>();
+	private Set <Score> scores = new LinkedHashSet<Score>();
 	private String leaderContact;
 	private Status status;
 	
 	
-	public PatrolImpl(){
+	public Patrol(){
 		
 	}
 	
@@ -128,19 +128,19 @@ public class PatrolImpl implements Comparable<PatrolImpl> {
 	 @Cascade(org.hibernate.annotations.CascadeType.DELETE)
 	@OrderBy("station asc")
 	@JoinColumn(name="fk_patrol")
-	public Set<ScoreImpl> getScores() {
+	public Set<Score> getScores() {
 		return scores;
 	}
-	public void setScores(Set<ScoreImpl> scores) {
+	public void setScores(Set<Score> scores) {
 		this.scores = scores;
 	}
 
 
-	public void deleteScore(ScoreImpl scoreRemove) {
+	public void deleteScore(Score scoreRemove) {
 		//find in set of scores and delete it
-		Iterator<ScoreImpl> itt = scores.iterator();
+		Iterator<Score> itt = scores.iterator();
 		while(itt.hasNext()){
-			ScoreImpl s = itt.next();
+			Score s = itt.next();
 			if(s.getScoreId().equals(scoreRemove.getScoreId())){
 				System.out.println("found scoreID" + s.getScoreId() + " in scores and removed it");
 				itt.remove();
@@ -183,7 +183,7 @@ public class PatrolImpl implements Comparable<PatrolImpl> {
 	@Transient
 	public Integer getTotalScorePoint(){
 		Integer points = 0;
-		for (ScoreImpl score:scores){
+		for (Score score:scores){
 			points = points + score.getScorePoint();
 		}
 		return points;
@@ -192,7 +192,7 @@ public class PatrolImpl implements Comparable<PatrolImpl> {
 	@Transient
 	public Integer getTotalStylePoint(){
 		Integer points = 0;
-		for (ScoreImpl score:scores){
+		for (Score score:scores){
 			points = points + score.getStylePoint();
 		}
 		return points;
@@ -211,7 +211,7 @@ public class PatrolImpl implements Comparable<PatrolImpl> {
 
 
 	@Override
-	public int compareTo(PatrolImpl p) {
+	public int compareTo(Patrol p) {
 		int comp = p.getTotalScore().compareTo(getTotalScore());
 		if (comp==0){
 			comp = p.getTotalScorePoint().compareTo(getTotalScorePoint());

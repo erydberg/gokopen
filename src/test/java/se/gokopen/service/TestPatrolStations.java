@@ -12,22 +12,22 @@ import java.util.Set;
 
 import org.junit.Test;
 
-import se.gokopen.model.PatrolImpl;
-import se.gokopen.model.ScoreImpl;
+import se.gokopen.model.Patrol;
+import se.gokopen.model.Score;
 
 
 public class TestPatrolStations {
     private static final String NAME_PATROL2 = "ATestPatrol2";
     private static final String NAME_PATROL1 = "BTestPatrol1";
 
-    PatrolImpl patrol1;
-    PatrolImpl patrol2;
+    Patrol patrol1;
+    Patrol patrol2;
 
     @Test
     public void shouldSortListofPatrolsAfterNoOfStations(){
         initTestData();
 
-        List<PatrolImpl> patrols = new ArrayList<PatrolImpl>();
+        List<Patrol> patrols = new ArrayList<Patrol>();
         patrols.add(patrol1);
         patrols.add(patrol2);
 
@@ -39,7 +39,7 @@ public class TestPatrolStations {
     public void shouldSortHighestScoreHighest(){
         initTestData();
 
-        List<PatrolImpl> patrols = new ArrayList<PatrolImpl>();
+        List<Patrol> patrols = new ArrayList<Patrol>();
         patrols.add(patrol2);
         patrols.add(patrol1);
 
@@ -48,29 +48,29 @@ public class TestPatrolStations {
     }
 
     private void initTestData() {
-        patrol1 = new PatrolImpl();
-        patrol2 = new PatrolImpl();
+        patrol1 = new Patrol();
+        patrol2 = new Patrol();
 
         patrol1.setPatrolName(NAME_PATROL1);
         patrol2.setPatrolName(NAME_PATROL2);
 
-        ScoreImpl score1 = new ScoreImpl();
+        Score score1 = new Score();
         score1.setPatrol(patrol1);
         score1.setScorePoint(10);
 
-        ScoreImpl score2 = new ScoreImpl();
+        Score score2 = new Score();
         score2.setPatrol(patrol1);
         score2.setScorePoint(8);
 
-        ScoreImpl score3 = new ScoreImpl();
+        Score score3 = new Score();
         score3.setPatrol(patrol1);
         score3.setScorePoint(8);
 
-        ScoreImpl score4 = new ScoreImpl();
+        Score score4 = new Score();
         score4.setPatrol(patrol1);
         score4.setScorePoint(8);
 
-        Set<ScoreImpl> scores = new LinkedHashSet<ScoreImpl>();
+        Set<Score> scores = new LinkedHashSet<Score>();
         scores.add(score1);
         scores.add(score2);
         scores.add(score3);
@@ -79,19 +79,19 @@ public class TestPatrolStations {
         patrol1.setScores(scores);
 
 
-        ScoreImpl score5 = new ScoreImpl();
+        Score score5 = new Score();
         score5.setPatrol(patrol1);
         score5.setScorePoint(8);
 
-        ScoreImpl score6 = new ScoreImpl();
+        Score score6 = new Score();
         score6.setPatrol(patrol1);
         score6.setScorePoint(8);
 
-        ScoreImpl score7 = new ScoreImpl();
+        Score score7 = new Score();
         score7.setPatrol(patrol1);
         score7.setScorePoint(8);
 
-        Set<ScoreImpl> scores2 = new LinkedHashSet<ScoreImpl>();
+        Set<Score> scores2 = new LinkedHashSet<Score>();
         scores2.add(score5);
         scores2.add(score6);
         scores2.add(score7);

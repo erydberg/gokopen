@@ -11,7 +11,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
 import se.gokopen.dao.PatrolNotFoundException;
 import se.gokopen.dao.PatrolNotSavedException;
-import se.gokopen.model.PatrolImpl;
+import se.gokopen.model.Patrol;
 import se.gokopen.model.Status;
 
 
@@ -26,7 +26,7 @@ public class TestCreatePatrol {
     
     @Test
     public void shouldCreatePatrolInDatabase() throws PatrolNotSavedException, PatrolNotFoundException{
-        PatrolImpl patrol = new PatrolImpl();
+        Patrol patrol = new Patrol();
         patrol.setPatrolName("Test from junit");
         patrol.setNote("Just a test from automated testing. Should not be here - remove if you see");
         patrol.setStatus(Status.REGISTERED);

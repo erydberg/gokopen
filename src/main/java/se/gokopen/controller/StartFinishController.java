@@ -15,7 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import se.gokopen.dao.PatrolNotFoundException;
 import se.gokopen.dao.PatrolNotSavedException;
-import se.gokopen.model.PatrolImpl;
+import se.gokopen.model.Patrol;
 import se.gokopen.model.Status;
 import se.gokopen.service.PatrolService;
 
@@ -30,38 +30,38 @@ public class StartFinishController {
 
     @RequestMapping(method=RequestMethod.GET)
     public ModelAndView loadStartAndFinish(){
-        List<PatrolImpl> patrols = patrolService.getAllPatrols();
+        List<Patrol> patrols = patrolService.getAllPatrols();
         return new ModelAndView("startfinish", "patrols", patrols);
     }
 
 
     @RequestMapping(value="/sortbystatus",method=RequestMethod.GET)
     public ModelAndView sortTableByStatus(HttpServletRequest request){
-        List<PatrolImpl> patrols = patrolService.getAllPatrolsSortedByStatus();
+        List<Patrol> patrols = patrolService.getAllPatrolsSortedByStatus();
         return new ModelAndView("startfinish", "patrols", patrols);
     }
 
     @RequestMapping(value="/sortbytroop",method=RequestMethod.GET)
     public ModelAndView sortTableByTroop(HttpServletRequest request){
-        List<PatrolImpl> patrols = patrolService.getAllPatrolsSortedByTroop();
+        List<Patrol> patrols = patrolService.getAllPatrolsSortedByTroop();
         return new ModelAndView("startfinish", "patrols", patrols);
     }
 
     @RequestMapping(value="/sortbycompletedstations",method=RequestMethod.GET)
     public ModelAndView sortTableByCompletedStations(HttpServletRequest request){
-        List<PatrolImpl> patrols = patrolService.getAllPatrolsSortedByNumberOfStations();
+        List<Patrol> patrols = patrolService.getAllPatrolsSortedByNumberOfStations();
         return new ModelAndView("startfinish", "patrols", patrols);
     }
 
     @RequestMapping(value="/sortbytrack",method=RequestMethod.GET)
     public ModelAndView sortTableByTrack(HttpServletRequest request){
-        List<PatrolImpl> patrols = patrolService.getAllPatrolsSortedByTrack();
+        List<Patrol> patrols = patrolService.getAllPatrolsSortedByTrack();
         return new ModelAndView("startfinish", "patrols", patrols);
     }
 
     @RequestMapping(value="/sortbyscore",method=RequestMethod.GET)
     public ModelAndView sortTableByScore(HttpServletRequest request){
-        List<PatrolImpl> patrols = patrolService.getAllPatrolsSortedByScore();
+        List<Patrol> patrols = patrolService.getAllPatrolsSortedByScore();
         return new ModelAndView("startfinish", "patrols", patrols);
     }
 
@@ -71,7 +71,7 @@ public class StartFinishController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void activate(@PathVariable String id, HttpServletRequest request){
         try {
-            PatrolImpl patrol = patrolService.getPatrolById(Integer.parseInt(id));
+            Patrol patrol = patrolService.getPatrolById(Integer.parseInt(id));
             patrol.setStatus(Status.ACTIVE);
             patrolService.savePatrol(patrol);
         } catch (PatrolNotSavedException | NumberFormatException | PatrolNotFoundException e) {
@@ -83,7 +83,7 @@ public class StartFinishController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void finished(@PathVariable String id, HttpServletRequest request){
         try {
-            PatrolImpl patrol = patrolService.getPatrolById(Integer.parseInt(id));
+            Patrol patrol = patrolService.getPatrolById(Integer.parseInt(id));
             patrol.setStatus(Status.FINISHED);
             patrolService.savePatrol(patrol);
         } catch (PatrolNotSavedException | NumberFormatException | PatrolNotFoundException e) {
@@ -95,7 +95,7 @@ public class StartFinishController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void resigned(@PathVariable String id, HttpServletRequest request){
         try {
-            PatrolImpl patrol = patrolService.getPatrolById(Integer.parseInt(id));
+            Patrol patrol = patrolService.getPatrolById(Integer.parseInt(id));
             patrol.setStatus(Status.RESIGNED);
             patrolService.savePatrol(patrol);
         } catch (PatrolNotSavedException | NumberFormatException | PatrolNotFoundException e) {
@@ -107,7 +107,7 @@ public class StartFinishController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void registered(@PathVariable String id, HttpServletRequest request){
         try {
-            PatrolImpl patrol = patrolService.getPatrolById(Integer.parseInt(id));
+            Patrol patrol = patrolService.getPatrolById(Integer.parseInt(id));
             patrol.setStatus(Status.REGISTERED);
             patrolService.savePatrol(patrol);
         } catch (PatrolNotSavedException | NumberFormatException | PatrolNotFoundException e) {
@@ -118,7 +118,7 @@ public class StartFinishController {
 
     @RequestMapping(value="/viewpatrol/{id}")
     public ModelAndView viewPatrolFromPatrolList(@PathVariable String id, HttpServletRequest request){
-        PatrolImpl patrol = null;
+        Patrol patrol = null;
         try {
             patrol = patrolService.getPatrolById(Integer.parseInt(id));
         } catch (NumberFormatException | PatrolNotFoundException e) {
@@ -133,7 +133,7 @@ public class StartFinishController {
     //gamla, länkbaserade lösningen - borde kunna tas bort!
     @RequestMapping(value="/movetoactive/{id}",method=RequestMethod.GET)
     public ModelAndView moveToActive(@PathVariable String id, HttpServletRequest request){
-        PatrolImpl patrol = null;
+        Patrol patrol = null;
         try {
             patrol = patrolService.getPatrolById(Integer.parseInt(id));
             patrol.setStatus(Status.ACTIVE);
@@ -149,13 +149,13 @@ public class StartFinishController {
             e.printStackTrace();
         }
 
-        List<PatrolImpl> patrols = patrolService.getAllPatrols();
+        List<Patrol> patrols = patrolService.getAllPatrols();
         return new ModelAndView("startfinish", "patrols", patrols);
     }
 
     @RequestMapping(value="/movetofinished/{id}",method=RequestMethod.GET)
     public ModelAndView moveToFinish(@PathVariable String id, HttpServletRequest request){
-        PatrolImpl patrol = null;
+        Patrol patrol = null;
         try {
             patrol = patrolService.getPatrolById(Integer.parseInt(id));
             patrol.setStatus(Status.FINISHED);
@@ -171,13 +171,13 @@ public class StartFinishController {
             e.printStackTrace();
         }
 
-        List<PatrolImpl> patrols = patrolService.getAllPatrols();
+        List<Patrol> patrols = patrolService.getAllPatrols();
         return new ModelAndView("startfinish", "patrols", patrols);
     }
 
     @RequestMapping(value="/movetoresigned/{id}",method=RequestMethod.GET)
     public ModelAndView moveToResigned(@PathVariable String id, HttpServletRequest request){
-        PatrolImpl patrol = null;
+        Patrol patrol = null;
         try {
             patrol = patrolService.getPatrolById(Integer.parseInt(id));
             patrol.setStatus(Status.RESIGNED);
@@ -193,13 +193,13 @@ public class StartFinishController {
             e.printStackTrace();
         }
 
-        List<PatrolImpl> patrols = patrolService.getAllPatrols();
+        List<Patrol> patrols = patrolService.getAllPatrols();
         return new ModelAndView("startfinish", "patrols", patrols);
     }
 
     @RequestMapping(value="/movetoregistered/{id}",method=RequestMethod.GET)
     public ModelAndView moveToRegistered(@PathVariable String id, HttpServletRequest request){
-        PatrolImpl patrol = null;
+        Patrol patrol = null;
         try {
             patrol = patrolService.getPatrolById(Integer.parseInt(id));
             patrol.setStatus(Status.REGISTERED);
@@ -215,7 +215,7 @@ public class StartFinishController {
             e.printStackTrace();
         }
 
-        List<PatrolImpl> patrols = patrolService.getAllPatrols();
+        List<Patrol> patrols = patrolService.getAllPatrols();
         return new ModelAndView("startfinish", "patrols", patrols);
     }
 }

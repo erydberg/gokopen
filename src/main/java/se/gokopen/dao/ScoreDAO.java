@@ -7,8 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import se.gokopen.model.PatrolImpl;
-import se.gokopen.model.ScoreImpl;
+import se.gokopen.model.Patrol;
+import se.gokopen.model.Score;
 
 @Repository
 @Transactional
@@ -17,15 +17,15 @@ public class ScoreDAO {
 	@Autowired
     private SessionFactory sessionFactory;
 	
-	public void save (ScoreImpl score) throws ScoreNotSavedException{
+	public void save (Score score) throws ScoreNotSavedException{
 		sessionFactory.getCurrentSession().saveOrUpdate(score);
 	}
  
 	@SuppressWarnings("unchecked")
-	public ScoreImpl getById(Integer id) throws ScoreNotFoundException{
-		ScoreImpl score = null;
+	public Score getById(Integer id) throws ScoreNotFoundException{
+		Score score = null;
 		
-		List<ScoreImpl> scores = (List<ScoreImpl>) sessionFactory.getCurrentSession().createQuery("from ScoreImpl score where score.scoreId=?").setParameter(0, id).list();
+		List<Score> scores = (List<Score>) sessionFactory.getCurrentSession().createQuery("from Score score where score.scoreId=?").setParameter(0, id).list();
 		if (scores==null || scores.isEmpty() || scores.size()>1){
 			throw new ScoreNotFoundException("Hittar inte poäng med id: " + id);
 		}
@@ -33,36 +33,36 @@ public class ScoreDAO {
 		return score;
 	}
 	
-	public void delete (ScoreImpl score) throws ScoreNotFoundException{
+	public void delete (Score score) throws ScoreNotFoundException{
 		sessionFactory.getCurrentSession().delete(score);
 	}
 	
 	public void deleteById(Integer id) throws ScoreNotFoundException{
-		ScoreImpl score = getById(id);
+		Score score = getById(id);
 		delete(score);
 	}
 	
 	@SuppressWarnings("unchecked")
-	public List<ScoreImpl> getAllScores(){
-		List<ScoreImpl> scores = sessionFactory.getCurrentSession().createQuery("from ScoreImpl").list();
+	public List<Score> getAllScores(){
+		List<Score> scores = sessionFactory.getCurrentSession().createQuery("from Score").list();
 		return scores;
 	}
 	
 	@SuppressWarnings("unchecked")
-	public List<ScoreImpl> getAllScoresByPatrol(PatrolImpl patrol){
-		List<ScoreImpl> scores = sessionFactory.getCurrentSession().createQuery("from ScoreImpl as score where score.fk_patrol=? order by score.fk_station").setParameter(0, patrol.getPatrolId()).list();
+	public List<Score> getAllScoresByPatrol(Patrol patrol){
+		List<Score> scores = sessionFactory.getCurrentSession().createQuery("from Score as score where score.fk_patrol=? order by score.fk_station").setParameter(0, patrol.getPatrolId()).list();
 		return scores;
 	}
 	
 	@SuppressWarnings("unchecked")
-	public List<ScoreImpl> getAllScoresByPatrolId(Integer id){
-		List<ScoreImpl> scores = sessionFactory.getCurrentSession().createQuery("from ScoreImpl as score where score.fk_patrol=? order by score.fk_station").setParameter(0, id).list();
+	public List<Score> getAllScoresByPatrolId(Integer id){
+		List<Score> scores = sessionFactory.getCurrentSession().createQuery("from Score as score where score.fk_patrol=? order by score.fk_station").setParameter(0, id).list();
 		return scores;
 	}
 	
 	@SuppressWarnings("unchecked")
-    public ScoreImpl getScoreForPatrolOnStation(Integer patrolId, Integer stationId) throws ScoreNotFoundException{
-	    List<ScoreImpl> scores = sessionFactory.getCurrentSession().createQuery("from ScoreImpl as score where score.patrol.patrolId= :patrolid and score.station.stationId=:stationid").setParameter("patrolid", patrolId).setParameter("stationid",stationId).list();
+    public Score getScoreForPatrolOnStation(Integer patrolId, Integer stationId) throws ScoreNotFoundException{
+	    List<Score> scores = sessionFactory.getCurrentSession().createQuery("from Score as score where score.patrol.patrolId= :patrolid and score.station.stationId=:stationid").setParameter("patrolid", patrolId).setParameter("stationid",stationId).list();
 	    if(scores==null||scores.isEmpty()){
 	        throw new ScoreNotFoundException("Hittar ingen sparad poäng för denna patrull på denna kontroll");
 	    }

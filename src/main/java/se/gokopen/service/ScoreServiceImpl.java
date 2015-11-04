@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import se.gokopen.dao.ScoreDAO;
 import se.gokopen.dao.ScoreNotFoundException;
 import se.gokopen.dao.ScoreNotSavedException;
-import se.gokopen.model.ScoreImpl;
+import se.gokopen.model.Score;
 
 @Service
 public class ScoreServiceImpl implements ScoreService {
@@ -19,7 +19,7 @@ public class ScoreServiceImpl implements ScoreService {
 
     @Override
     @Transactional
-    public void saveScore(ScoreImpl score) throws ScoreNotSavedException {
+    public void saveScore(Score score) throws ScoreNotSavedException {
         if(isScoreInEditMode(score) || !hasScoreBeenSavedBefore(score)){
             scoreDao.save(score);
         }
@@ -30,19 +30,19 @@ public class ScoreServiceImpl implements ScoreService {
 
     @Override
     @Transactional
-    public List<ScoreImpl> getAllScores() {
+    public List<Score> getAllScores() {
         return scoreDao.getAllScores();
     }
 
     @Override
     @Transactional
-    public List<ScoreImpl> getScoreByPatrolId(Integer id) {
+    public List<Score> getScoreByPatrolId(Integer id) {
         return scoreDao.getAllScoresByPatrolId(id);
     }
 
     @Override
     @Transactional
-    public void deleteScore(ScoreImpl score) throws ScoreNotFoundException {
+    public void deleteScore(Score score) throws ScoreNotFoundException {
         scoreDao.delete(score);
     }
 
@@ -54,16 +54,16 @@ public class ScoreServiceImpl implements ScoreService {
 
     @Override
     @Transactional
-    public ScoreImpl getScoreById(Integer id) throws ScoreNotFoundException {
+    public Score getScoreById(Integer id) throws ScoreNotFoundException {
         return scoreDao.getById(id);
     }
 
     
-    private boolean hasScoreBeenSavedBefore(ScoreImpl score){
+    private boolean hasScoreBeenSavedBefore(Score score){
         Integer patrolId = score.getPatrol().getPatrolId();
         Integer stationId = score.getStation().getStationId();
         try{
-            ScoreImpl prevscore = scoreDao.getScoreForPatrolOnStation(patrolId, stationId);   
+            Score prevscore = scoreDao.getScoreForPatrolOnStation(patrolId, stationId);   
             System.out.println("Hittar poäng (" + prevscore.getScorePoint() + ") för patrullid: " + patrolId + " för kontroll " + stationId);
         }catch(ScoreNotFoundException e){
             System.out.println("Hittar inget poäng, ok att spara");
@@ -73,7 +73,7 @@ public class ScoreServiceImpl implements ScoreService {
         return true;
     }
     
-    private boolean isScoreInEditMode(ScoreImpl score){
+    private boolean isScoreInEditMode(Score score){
         if(score.getScoreId()==null || score.getScoreId()==0){
             return false;
         }else{
