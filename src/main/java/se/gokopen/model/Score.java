@@ -1,5 +1,7 @@
 package se.gokopen.model;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.JoinColumn;
 import javax.persistence.Entity;
@@ -16,6 +18,7 @@ public class Score {
 	private int scorePoint;
 	private int stylePoint;
 	private Patrol patrol;
+	private Date lastSaved;
 	
 
 	public Score(){
@@ -65,8 +68,17 @@ public class Score {
 	public void setStylePoint(int stylePoint) {
 		this.stylePoint = stylePoint;
 	}
+	
+	@Column(name="lastSaved")
+	public Date getLastSaved() {
+        return lastSaved;
+    }
 
-	public void setPatrol(Patrol patrol) {
+    public void setLastSaved(Date lastSaved) {
+        this.lastSaved = lastSaved;
+    }
+
+    public void setPatrol(Patrol patrol) {
 		this.patrol = patrol;
 	}
 

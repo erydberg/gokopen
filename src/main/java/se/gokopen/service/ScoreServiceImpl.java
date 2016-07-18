@@ -1,5 +1,6 @@
 package se.gokopen.service;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +22,10 @@ public class ScoreServiceImpl implements ScoreService {
     @Transactional
     public void saveScore(Score score) throws ScoreNotSavedException {
         if(isScoreInEditMode(score) || !hasScoreBeenSavedBefore(score)){
+            Date saved = new Date();
+            score.setLastSaved(saved);
             scoreDao.save(score);
+
         }
         else{
             throw new ScoreNotSavedException("Det finns redan poäng registrerat för denna patrull på denna kontroll.");

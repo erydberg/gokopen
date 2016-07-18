@@ -1,6 +1,7 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
@@ -41,6 +42,7 @@
 				<th>Kår <a href="${pageContext.request.contextPath}/startfinish/sortbytroop"><img src="${pageContext.request.contextPath}/css/arrow-down.png"></a></th>
 				<th>Antal kontroller <a href="${pageContext.request.contextPath}/startfinish/sortbycompletedstations"><img src="${pageContext.request.contextPath}/css/arrow-down.png"></a></th>
 				<th>Antal poäng <a href="${pageContext.request.contextPath}/startfinish/sortbyscore"><img src="${pageContext.request.contextPath}/css/arrow-down.png"></a></th>
+				<th>Senast inrapporterat</th>
 			</tr>
 			<c:forEach items="${patrols }" var="patrol" varStatus="status">
 			<c:set var='trclass' value=''></c:set>
@@ -78,6 +80,9 @@
 					<td>${patrol.troop }</td>
 					<td>${patrol.totalReportedStations}</td>
 					<td>${patrol.totalScore} (${patrol.totalScorePoint}+${patrol.totalStylePoint})</td>
+					<td>
+					<fmt:formatDate value="${patrol.latestScoreTime }" pattern="yyyy" var="dummyYear" />
+					<c:if test="${dummyYear gt 2014}"><fmt:formatDate pattern="yyyy-MM-dd H:m" value="${patrol.latestScoreTime }" /></c:if></td>
 				</tr>
 			</c:forEach>
 		</table>

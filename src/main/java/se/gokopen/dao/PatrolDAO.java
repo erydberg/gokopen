@@ -33,7 +33,7 @@ public class PatrolDAO {
 	public Patrol getById(final Integer id) throws PatrolNotFoundException{
 		Patrol patrol = null;
 		
-		List<Patrol> patrols = (List<Patrol>) sessionFactory.getCurrentSession().createQuery("from Patrol patr where patr.patrolId=?").setParameter(0, id).list();
+		List<Patrol> patrols = (List<Patrol>) sessionFactory.getCurrentSession().createQuery("from Patrol patr where patr.patrolId= :patrid").setParameter("patrid", id).list();
 		if (patrols==null || patrols.isEmpty() || patrols.size()>1){
 			throw new PatrolNotFoundException("Hittar inte patrullen med id: " + id);
 		}
@@ -49,13 +49,13 @@ public class PatrolDAO {
 	
 	@SuppressWarnings("unchecked")
 	public List<Patrol> getPatrolsByTrackId(Integer trackId){
-		List<Patrol> patrols = sessionFactory.getCurrentSession().createQuery("from Patrol patr where patr.fk_track=? order by patr.patrolName asc").setParameter(0,trackId).list();
+		List<Patrol> patrols = sessionFactory.getCurrentSession().createQuery("from Patrol patr where patr.fk_track= :trackid order by patr.patrolName asc").setParameter("trackid",trackId).list();
 		return patrols;
 	}
 	
 	@SuppressWarnings("unchecked")
 	public List<Patrol> getPatrolsByTrack(Track track){
-		List<Patrol> patrols = sessionFactory.getCurrentSession().createQuery("from Patrol patr where patr.track=? order by patr.patrolName asc").setParameter(0,track).list();
+		List<Patrol> patrols = sessionFactory.getCurrentSession().createQuery("from Patrol patr where patr.track= :track order by patr.patrolName asc").setParameter("track",track).list();
 		return patrols;
 	}
 	
