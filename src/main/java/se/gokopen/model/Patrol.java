@@ -35,6 +35,7 @@ public class Patrol implements Comparable<Patrol> {
 	private Set <Score> scores = new LinkedHashSet<Score>();
 	private String leaderContact;
 	private Status status;
+	private Boolean paid = false;
 	
 	
 	public Patrol(){
@@ -167,6 +168,16 @@ public class Patrol implements Comparable<Patrol> {
 
     public void setStatus(Status status) {
         this.status = status;
+    }
+    
+    @Column(name="paid")
+    public Boolean getPaid() {
+        return paid;
+    }
+
+
+    public void setPaid(Boolean paid) {
+        this.paid = paid;
     }
 
 

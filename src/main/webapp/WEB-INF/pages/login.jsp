@@ -16,7 +16,6 @@
 		</div>
 	</c:if>
  
-	
 <label for="j_username">Användarnamn:</label>
 <input type="text" name="j_username" id="j_username">
 <label for="j_password">Lösenord:</label>

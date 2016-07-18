@@ -64,7 +64,6 @@ public class ScoreServiceImpl implements ScoreService {
         Integer stationId = score.getStation().getStationId();
         try{
             Score prevscore = scoreDao.getScoreForPatrolOnStation(patrolId, stationId);   
-            System.out.println("Hittar poäng (" + prevscore.getScorePoint() + ") för patrullid: " + patrolId + " för kontroll " + stationId);
         }catch(ScoreNotFoundException e){
             System.out.println("Hittar inget poäng, ok att spara");
             return false;

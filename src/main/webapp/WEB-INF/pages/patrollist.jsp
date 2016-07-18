@@ -20,6 +20,7 @@
 			<th>Klass</th>
 			<th>Kår</th>
 			<th>Kontakt</th>
+			<th>Betalt</th>
 		</tr>
 
 		<c:forEach items="${patrols}" var="patrol" varStatus="status">
@@ -33,6 +34,9 @@
 				<td>${patrol.track.trackName }</td>
 				<td>${patrol.troop }</td>
 				<td>${patrol.leaderContact}</td>
+				<td>
+				<c:if test="${patrol.paid }">ja</c:if>
+				</td>
 				<td><a
 					href="${pageContext.request.contextPath}/patrol/admin/edit/${patrol.patrolId}">Redigera</a></td>
 				<td><a

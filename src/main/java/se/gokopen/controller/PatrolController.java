@@ -47,7 +47,6 @@ public class PatrolController {
 
 	@RequestMapping(method=RequestMethod.POST)
 	public ModelAndView save(Patrol patrol, BindingResult errors, HttpServletRequest request, HttpServletResponse response) throws PatrolNotSavedException{
-		System.out.println("Saving a patrol");
 		
 		//Check to see if there is a saved patrol already since we otherwise empty the scores
 		try {
@@ -68,7 +67,6 @@ public class PatrolController {
 	
 	@RequestMapping(value="/admin/newpatrol",method=RequestMethod.GET)
 	public ModelAndView newPatrol(){
-		System.out.println("Entering newPatrol");
 		Patrol patrol = new Patrol();
 		ModelMap map = new ModelMap();
 		map.put("patrol", patrol);

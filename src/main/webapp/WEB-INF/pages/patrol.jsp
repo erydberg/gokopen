@@ -1,8 +1,7 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -46,6 +45,10 @@
 				<div class="text size-3">
 					<label>Ledare: </label>
 					<form:input path="leaderContact" id="leaderContact" />
+				</div>
+				<div>
+					<label>Betalt:</label>
+					<form:checkbox path="paid" id="paid"/>
 				</div>
 
 				<label>Anteckning: </label>
