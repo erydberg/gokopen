@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import se.gokopen.dao.TrackNotFoundException;
@@ -30,7 +31,7 @@ public class PublicController {
     @Autowired
     private PatrolService patrolService;
     
-    @RequestMapping(value="/")
+    @RequestMapping(method = RequestMethod.GET)
     public String startPatrolsByTrack(HttpServletRequest request){
         request.setAttribute("config", configService.getCurrentConfig());
         request.setAttribute("tracks", trackService.getAllTracks());
