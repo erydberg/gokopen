@@ -11,6 +11,7 @@ import javax.persistence.Table;
 public class Config {
     private Integer id;
     private String name;
+    private Boolean allowPublicResult;
     
     public Config(){
         
@@ -34,6 +35,15 @@ public class Config {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Column (name="allowpublicresult")
+    public Boolean getAllowPublicResult() {
+        return allowPublicResult;
+    }
+
+    public void setAllowPublicResult(Boolean allowPublicResult) {
+        this.allowPublicResult = allowPublicResult;
     }
 
   

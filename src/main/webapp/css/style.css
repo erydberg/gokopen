@@ -176,7 +176,7 @@ fieldset {
 .nav-box {
 	background: none repeat scroll 0 0 #F6F3EC;
 	border-bottom: 1px solid #E0D8C1;
-	padding: 10px;
+	padding: 4px;
 	border-top: 1px solid #E0D8C1;
 }
 
@@ -184,8 +184,8 @@ fieldset {
 	background: none repeat scroll 0 0 #FFFFFF;
 	border: 1px solid #E0D8C1;
 	margin-bottom: 5px;
-	margin-left: 10px;
-	margin-right: 10px;
+	margin-left: 2px;
+	margin-right: 2px;
 	padding: 15px;
 }
 
@@ -193,9 +193,9 @@ fieldset {
 	background: none repeat scroll 0 0 #FFFFFF;
 	border: 1px solid #E0D8C1;
 	margin-bottom: 5px;
-	margin-left: 10px;
-	margin-right: 10px;
-	padding: 5px;
+	margin-left: 2px;
+	margin-right: 2px;
+	padding: 3px;
 }
 
 .nav-box ul {
@@ -280,4 +280,14 @@ fieldset {
 }
 .left{
 	text-align: left;
+}
+.result-box-head{
+	padding-left:10px;
+}
+.page-head{
+	padding:10px;
+}
+.ingress{
+	margin-left:10px;
+	margin-right:10px;
 }

@@ -38,8 +38,9 @@ public class StartController {
 	}
 	
 	@RequestMapping(value="/login", method = RequestMethod.GET)
-	public String login() {
- 
+	public String login(HttpServletRequest request) {
+	    Config config = configService.getCurrentConfig();
+        request.setAttribute("config", config);
 		return "login";
  
 	}

@@ -7,10 +7,10 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<!DOCTYPE html>
+<!DOCTYPE html>  
 <html>
 <head>
-<title>Start och målgång</title>
+<title>Start och målgång - test</title>
 <jsp:include page="include_metadata.jsp" flush="false"></jsp:include>
 <script>
 	var path = '${pageContext.request.contextPath}';
@@ -82,7 +82,7 @@
 					<td>${patrol.totalScore} (${patrol.totalScorePoint}+${patrol.totalStylePoint})</td>
 					<td>
 					<fmt:formatDate value="${patrol.latestScoreTime }" pattern="yyyy" var="dummyYear" />
-					<c:if test="${dummyYear gt 2014}"><fmt:formatDate pattern="yyyy-MM-dd H:m" value="${patrol.latestScoreTime }" /></c:if></td>
+					<c:if test="${dummyYear gt 2014}"><fmt:formatDate pattern="HH:mm (d/M)" value="${patrol.latestScoreTime }" /></c:if></td>
 				</tr>
 			</c:forEach>
 		</table>

@@ -10,15 +10,21 @@
 <body>
 	<div class="nav-box">
 		<h1>Appens konfiguration</h1>
-		<form:form commandName="config" method="post"
-			action="${pageContext.request.contextPath}/admin/config">
+		<form:form commandName="config" method="post" action="${pageContext.request.contextPath}/admin/config">
 			<form:hidden path="id" id="id" />
 			<div class="form-box">
 				<fieldset>
+				<div class="text size-3">
 					<label for="name">Tävlingens namn:</label>
 					<form:input path="name" id="name" />
-				</fieldset>
+				</div>
+				<div>
+		
+				<label>Tillåt publik resultatsida (visar också länk från inloggningssidan):</label>
+				<form:checkbox path="allowPublicResult" id="allowPublicResult"/>
+				</div>
 			</div>
+			</fieldset>
 			<div class="submit-area">
 				<input type="submit" name="saveConfig" value="Spara" /> | <a href="${pageContext.request.contextPath}/admin">Tillbaka</a>
 			</div>
