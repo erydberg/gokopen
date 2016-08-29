@@ -1,11 +1,10 @@
 package se.gokopen.dao;
 
-import java.util.List;
 
+import java.util.List;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-
 import se.gokopen.model.Patrol;
 import se.gokopen.model.Track;
 
@@ -43,8 +42,11 @@ public class PatrolDAO {
 	
 	@SuppressWarnings("unchecked")
 	public List<Patrol> getAllPatrols(){
-		List<Patrol> patrols = sessionFactory.getCurrentSession().createQuery("from Patrol as ptr order by ptr.patrolName asc").list();
+	    List<Patrol> patrols = sessionFactory.getCurrentSession().createQuery("from Patrol as ptr order by ptr.patrolName asc").setCacheable(true).list();
 		return patrols;
+//	    Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Patrol.class);
+//      criteria.addOrder(Order.asc("patrolName"));
+//      return (List<Patrol>) new LinkedHashSet<Patrol>(criteria.list());
 	}
 	
 	@SuppressWarnings("unchecked")

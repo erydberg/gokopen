@@ -18,7 +18,7 @@
 				</c:if>
 			</div>
 			
-<form name="f" action="j_spring_security_check" method="POST" class="form-general">
+<form name="f" action="${pageContext.request.contextPath}/login" method="POST" class="form-general">
 	<div class="form-box">
 	
 	<h3>Logga in för kontrollanter</h3>
@@ -28,10 +28,13 @@
 			${error }
 		</div>
 	</c:if>
+	
+	 		
 <label for="j_username">Användarnamn:</label>
-<input type="text" name="j_username" id="j_username">
+<input type="text" name="ssoId" id="username" placeholder="Ange användarnamn" required>
 <label for="j_password">Lösenord:</label>
-<input type='password' name='j_password' />
+<input type='password' name='password' placeholder="Ange lösenord" required>
+<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 </div>
 <input name="submit" type="submit" value="Logga in" />
 </form>

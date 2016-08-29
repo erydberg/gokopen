@@ -25,6 +25,7 @@ ${errormsg}
 </div>
 </c:if>
 	<h1>${patrol.patrolName }</h1>
+	<small>Patrullnummer: ${patrol.patrolId }, externt id: ${patrol.externalId }</small>
 	<div class="form-box">
 		<p>${patrol.track.trackName } - ${patrol.troop }</p>
 		<p>Ledarkontakt:

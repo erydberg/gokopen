@@ -21,13 +21,17 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import org.hibernate.annotations.Cascade;
 
 @Entity
 @Table(name="patrol")
+@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 public class Patrol implements Comparable<Patrol> {
     private Integer patrolId;
+    private String externalId;
     private String patrolName;
     private String troop;
     private Track track;
@@ -57,6 +61,16 @@ public class Patrol implements Comparable<Patrol> {
 
     public void setPatrolId(Integer patrolId) {
         this.patrolId = patrolId;
+    }
+
+    @Column(name="externalid")
+    public String getExternalId() {
+        return externalId;
+    }
+
+
+    public void setExternalId(String externalId) {
+        this.externalId = externalId;
     }
 
 
@@ -193,7 +207,7 @@ public class Patrol implements Comparable<Patrol> {
 
     @Transient
     public String getPatrolInfo(){
-        return getPatrolName() + " - " + (track != null ? track.getTrackName() : "(odefinierad klass)") + " (" + getTroop() + ")";
+        return getPatrolName() + " (" + getPatrolId() + ") - " + (track != null ? track.getTrackName() : "(odefinierad klass)") + " (" + getTroop() + ")";
     }
 
     @Transient

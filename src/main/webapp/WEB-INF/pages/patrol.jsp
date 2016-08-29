@@ -18,7 +18,12 @@
 			<fieldset>
 				<div class="text size-3">
 					<label>Patrullens namn:</label>
-					<form:input path="patrolName" id="patrolName" />
+					<form:input path="patrolName" id="patrolName" /> 
+					<br><small>Patrullnummer: ${patrol.patrolId }</small>
+				</div>
+				<div class="text size-3">
+					<label>Eventuellt externt id:</label>
+					<form:input path="externalId" id="externalId" />
 				</div>
 				<div class="text size-3">
 					<label>Klass:</label>
