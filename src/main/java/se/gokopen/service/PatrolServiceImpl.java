@@ -56,7 +56,6 @@ public class PatrolServiceImpl implements PatrolService {
 	}
 	
 	
-
 	@Override
 	@Transactional
 	public List<Patrol> getAllPatrolsByTrackId(Integer trackId) {
@@ -74,7 +73,7 @@ public class PatrolServiceImpl implements PatrolService {
 	@Transactional
 	public List<Patrol> getAllPatrolsLeftOnStation(Integer stationId) {
 		List<Patrol> allPatrols = patrolDao.getAllPatrols();
-		
+
 		Iterator<Patrol> itt = allPatrols.iterator();
 		while(itt.hasNext()){
 			Patrol patrol = (Patrol) itt.next();
@@ -85,9 +84,7 @@ public class PatrolServiceImpl implements PatrolService {
 					itt.remove();
 					break;
 				}
-				
 			}
-			
 		}
 
 		return allPatrols;
@@ -139,7 +136,7 @@ public class PatrolServiceImpl implements PatrolService {
     public List<Patrol> getActiveAndWaitingPatolsFromList(List<Patrol> patrols) {
         List<Patrol> onlyActivePatrols = new ArrayList<Patrol>();
         for(Patrol patrol:patrols){
-            if(patrol.getStatus()!=null && (patrol.getStatus().equals(Status.REGISTERED) || patrol.getStatus().equals(Status.ACTIVE))){
+            if(patrol.getStatus()!=null && (patrol.getStatus().equals(Status.REGISTERED) || patrol.getStatus().equals(Status.ACTIVE) || patrol.getStatus().equals(Status.FINISHED) )){
                 onlyActivePatrols.add(patrol);
             }
         }

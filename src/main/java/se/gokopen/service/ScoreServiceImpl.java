@@ -34,6 +34,7 @@ public class ScoreServiceImpl implements ScoreService {
 
     @Override
     @Transactional
+    //TODO ta bort=
     public List<Score> getAllScores() {
         return scoreDao.getAllScores();
     }
@@ -82,5 +83,11 @@ public class ScoreServiceImpl implements ScoreService {
         }else{
             return true;
         }
+    }
+
+    @Override
+    public List<Score> getScoreOnStation(Integer stationId) {
+        List<Score> scores = scoreDao.getAllScoresOnStation(stationId);
+        return scores;
     }
 }

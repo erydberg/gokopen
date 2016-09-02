@@ -68,4 +68,11 @@ public class ScoreDAO {
 	    }
 	    return scores.get(0);
 	}
+
+	@SuppressWarnings("unchecked")
+    public List<Score> getAllScoresOnStation(Integer stationId) {
+	    List<Score> scores = sessionFactory.getCurrentSession().createQuery("from Score as score where score.station.stationId= :stationid order by score.patrol.patrolName").setParameter("stationid", stationId).list();
+	    
+        return scores;
+    }
 }

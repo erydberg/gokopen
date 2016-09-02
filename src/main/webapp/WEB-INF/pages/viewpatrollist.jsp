@@ -7,6 +7,12 @@
 <html>
 <head>
 <jsp:include page="include_metadata.jsp" flush="false"></jsp:include>
+<script>
+	var path = '${pageContext.request.contextPath}';
+</script>
+<script src="${pageContext.request.contextPath}/js/jquery-2.1.4.min.js"></script>
+<script src="${pageContext.request.contextPath}/js/gokopen.js"></script>
+
 <title>Visa patruller</title>
 </head>
 <body>
@@ -28,7 +34,7 @@
 	<div class="scoreitem">
 	<a href="${pageContext.request.contextPath}/patrol/viewpatrolfrompatrollist/${patrol.patrolId}">${patrol.patrolName }</a> (${patrol.track.trackName })<br/>
 	${patrol.troop }<br/>
-	Antal stationer: ${patrol.totalReportedStations }
+	Antal kontroller: ${patrol.totalReportedStations }
 	</div>
 	</c:forEach>
 	</c:if>

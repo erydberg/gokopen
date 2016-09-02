@@ -20,6 +20,7 @@ ${errormsg}
 <h1>${config.name }</h1>
 <ul>
 <li class="nav-item"><a href="${pageContext.request.contextPath}/score/">Rapportera poäng</a></li>
+<li class="nav-item"><a href="${pageContext.request.contextPath}/correctscore">Ändra poäng</a></li>
 <li class="nav-item"><a href="${pageContext.request.contextPath}/reports/patrols">Patruller</a></li>
 <li class="nav-item"><a href="${pageContext.request.contextPath}/reports/bytrack">Resultat per klass</a></li>
 <sec:authorize access="hasAnyRole('ROLE_ADMIN','ROLE_STARTFINISH')">
