@@ -13,6 +13,7 @@ import se.gokopen.model.Status;
 
 public class TestReturnOnlyActivePatrols {
     
+    //TODO funktionen är ändrad till att faktiskt ta med patruller som kommit i mål. Testerna borde ändras för att reflektera detta bättre än att bara ändra själva equalTo
     @Test
     public void shouldReturnOnlyActivePatrolsFromList(){
         Patrol patrol1 = new Patrol();
@@ -34,7 +35,7 @@ public class TestReturnOnlyActivePatrols {
         PatrolService patrolService = new PatrolServiceImpl();
         
         List<Patrol> onlyActiveAndWaitingPatrols = patrolService.getActiveAndWaitingPatolsFromList(patrols);
-        assertThat(onlyActiveAndWaitingPatrols.size(),is(equalTo(2)));
+        assertThat(onlyActiveAndWaitingPatrols.size(),is(equalTo(3)));
         
     }
 
@@ -59,7 +60,7 @@ public class TestReturnOnlyActivePatrols {
         PatrolService patrolService = new PatrolServiceImpl();
         
         List<Patrol> onlyActiveAndWaitingPatrols = patrolService.getActiveAndWaitingPatolsFromList(patrols);
-        assertThat(onlyActiveAndWaitingPatrols.size(),is(equalTo(2)));
+        assertThat(onlyActiveAndWaitingPatrols.size(),is(equalTo(3)));
         
     }
 }

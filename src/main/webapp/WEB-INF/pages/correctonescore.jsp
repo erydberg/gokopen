@@ -1,6 +1,7 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -19,8 +20,7 @@ ${msg }
 		<c:if test="${not empty errormsg }">
 			<div class="errorblock">${errormsg}</div>
 		</c:if>
-		<h1>Ändra poäng för ${score.patrol.patrolName }
-			(${score.patrol.patrolId })</h1>
+		<h1>Ändra poäng för ${score.patrol.patrolName }</h1>
 		<form:form commandName="score" method="post"
 			action="${pageContext.request.contextPath}/correctscore/save"
 			cssClass="form-general">
@@ -29,10 +29,12 @@ ${msg }
 			<form:hidden path="station.stationId" id="station.stationId" />
 
 			<div class="form-box">
-				<p>${score.patrol.track.trackName }<br>
-					${score.patrol.troop}<br>
+				<p>Patrullnummer: ${score.patrol.patrolId }<br>
+				${score.patrol.track.trackName }<br>
+				${score.patrol.troop}<br>
 				</p>
 				<h3>Befintliga poäng för ${score.station.stationName }</h3>
+				<small>Sparat: <fmt:formatDate pattern="yyyy-MM-dd H:m" value="${score.lastSaved}" /></small>
 				<div class="form-box">
 					<fieldset>
 						<label for="scorePoint">Poäng: </label>

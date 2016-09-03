@@ -7,6 +7,8 @@
 <head>
 <jsp:include page="include_metadata.jsp" flush="false"></jsp:include>
 <title>Rapportera poäng</title>
+<script src="${pageContext.request.contextPath}/js/jquery-2.1.4.min.js"></script>
+
 </head>
 <body>
 <c:if test="${not empty oldPatr }">

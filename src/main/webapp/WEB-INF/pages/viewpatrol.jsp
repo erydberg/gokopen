@@ -39,7 +39,7 @@ ${errormsg}
 	<h2>Poäng</h2>
 Totalpoäng: ${patrol.totalScore }<br> 
 (Poäng: ${patrol.totalScorePoint } + stilpoäng: ${patrol.totalStylePoint })<br>
-Senast rapporterat: <fmt:formatDate pattern="yyyy-MM-dd H:m" value="${patrol.latestScoreTime }" />
+Senast rapporterat: <fmt:formatDate pattern="yyyy-MM-dd H:mm" value="${patrol.latestScoreTime }" />
 	</div>
 
 <div>
@@ -48,7 +48,7 @@ Senast rapporterat: <fmt:formatDate pattern="yyyy-MM-dd H:m" value="${patrol.lat
 	<a href="${pageContext.request.contextPath}/score/editscorefrompatrol/${score.scoreId}/returnto/${patrol.patrolId}">${score.station.stationNumber}. ${score.station.stationName}</a><br/>
 	Poäng: ${score.scorePoint }<br>
 	Stilpoäng: ${score.stylePoint }<br>
-	Sparat: <fmt:formatDate pattern="yyyy-MM-dd H:m" value="${score.lastSaved}" /><br>
+	Sparat: <fmt:formatDate pattern="yyyy-MM-dd H:mm" value="${score.lastSaved}" /><br>
 </div>
 </c:forEach>
 </div>

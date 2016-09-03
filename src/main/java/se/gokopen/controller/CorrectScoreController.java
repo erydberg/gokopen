@@ -86,7 +86,7 @@ public class CorrectScoreController {
         model.setViewName("correctscorestartpage");
         try {
             scoreService.saveScore(score);
-            model.addObject("msg","Poängen är uppdaterade för patrullen.");
+            model.addObject("alertmsg","Poängen är uppdaterade för patrullen.");
         } catch (ScoreNotSavedException e) {
             model.addObject("errormsg","Det gick inte att spara poängen.");
         }

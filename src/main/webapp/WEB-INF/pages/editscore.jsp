@@ -7,7 +7,7 @@
 <html>
 <head>
 <jsp:include page="include_metadata.jsp" flush="false"></jsp:include>
-<title>Rapportera poäng</title>
+<title>Ändra poäng</title>
 </head>
 <body>
 	<h1>Ändra poäng</h1>

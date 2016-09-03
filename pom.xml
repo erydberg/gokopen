@@ -24,7 +24,7 @@
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
-	
+
 	<dependencies>
 		<dependency>
 			<groupId>junit</groupId>
@@ -82,9 +82,9 @@
 			<artifactId>commons-dbcp</artifactId>
 		</dependency>
 		<dependency>
-        <groupId>commons-logging</groupId>
-        <artifactId>commons-logging</artifactId>
-</dependency>
+			<groupId>commons-logging</groupId>
+			<artifactId>commons-logging</artifactId>
+		</dependency>
 
 		<dependency>
 			<groupId>mysql</groupId>

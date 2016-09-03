@@ -90,16 +90,13 @@ public class ScoreController {
 		try {
 			score = scoreService.getScoreById(Integer.parseInt(id));
 		} catch (NumberFormatException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (ScoreNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		request.setAttribute("saveurl", request.getContextPath() + "/score/savescore");
 		request.setAttribute("patrol", score.getPatrol());
 		return new ModelAndView("reportscore", "score", score);
-
 	}
 
 
@@ -155,14 +152,17 @@ public class ScoreController {
 	@RequestMapping(value = "/savescore", method = RequestMethod.POST)
 	public ModelAndView saveScore(Score score, BindingResult errors,
 			HttpServletRequest request, HttpServletResponse response) {
-
+	    ModelAndView model = new ModelAndView();
 		if(score.getPatrol()==null){
-			request.setAttribute("errormsg", "Du måste välja en patrull innan du sparar poängen.");
+		    model.addObject("errormsg","Du måste välja en patrull innan du sparar poängen.");
 		}else{
 		try {
+		        score.setScoreId(null); //Tempfix då jag får in en befintlig böna
 				scoreService.saveScore(score);
-				request.setAttribute("oldPatr", score.getPatrol());
-				request.setAttribute("oldScore", score);
+				model.addObject("alertmsg", "Sparat "+ score.getScorePoint() + " poäng och " + score.getStylePoint() + " stilpoäng till " + score.getPatrol().getPatrolName() + ".");
+				
+//				request.setAttribute("oldPatr", score.getPatrol());
+//				request.setAttribute("oldScore", score);
 
 			} catch (ScoreNotSavedException e) {
 			    request.setAttribute("errormsg",e.getErrorMsg());
@@ -174,13 +174,16 @@ public class ScoreController {
 		try {
 			stationTest = stationService.getStationById(score.getStation().getStationId());
 		} catch (StationNotFoundException e) {
-			e.printStackTrace();
+			model.addObject("errormsg","Kunde inte hitta kontrollen");
 		}
 		scorenew.setStation(stationTest);
 		List<Patrol> patrols = patrolService.getAllActivePatrolsLeftOnStation(score.getStation().getStationId());
-		request.setAttribute("patrols", patrols);
+		model.addObject("patrols",patrols);
+		model.addObject("score",scorenew);
 
-		return new ModelAndView("reportscore", "score", scorenew);
+		model.setViewName("reportscore");
+		System.out.println("nu är vi här med scoreId: " + scorenew.getScoreId());
+		return model;
 	}
 
 	@RequestMapping(value = "/savescorefrompatrol", method = RequestMethod.POST)
@@ -219,21 +222,17 @@ public class ScoreController {
 			patrolService.savePatrol(patrol);
 		} catch (NumberFormatException e1) {
 			System.out.println("NumberFormatException: Problem deleting score " + id);
-			e1.printStackTrace();
 		} catch (ScoreNotFoundException e1) {
 			System.out.println("ScoreNotFoundException: Problem deleting score " + id);
-			e1.printStackTrace();
 			request.setAttribute("errormsg", "Hittar inte poängen att ta bort.");
             return new ModelAndView("start");
 		} 
 		catch (PatrolNotFoundException e) {
 			System.out.println("PatrolNotFoundException: Problem deleting score " + id);
-			e.printStackTrace();
 			request.setAttribute("errormsg", "Hittar inte patrullen att ta bort poängen från.");
             return new ModelAndView("start");
 		} catch (PatrolNotSavedException e) {
 			System.out.println("PatrolNotSavedException: Problem deleting score " + id);
-			e.printStackTrace();
 			request.setAttribute("errormsg", "Kunde inte spara patrullen och dess poängt.");
             return new ModelAndView("start");
 		}
