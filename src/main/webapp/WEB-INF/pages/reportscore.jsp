@@ -8,7 +8,17 @@
 <jsp:include page="include_metadata.jsp" flush="false"></jsp:include>
 <title>Rapportera poäng</title>
 <script src="${pageContext.request.contextPath}/js/jquery-2.1.4.min.js"></script>
+<script src="${pageContext.request.contextPath}/js/jquery-2.1.4.min.js"></script>
+<script src="${pageContext.request.contextPath}/js/gokopen.js"></script>
+<script>
+<c:if test="${not empty alertmsg }">
+	var msg = '${alertmsg }';
+</c:if>
 
+$(document).ready(function(){
+	alert(msg);
+});
+</script>
 </head>
 <body>
 <c:if test="${not empty oldPatr }">

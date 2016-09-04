@@ -11,12 +11,15 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import se.gokopen.dao.TrackNotFoundException;
+import se.gokopen.model.Config;
 import se.gokopen.model.Patrol;
 import se.gokopen.model.Station;
 import se.gokopen.model.Track;
+import se.gokopen.service.ConfigService;
 import se.gokopen.service.PatrolService;
 import se.gokopen.service.ScoreService;
 import se.gokopen.service.StationService;
@@ -35,6 +38,8 @@ public class PrintController {
 	private StationService stationService;
 	@Autowired
 	private ScoreService scoreService;
+	@Autowired
+    private ConfigService configService;
 	
 	@InitBinder
     protected void initBinder(WebDataBinder binder) {
@@ -73,5 +78,17 @@ public class PrintController {
 		return new ModelAndView("printscorecardstations","patrols",patrols);
 	}
 	
+	@RequestMapping(value="/patrolcards", method=RequestMethod.GET)
+	public ModelAndView printPatrolCards(){
+	    ModelAndView model = new ModelAndView();
+	    Config config = configService.getCurrentConfig();
+	    model.addObject("config",config);
+	    List<Station> stations = stationService.getAllStations();
+	    model.addObject("stations",stations);
+	    List<Patrol> patrols = patrolService.getAllPatrols();
+	    model.addObject("patrols",patrols);
+	    model.setViewName("printpatrolcards");
+	    return model;
+	}
 	
 }

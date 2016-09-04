@@ -56,7 +56,15 @@ caption, th {
 	font-weight: bold;
 	text-align: left;
 }
-
+.print{
+	width:600px;
+}
+.center{
+	text-align:center;
+}
+.printtd-station{
+	width:240px;
+}
 .printtd {
 	width: 90px;
 }
