@@ -34,7 +34,7 @@ ${msg }
 				${score.patrol.troop}<br>
 				</p>
 				<h3>Befintliga poäng för ${score.station.stationName }</h3>
-				<small>Sparat: <fmt:formatDate pattern="yyyy-MM-dd H:m" value="${score.lastSaved}" /></small>
+				<small>Sparat: <fmt:formatDate pattern="yyyy-MM-dd H:mm" value="${score.lastSaved}" /></small>
 				<div class="form-box">
 					<fieldset>
 						<label for="scorePoint">Poäng: </label>

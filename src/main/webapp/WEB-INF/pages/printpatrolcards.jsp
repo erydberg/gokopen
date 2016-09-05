@@ -18,19 +18,19 @@
 	<h4 class="center">${patrol.track.trackName }</h4>
 	<table>
 	<tr>
-		<th class="printtd-station">Kontroll</th>
-		<th class="printtd">Poäng</th>
-		<th class="printtd">Stilp.</th>
-		<th class="printtd">Totalt</th>
-		<th class="printtd">Sign.</th>
+		<th class="station">Kontroll</th>
+		<th>Poäng</th>
+		<th>Stilp.</th>
+		<th>Totalt</th>
+		<th>Sign.</th>
 	</tr>
 	<c:forEach items="${stations }" var="station">
 	<tr>
-		<td class="printtd-station">${station.stationNumber }. ${station.stationName } </td>
-		<td class="printtd"> </td>
-		<td class="printtd"> </td>
-		<td class="printtd"> </td>
-		<td class="printtd"> </td>
+		<td class="station">${station.stationNumber }. ${station.stationName } </td>
+		<td> </td>
+		<td> </td>
+		<td> </td>
+		<td> </td>
 	</tr>
 	</c:forEach>
 	</table>

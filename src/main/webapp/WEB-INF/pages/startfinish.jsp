@@ -75,7 +75,7 @@
 							<img class="patrol" data-status="registered" data-id="${patrol.patrolId}" src="${pageContext.request.contextPath}/css/registered.png"/>
 						</td>
 					</c:if>
-					<td><a href="${pageContext.request.contextPath}/startfinish/viewpatrol/${patrol.patrolId}">${patrol.patrolName }</a></td>
+					<td><a href="${pageContext.request.contextPath}/startfinish/viewpatrol/${patrol.patrolId}">${patrol.patrolName }</a> <br><small>(Patrullnr: ${patrol.patrolId })</small></td>
 					<td>${patrol.track.trackName }</td>
 					<td>${patrol.troop }</td>
 					<td>${patrol.totalReportedStations}</td>

@@ -58,15 +58,18 @@ caption, th {
 }
 .print{
 	width:600px;
+	
+	margin-bottom:20px;
 }
-.center{
+.print .center{
 	text-align:center;
 }
-.printtd-station{
+.print .station{
 	width:240px;
 }
-.printtd {
+.print td {
 	width: 90px;
+	height: 60px;
 }
 
 img {
