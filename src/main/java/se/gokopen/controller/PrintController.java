@@ -53,10 +53,16 @@ public class PrintController {
 		return trackService.getAllTracks();
 	}
 	
-	@RequestMapping(value="/start")
-	public String printScoreCardsStart(HttpServletRequest request){
-		return "viewscorecardstart";
+	@RequestMapping(value="")
+	public String printStart(HttpServletRequest request){
+		return "printstart";
 	}
+	@RequestMapping(value="/stationscorecards")
+    public String printScoreCardsStart(HttpServletRequest request){
+        return "printstationscorecardsstart";
+    }
+	
+	
 	
 	@RequestMapping(value="/bytrack/{id}")
 	public ModelAndView printScoreCardForTrack(@PathVariable String id,HttpServletRequest request){
@@ -78,7 +84,7 @@ public class PrintController {
 		return new ModelAndView("printscorecardstations","patrols",patrols);
 	}
 	
-	@RequestMapping(value="/patrolcards", method=RequestMethod.GET)
+	@RequestMapping(value="/patrolscorecards", method=RequestMethod.GET)
 	public ModelAndView printPatrolCards(){
 	    ModelAndView model = new ModelAndView();
 	    Config config = configService.getCurrentConfig();

@@ -22,7 +22,7 @@
 	</tr>
 	<c:forEach items="${patrols }" var="patrol">
 	<tr>
-		<td>${patrol.patrolName }<br/>${patrol.troop }</td>
+		<td>${patrol.patrolName }<br><small>Patrullnr: ${patrol.patrolId}</small><br/><small>${patrol.troop }</small></td>
 		<td class="printtd"> </td>
 		<td class="printtd"> </td>
 		<td class="printtd"> </td>

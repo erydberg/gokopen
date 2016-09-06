@@ -31,7 +31,7 @@ public class StationDAO {
 	public Station getById(Integer id) throws StationNotFoundException{
 		Station station = null;
 		
-		List<Station> stations = (List<Station>) sessionFactory.getCurrentSession().createQuery("from Station station where station.stationId=?").setParameter(0, id).list();
+		List<Station> stations = (List<Station>) sessionFactory.getCurrentSession().createQuery("from Station station where station.stationId= :stationid").setParameter("stationid", id).list();
 		if (stations==null || stations.isEmpty() || stations.size()>1){
 			throw new StationNotFoundException("Hittar inte kontrollen med id: " + id);
 		}

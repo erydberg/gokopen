@@ -17,20 +17,13 @@
 ${errormsg}
 </div>
 </c:if>
-<h1>${config.name }</h1>
+<h1>Skriva ut</h1>
 <ul>
-<li class="nav-item"><a href="${pageContext.request.contextPath}/score/">Rapportera poäng</a></li>
-<li class="nav-item"><a href="${pageContext.request.contextPath}/correctscore">Ändra poäng</a></li>
-<li class="nav-item"><a href="${pageContext.request.contextPath}/reports/patrols">Patruller</a></li>
-<li class="nav-item"><a href="${pageContext.request.contextPath}/reports/bytrack">Resultat per klass</a></li>
 <sec:authorize access="hasAnyRole('ROLE_ADMIN','ROLE_STARTFINISH')">
-<li class="nav-item"><a href="${pageContext.request.contextPath}/startfinish">Start- och måladministration</a>
-</sec:authorize>
-<sec:authorize access="hasRole('ROLE_ADMIN')">
-<li class="nav-item"><a href="${pageContext.request.contextPath}/admin/">Administration</a></li>
+<li class="nav-item"><a href="${pageContext.request.contextPath}/print/stationscorecards">Kontrollistor</a><br>Skriver ut listor där kontrollerna ska fylla i patrullernas poäng. En backupåtgärd ifall inrapporteringen slutar fungera.</li>
+<li class="nav-item"><a href="${pageContext.request.contextPath}/print/patrolscorecards">Startkort för patruller</a><br>Skriver ut startkort till alla patruller, sorterade i bokstavsordning. Testa att skriv ut 2 sidor på 1 sida för att få A5-format på startkorten.</li>
 </sec:authorize>
 </ul>
-Inloggad användare: ${username }
 </div>
 </body>
 </html>
