@@ -2,11 +2,16 @@ package se.gokopen.dao;
 
 
 import java.util.List;
+
+import org.hibernate.Criteria;
+import org.hibernate.FetchMode;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import se.gokopen.model.Patrol;
 import se.gokopen.model.Track;
+
 
 @Repository
 public class PatrolDAO {
@@ -47,7 +52,31 @@ public class PatrolDAO {
 //	    Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Patrol.class);
 //      criteria.addOrder(Order.asc("patrolName"));
 //      return (List<Patrol>) new LinkedHashSet<Patrol>(criteria.list());
+//		 Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Patrol.class);
+//	        criteria.setFetchMode("track", FetchMode.JOIN);
+//	        criteria.setFetchMode("scores", FetchMode.JOIN);
+//	        criteria.addOrder(Order.asc("patrolName"));
+//	        criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+//	        criteria.setCacheable(true);
+//	        List<Patrol> patrols = criteria.list();
+//	        return patrols;
+	       
 	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Patrol> getAllPatrolsCriteria(){
+	    Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Patrol.class);
+        criteria.setFetchMode("track", FetchMode.JOIN);
+        criteria.setFetchMode("scores", FetchMode.JOIN);
+        criteria.addOrder(Order.asc("patrolName"));
+        criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+        criteria.setCacheable(true);
+        List<Patrol> patrols = criteria.list();
+        return patrols;
+	}
+	
+	
+	
 	
 	@SuppressWarnings("unchecked")
 	public List<Patrol> getPatrolsByTrackId(Integer trackId){

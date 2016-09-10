@@ -18,6 +18,10 @@
 					<label for="name">Tävlingens namn:</label>
 					<form:input path="name" id="name" />
 				</div>
+				<div class="text size-3">
+					<label for="phone">Telefon till start/mål</label>
+					<form:input path="phone" id="phone" />
+				</div>
 				<div>
 		
 				<label>Tillåt publik resultatsida (visar också länk från inloggningssidan):</label>

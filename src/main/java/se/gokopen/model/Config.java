@@ -16,6 +16,7 @@ public class Config {
     private Integer id;
     private String name;
     private Boolean allowPublicResult;
+    private String phone;
     
     public Config(){
         
@@ -48,6 +49,15 @@ public class Config {
 
     public void setAllowPublicResult(Boolean allowPublicResult) {
         this.allowPublicResult = allowPublicResult;
+    }
+
+    @Column (name="phone")
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
   

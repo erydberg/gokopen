@@ -69,7 +69,7 @@ ${msg }
 				</div>
 
 				<div class="submit-area">
-					<input type="submit" name="savescore" value="Spara" /> | <a
+					<input type="submit" name="savescore" value="Spara" /> | <a href="${pageContext.request.contextPath}/correctscore/deletescore/scoreid=${score.scoreId }/stationId=${score.station.stationId}">Ta bort </a> | <a
 						href="${pageContext.request.contextPath}/correctscore/selectstation?stationId=${score.station.stationId}">Avbryt</a>
 						
 				</div>

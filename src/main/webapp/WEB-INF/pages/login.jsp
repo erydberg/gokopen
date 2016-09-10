@@ -8,11 +8,11 @@
 <body onload='document.f.j_username.focus();'>
 <div class="nav-box">
 			<div class="page-head">
-			<h1>Välkommen till ${config.name }</h1>
+			<h1>${config.name }</h1>
 			</div>
 			</div>
 			<div class="ingress">
-				<p>Här rapporteras poängen för tävlingen av de olika kontrollanterna. </p>
+				Logga in för att rapportera poäng.<br>
 				<c:if test="${config.allowPublicResult}">
 					<p>Du kan titta på den aktuella <a href="${pageContext.request.contextPath}/public/">poängställningen</a> utan att logga in.</p>
 				</c:if>
@@ -21,7 +21,7 @@
 <form name="f" action="${pageContext.request.contextPath}/login" method="POST" class="form-general">
 	<div class="form-box">
 	
-	<h3>Logga in för kontrollanter</h3>
+	<h4>Logga in för kontrollanter</h4>
  
 	<c:if test="${not empty error}">
 		<div class="errorblock">

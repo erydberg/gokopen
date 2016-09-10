@@ -23,5 +23,6 @@ public interface PatrolService {
     public List<Patrol> getAllPatrolsSortedByScore();
     public List<Patrol> getAllActivePatrolsLeftOnStation(Integer stationId);
     public List<Patrol> getActiveAndWaitingPatolsFromList(List<Patrol> patrols);
+    public List<Patrol> getAllPatrolsCriteria();
 }
 

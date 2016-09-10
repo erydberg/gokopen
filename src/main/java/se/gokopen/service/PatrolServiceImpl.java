@@ -142,4 +142,10 @@ public class PatrolServiceImpl implements PatrolService {
         }
         return onlyActivePatrols;
     }
+
+    @Override
+    @Transactional
+    public List<Patrol> getAllPatrolsCriteria() {
+        return patrolDao.getAllPatrols();
+        }
 }

@@ -30,7 +30,7 @@ ${errormsg}
 <li class="nav-item"><a href="${pageContext.request.contextPath}/admin/">Administration</a></li>
 </sec:authorize>
 </ul>
-Inloggad användare: ${username }
+Telefon till start/mål: <a href="tel:${config.phone }">${config.phone }</a><br>Inloggad användare: ${username }
 </div>
 </body>
 </html>
