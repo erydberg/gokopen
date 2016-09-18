@@ -17,6 +17,9 @@
 ${errormsg}
 </div>
 </c:if>
+<span class="toolbar">
+			<a class="toolitem" href="${pageContext.request.contextPath}/admin/"><img src="${pageContext.request.contextPath}/css/back2.png"></a>
+		</span>
 <h1>Skriva ut</h1>
 <ul>
 <sec:authorize access="hasAnyRole('ROLE_ADMIN','ROLE_STARTFINISH')">

@@ -19,7 +19,7 @@
 		<intercept-url pattern="/patrol/admin/**" access="hasRole('ROLE_ADMIN')" />
 		<intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')" />
 		<intercept-url pattern="/**" access="hasAnyRole('ROLE_USER','ROLE_ADMIN','ROLE_STARTFINISH')" />
-			<form-login login-page="/login" username-parameter="ssoId" password-parameter="password" authentication-failure-url="//loginfailed" />
+			<form-login login-page="/login" username-parameter="ssoId" password-parameter="password" authentication-failure-url="/loginfailed" />
        
 		<logout logout-success-url="/login" />
 	</http>

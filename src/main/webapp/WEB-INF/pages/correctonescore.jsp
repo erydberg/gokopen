@@ -20,6 +20,9 @@ ${msg }
 		<c:if test="${not empty errormsg }">
 			<div class="errorblock">${errormsg}</div>
 		</c:if>
+		<span class="toolbar">
+			<a class="toolitem" href="${pageContext.request.contextPath}/correctscore/selectstation?stationId=${score.station.stationId}"><img src="${pageContext.request.contextPath}/css/back2.png"></a>
+		</span>
 		<h1>Ändra poäng för ${score.patrol.patrolName }</h1>
 		<form:form commandName="score" method="post"
 			action="${pageContext.request.contextPath}/correctscore/save"
