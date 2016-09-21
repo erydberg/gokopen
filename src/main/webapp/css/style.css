@@ -136,12 +136,40 @@ a:active {
 	border: 1px solid #E0D8C1;
 	margin-bottom: 10px;
 	padding: 15px;
+        overflow: auto;
 }
 
 fieldset {
 	border: medium none;
 	margin: 5px 0;
 	padding: 0;
+}
+
+panes {
+        overflow: auto;
+        width: 100%;
+}
+
+rightpane, leftpane {
+        width: 50%;
+        display: block;
+}
+
+rightpane {
+        float: right;
+}
+
+leftpane {
+        float: left;
+}
+
+quicknum {
+        display: block;
+        float: center;
+}
+
+quicknum button {
+  type: button;
 }
 
 .checkbox input, .radio input {
