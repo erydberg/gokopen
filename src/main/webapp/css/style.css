@@ -151,12 +151,12 @@ panes {
 }
 
 rightpane, leftpane {
-        width: 50%;
         display: block;
 }
 
 rightpane {
         float: right;
+        min-width: 25%;
 }
 
 leftpane {
@@ -165,7 +165,7 @@ leftpane {
 
 quicknum {
         display: block;
-        float: center;
+        float: right;
 }
 
 quicknum button {
