@@ -15,7 +15,9 @@
         </c:if>
 
         $(document).ready(function(){
-            alert(msg);
+        	if(typeof msg !== 'undefined'){
+        		alert(msg);
+        	}
         });
     </script>
   </head>
