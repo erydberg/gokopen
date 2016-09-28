@@ -30,7 +30,8 @@ ${errormsg}
 <li class="nav-item"><a href="${pageContext.request.contextPath}/admin/">Administration</a></li>
 </sec:authorize>
 </ul>
-Telefon till start/mål: <a href="tel:${config.phone }">${config.phone }</a><br>Inloggad användare: ${username }
+<c:if test="${not empty config.phone }">Telefon till start/mål: <a href="tel:${config.phone }">${config.phone }</a><br></c:if>
+Inloggad användare: ${username }
 </div>
 </body>
 </html>

@@ -7,7 +7,7 @@
   <head>
     <jsp:include page="include_metadata.jsp" flush="false"></jsp:include>
     <title>Rapportera poäng</title>
-    <script src="${pageContext.request.contextPath}/js/jquery-2.1.4.min.js"></script>
+    <script src="${pageContext.request.contextPath}/js/jquery-3.1.1.min.js"></script>
     <script src="${pageContext.request.contextPath}/js/score.js"></script>
     <script>
         <c:if test="${not empty alertmsg }">

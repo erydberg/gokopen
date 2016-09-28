@@ -5,7 +5,7 @@
 <jsp:include page="include_metadata.jsp" flush="false"></jsp:include>
 <title>Logga in</title>
 </head>
-<body onload='document.f.j_username.focus();'>
+<body>
 <div class="nav-box">
 			<div class="page-head">
 			<h1>${config.name }</h1>
@@ -37,6 +37,7 @@
 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 </div>
 <input name="submit" type="submit" value="Logga in" />
+<c:if test="${not empty config.phone }"><br><small>Telefon till start/mål: <a href="tel:${config.phone }">${config.phone }</a></small><br></c:if>
 </form>
 </body>
 </html>

@@ -10,7 +10,7 @@
 <script>
 	var path = '${pageContext.request.contextPath}';
 </script>
-<script src="${pageContext.request.contextPath}/js/jquery-2.1.4.min.js"></script>
+<script src="${pageContext.request.contextPath}/js/jquery-3.1.1.min.js"></script>
 <script src="${pageContext.request.contextPath}/js/gokopen.js"></script>
 <script>
 <c:if test="${not empty alertmsg }">
