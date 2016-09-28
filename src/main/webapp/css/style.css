@@ -72,6 +72,10 @@ caption, th {
 	height: 60px;
 }
 
+hidden {
+    display: none;
+}
+
 img {
 	border: medium none;
 }
@@ -156,7 +160,7 @@ rightpane, leftpane {
 
 rightpane {
         float: right;
-        min-width: 25%;
+        min-width: 45%;
 }
 
 leftpane {
