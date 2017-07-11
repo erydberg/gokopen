@@ -44,6 +44,7 @@ public class Patrol implements Comparable<Patrol> {
     private Status status;
     private Boolean paid = false;
     private Date latestScoreTime;
+    private Station startStation;
 
 
 
@@ -272,4 +273,16 @@ public class Patrol implements Comparable<Patrol> {
         //här borde finnas logik för att hitta flest högpoänger
         return comp;
     }
+
+
+    @ManyToOne
+    @JoinColumn(name="fk_station")
+	public Station getStartStation() {
+		return startStation;
+	}
+
+
+	public void setStartStation(Station startStation) {
+		this.startStation = startStation;
+	}
 }

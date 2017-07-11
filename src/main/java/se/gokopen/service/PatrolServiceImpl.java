@@ -148,4 +148,13 @@ public class PatrolServiceImpl implements PatrolService {
     public List<Patrol> getAllPatrolsCriteria() {
         return patrolDao.getAllPatrols();
         }
+
+	@Override
+	@Transactional
+	public void saveAllpatrols(List<Patrol> patrols) throws PatrolNotSavedException {
+		for(Patrol patrol:patrols){
+			this.savePatrol(patrol);
+		}
+		
+	}
 }

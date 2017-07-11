@@ -9,6 +9,7 @@ import se.gokopen.model.Track;
 
 public interface PatrolService {
 	public void savePatrol(Patrol patrol) throws PatrolNotSavedException;
+	public void saveAllpatrols(List<Patrol> patrols) throws PatrolNotSavedException;
 	public List<Patrol> getAllPatrols();
 	public void deletePatrol(Patrol patrol) throws PatrolNotFoundException;
 	public void deletePatrolById(Integer id) throws PatrolNotFoundException;

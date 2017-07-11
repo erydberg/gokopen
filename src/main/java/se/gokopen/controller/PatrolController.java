@@ -20,9 +20,11 @@ import org.springframework.web.servlet.ModelAndView;
 import se.gokopen.dao.PatrolNotFoundException;
 import se.gokopen.dao.PatrolNotSavedException;
 import se.gokopen.model.Patrol;
+import se.gokopen.model.Station;
 import se.gokopen.model.Status;
 import se.gokopen.model.Track;
 import se.gokopen.service.PatrolService;
+import se.gokopen.service.StationService;
 import se.gokopen.service.TrackService;
 
 
@@ -34,6 +36,8 @@ public class PatrolController {
 	private PatrolService patrolService;
 	@Autowired
 	private TrackService trackService;
+	@Autowired
+	private StationService stationService;
 	
 	@InitBinder
     protected void initBinder(WebDataBinder binder) {
@@ -145,13 +149,12 @@ public class PatrolController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+		List<Station> stations = stationService.getAllStations();
 		ModelMap map = new ModelMap();
         map.put("patrol", patrol);
         map.put("statuslist", Status.values());
+        map.put("stations", stations);
         return new ModelAndView("patrol",map);
-        
-//		return new ModelAndView("patrol","patrol",patrol);
 	}
 	
 	

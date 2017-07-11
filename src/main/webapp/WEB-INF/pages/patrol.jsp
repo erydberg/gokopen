@@ -35,6 +35,14 @@
 					<label>Kår</label>
 					<form:input path="troop" id="troop" />
 				</div>
+				
+				<div class="text size-3">
+					<label>Klass:</label>
+					<form:select path="startStation" id="startStation">
+						<form:options items="${stations}" itemLabel="stationName" />
+					</form:select>
+				</div>
+				
 				<div class="text size-3">
 					<label>Starttid: </label>
 					<form:input path="startTime" id="startTime" />
