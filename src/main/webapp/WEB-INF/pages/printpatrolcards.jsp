@@ -16,8 +16,7 @@
 	<h4 class="center">Patrullnummer: ${patrol.patrolId }</h4>
 	<h4 class="center">${patrol.troop }</h4>
 	<h4 class="center">${patrol.track.trackName }</h4>
-	<c:if test="${not empty patrol.startStation }">Startplats: ${patrol.startStation.stationNumber}. ${patrol.startStation.stationName}</c:if>
-	<h4 class="center">${patrol.track.trackName }</h4>
+	<c:if test="${not empty patrol.startStation }"><h4 class="center">Startplats: ${patrol.startStation.stationNumber}. ${patrol.startStation.stationName}</h4></c:if>
 	<table>
 	<tr>
 		<th class="station">Kontroll</th>
