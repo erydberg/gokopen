@@ -76,7 +76,7 @@
 						</td>
 					</c:if>
 					<td><a href="${pageContext.request.contextPath}/startfinish/viewpatrol/${patrol.patrolId}">${patrol.patrolName }</a> <br><small>(Patrullnr: ${patrol.patrolId }. 
-							<c:if test="${not empty patrol.startStartion }">Start: ${patrol.startStation.stationNumber}. ${patrol.startStation.stationName} </c:if>)</small></td>
+							<c:if test="${not empty patrol.startStation }">Start: ${patrol.startStation.stationNumber}. ${patrol.startStation.stationName} </c:if>)</small></td>
 					<td>${patrol.track.trackName }</td>
 					<td>${patrol.troop }</td>
 					<td>${patrol.totalReportedStations}</td>

@@ -12,17 +12,21 @@ import org.springframework.web.servlet.ModelAndView;
 import se.gokopen.dao.PatrolNotSavedException;
 import se.gokopen.model.Patrol;
 import se.gokopen.model.Station;
+import se.gokopen.model.Track;
 import se.gokopen.service.Distribute;
 import se.gokopen.service.PatrolService;
 import se.gokopen.service.StationService;
+import se.gokopen.service.TrackService;
 
-@RequestMapping("/distribute")
+@RequestMapping("/admin/distribute")
 @Controller
 public class DistributeController {
 	@Autowired
 	private PatrolService patrolService;
 	@Autowired
 	private StationService stationService;
+	@Autowired
+	private TrackService trackService;
 	
 	@RequestMapping(value="")
 	public String distributeStart(HttpServletRequest request){
@@ -40,6 +44,25 @@ public class DistributeController {
 			e.printStackTrace();
 			return new ModelAndView("distributestart","errormsg","Något gick fel när patrullerna skulle fördelas på kontrollerna");
 		}
-		return new ModelAndView("distributestart","msg","Patrullerna är fördelade på alla kontroller för start.");
+		return new ModelAndView("distributestart","msg", patrols.size() + " patruller är fördelade på " + stations.size() + " kontroller för start.");
+	}
+	
+	@RequestMapping(value="basedontrack")
+	public ModelAndView distributeAllPatrolsBasedOnTrack(HttpServletRequest request) {
+		List<Station> stations = stationService.getAllStations();
+		List<Track> tracks = trackService.getAllTracks();
+		int patrolCounter = 0;
+		for(Track track:tracks) {
+			List<Patrol> patrols = patrolService.getAllPatrolsByTrack(track);
+			patrolCounter = patrolCounter + patrols.size();
+			Distribute.patrolsOnStations(patrols, stations);
+			try {
+				patrolService.saveAllpatrols(patrols);
+			} catch (PatrolNotSavedException e) {
+				e.printStackTrace();
+				return new ModelAndView("distributestart","errormsg","Något gick fel när patrullerna skulle fördelas på kontrollerna");
+			}
+		}
+		return new ModelAndView("distributestart","msg", patrolCounter + " patruller är fördelade på " + stations.size() + " kontroller för start.");
 	}
 }

@@ -37,8 +37,9 @@
 				</div>
 				
 				<div class="text size-3">
-					<label>Klass:</label>
-					<form:select path="startStation" id="startStation">
+					<label>Startar på kontroll:</label>
+					<form:select path="startStation">
+						<option value="Select" label="Välj en kontroll"/>
 						<form:options items="${stations}" itemLabel="stationName" />
 					</form:select>
 				</div>

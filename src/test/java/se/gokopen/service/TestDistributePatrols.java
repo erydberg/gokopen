@@ -1,26 +1,16 @@
 package se.gokopen.service;
 
-import org.junit.Before;
-import static org.junit.Assert.*;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import se.gokopen.dao.PatrolNotFoundException;
-import se.gokopen.dao.PatrolNotSavedException;
+import org.junit.Before;
+import org.junit.Test;
+
 import se.gokopen.model.Patrol;
 import se.gokopen.model.Station;
-import se.gokopen.model.Status;
 
-//@RunWith(SpringJUnit4ClassRunner.class)
-//@ContextConfiguration({"/mvc-dispatcher-servlet.xml"})
 
 public class TestDistributePatrols {
 	private static final String KONTROLL1_NAME = "Kontroll 1";
@@ -55,26 +45,30 @@ public class TestDistributePatrols {
 		patrols.add(patrol3);
 		patrols.add(patrol4);
 		
-		station1 = new Station();
-		station1.setStationName(KONTROLL1_NAME);
-		station1.setStationNumber(1);
 		
-		station2 = new Station();
-		station2.setStationName(KONTROLL2_NAME);
-		station2.setStationNumber(2);
-		
-		stations.add(station1);
-		stations.add(station2);
 	}
 	
 	@Test
 	public void saveStartStation(){
+	    station1 = new Station();
+        station1.setStationName(KONTROLL1_NAME);
+        station1.setStationNumber(1);
 		patrol1.setStartStation(station1);
 		assertEquals(patrol1.getStartStation().getStationName(),KONTROLL1_NAME);
 	}
 	
 	@Test
 	public void shouldDistributePatrolsOnStationsEvenly(){
+	    station1 = new Station();
+        station1.setStationName(KONTROLL1_NAME);
+        station1.setStationNumber(1);
+        
+        station2 = new Station();
+        station2.setStationName(KONTROLL2_NAME);
+        station2.setStationNumber(2);
+        
+        stations.add(station1);
+        stations.add(station2);
 		Distribute.patrolsOnStations(patrols, stations);
 		assertEquals(patrol1.getStartStation().getStationName(),KONTROLL1_NAME);
 		assertEquals(patrol2.getStartStation().getStationName(),KONTROLL2_NAME);
@@ -84,6 +78,16 @@ public class TestDistributePatrols {
 
 	@Test
 	public void shouldDistributePatrolsOnStationsOnOddNumberOfStations(){
+	    station1 = new Station();
+        station1.setStationName(KONTROLL1_NAME);
+        station1.setStationNumber(1);
+        
+        station2 = new Station();
+        station2.setStationName(KONTROLL2_NAME);
+        station2.setStationNumber(2);
+        
+        stations.add(station1);
+        stations.add(station2);
 		station3 = new Station();
 		station3.setStationName(KONTROLL3_NAME);
 		station3.setStationNumber(3);

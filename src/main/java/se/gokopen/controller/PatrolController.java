@@ -42,16 +42,21 @@ public class PatrolController {
 	@InitBinder
     protected void initBinder(WebDataBinder binder) {
 		binder.registerCustomEditor(Track.class, new TrackEditor(this.trackService));
+		binder.registerCustomEditor(Station.class, new StationEditor(this.stationService));
     }
 	
 	@ModelAttribute("tracks")
     public List<Track> populateTracks() {
 		return trackService.getAllTracks();
 	}
+	
+//	@ModelAttribute("stations")
+//	public List<Station> populateStations(){
+//		return stationService.getAllStations();
+//	}
 
 	@RequestMapping(method=RequestMethod.POST)
-	public ModelAndView save(Patrol patrol, BindingResult errors, HttpServletRequest request, HttpServletResponse response) throws PatrolNotSavedException{
-		
+	public ModelAndView save(Patrol patrol, BindingResult errors, HttpServletRequest request, HttpServletResponse response) throws PatrolNotSavedException{		
 		//Check to see if there is a saved patrol already since we otherwise empty the scores
 		try {
 			Patrol patrolOnDisc = patrolService.getPatrolById(patrol.getPatrolId());
@@ -164,10 +169,8 @@ public class PatrolController {
 		try {
 			patrolService.deletePatrolById(Integer.parseInt(id));
 		} catch (NumberFormatException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (PatrolNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
