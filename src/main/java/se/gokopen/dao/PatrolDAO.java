@@ -10,6 +10,7 @@ import org.hibernate.criterion.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import se.gokopen.model.Patrol;
+import se.gokopen.model.Station;
 import se.gokopen.model.Track;
 
 
@@ -107,5 +108,11 @@ public class PatrolDAO {
         List<Patrol> patrols = sessionFactory.getCurrentSession().createQuery("from Patrol patr order by patr.track asc").list();
         return patrols;
     }
+
+	@SuppressWarnings("unchecked")
+	public List<Patrol> getAllPatrolsByStartStation(Station station) {
+		List<Patrol> patrols = sessionFactory.getCurrentSession().createQuery("from Patrol patr where patr.startStation= :station order by patr.patrolName asc").setParameter("station", station).list();
+		return patrols;
+	}
 }
 

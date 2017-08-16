@@ -14,6 +14,7 @@ import se.gokopen.dao.PatrolNotFoundException;
 import se.gokopen.dao.PatrolNotSavedException;
 import se.gokopen.model.Patrol;
 import se.gokopen.model.Score;
+import se.gokopen.model.Station;
 import se.gokopen.model.Status;
 import se.gokopen.model.Track;
 
@@ -156,5 +157,11 @@ public class PatrolServiceImpl implements PatrolService {
 			this.savePatrol(patrol);
 		}
 		
+	}
+
+	@Override
+	@Transactional
+	public List<Patrol> getAllPatrolsByStartStation(Station station) {
+		return patrolDao.getAllPatrolsByStartStation(station);
 	}
 }

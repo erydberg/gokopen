@@ -5,6 +5,7 @@ import java.util.List;
 import se.gokopen.dao.PatrolNotFoundException;
 import se.gokopen.dao.PatrolNotSavedException;
 import se.gokopen.model.Patrol;
+import se.gokopen.model.Station;
 import se.gokopen.model.Track;
 
 public interface PatrolService {
@@ -25,5 +26,6 @@ public interface PatrolService {
     public List<Patrol> getAllActivePatrolsLeftOnStation(Integer stationId);
     public List<Patrol> getActiveAndWaitingPatolsFromList(List<Patrol> patrols);
     public List<Patrol> getAllPatrolsCriteria();
+	public List<Patrol> getAllPatrolsByStartStation(Station station);
 }
 

@@ -1,6 +1,9 @@
 package se.gokopen.controller;
 
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -17,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 import se.gokopen.dao.TrackNotFoundException;
 import se.gokopen.model.Config;
 import se.gokopen.model.Patrol;
+import se.gokopen.model.StartStation;
 import se.gokopen.model.Station;
 import se.gokopen.model.Track;
 import se.gokopen.service.ConfigService;
@@ -95,6 +99,23 @@ public class PrintController {
 	    model.addObject("patrols",patrols);
 	    model.setViewName("printpatrolcards");
 	    return model;
+	}
+	
+	@RequestMapping(value="/patrolstartonstation", method=RequestMethod.GET)
+	public ModelAndView printPatrolStartOnStation() {
+		ModelAndView model = new ModelAndView();
+		List<Station> stations = stationService.getAllStations();
+		List<StartStation> startStations = new ArrayList<StartStation>();
+		for(Station station:stations) {
+			StartStation startStation = new StartStation();
+			startStation.setStation(station);
+			startStation.setPatrols(patrolService.getAllPatrolsByStartStation(station));
+			startStations.add(startStation);
+		}
+		model.addObject("startStations",startStations);
+		model.setViewName("printpatrolstartonstation");
+		return model;
+		
 	}
 	
 }
