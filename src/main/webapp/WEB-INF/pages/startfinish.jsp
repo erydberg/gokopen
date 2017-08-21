@@ -71,7 +71,7 @@
 					</td>
 					</c:if>
 					<c:if test="${empty patrol.status }">
-						<td class="patrolstatus">
+						<td class="patrolstatus"> 
 							<img class="patrol" data-status="registered" data-id="${patrol.patrolId}" src="${pageContext.request.contextPath}/css/registered.png"/>
 						</td>
 					</c:if>
@@ -82,12 +82,11 @@
 					<td>${patrol.totalReportedStations}</td>
 					<td>${patrol.totalScore} (${patrol.totalScorePoint}+${patrol.totalStylePoint})</td>
 					<td>
-					<fmt:formatDate value="${patrol.latestScoreTime }" pattern="yyyy" var="dummyYear" />
-					<c:if test="${dummyYear gt 2014}"><fmt:formatDate pattern="HH:mm (d/M)" value="${patrol.latestScoreTime }" /></c:if></td>
+					<fmt:formatDate value="${patrol.latestScore.lastSaved }" pattern="yyyy" var="dummyYear" />
+					<c:if test="${dummyYear gt 2014}"><fmt:formatDate pattern="HH:mm (d/M)" value="${patrol.latestScore.lastSaved }" /> ${patrol.latestScore.station.stationName }</c:if></td>
 				</tr>
 			</c:forEach>
 		</table>
-
 	</div>
 	<div>
 		<a href="${pageContext.request.contextPath}/">Tillbaka</a>

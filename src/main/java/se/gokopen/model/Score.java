@@ -24,6 +24,7 @@ public class Score {
 	private int stylePoint;
 	private Patrol patrol;
 	private Date lastSaved;
+	private boolean visitedWaypoint;
 	
 
 	public Score(){
@@ -92,4 +93,12 @@ public class Score {
 	public Patrol getPatrol() {
 		return patrol;
 	}
+
+    public boolean isVisitedWaypoint() {
+        return visitedWaypoint;
+    }
+
+    public void setVisitedWaypoint(boolean visitedWaypoint) {
+        this.visitedWaypoint = visitedWaypoint;
+    }
 }

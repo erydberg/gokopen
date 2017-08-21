@@ -39,7 +39,7 @@ ${errormsg}
 	<h2>Poäng</h2>
 Totalpoäng: ${patrol.totalScore }<br> 
 (Poäng: ${patrol.totalScorePoint } + stilpoäng: ${patrol.totalStylePoint })<br>
-Senast rapporterat: <fmt:formatDate pattern="yyyy-MM-dd H:mm" value="${patrol.latestScoreTime }" />
+Senast rapporterat: <fmt:formatDate pattern="yyyy-MM-dd H:mm" value="${patrol.latestScore.lastSaved }" />
 	</div>
 
 <div>

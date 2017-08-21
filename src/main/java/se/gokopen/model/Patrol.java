@@ -43,7 +43,7 @@ public class Patrol implements Comparable<Patrol> {
     private String leaderContact;
     private Status status;
     private Boolean paid = false;
-    private Date latestScoreTime;
+    private Score latestScore;
     private Station startStation;
 
 
@@ -147,7 +147,8 @@ public class Patrol implements Comparable<Patrol> {
 
     @OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER, orphanRemoval = true)
     @Cascade(org.hibernate.annotations.CascadeType.DELETE)
-    @OrderBy("station asc")
+    //    @OrderBy("station asc")
+    @OrderBy("lastSaved desc")
     @JoinColumn(name="fk_patrol")
     public Set<Score> getScores() {
         return scores;
@@ -241,28 +242,20 @@ public class Patrol implements Comparable<Patrol> {
     }
 
     @Transient
-    public Date getLatestScoreTime() {
-        if(this.latestScoreTime==null){
-            Calendar myCalendar = new GregorianCalendar(2014, Calendar.JANUARY, 1);
-            Date lastSaved = myCalendar.getTime();
-            for(Score score:scores){
-                if(score.getLastSaved()!=null){
-                    if(score.getLastSaved().after(lastSaved)){
-                        lastSaved = score.getLastSaved();
-                    }
-                }
+    public Score getLatestScore() {
+        Calendar myCalendar = new GregorianCalendar(2014, Calendar.JANUARY, 1);
+        Date lastSaved = myCalendar.getTime();
+        Score lastSavedScore = new Score();
+        lastSavedScore.setLastSaved(lastSaved);
+
+        for(Score score:scores) {
+            if (score.getLastSaved()!=null && score.getLastSaved().after(lastSaved)) {
+                lastSaved = score.getLastSaved();
+                lastSavedScore = score;
             }
-            return lastSaved;
-        }else{
-            return latestScoreTime;
         }
+        return lastSavedScore;
     }
-
-
-    public void setLatestScoreTime(Date latestScoreTime) {
-        this.latestScoreTime = latestScoreTime;
-    }
-
 
     @Override
     public int compareTo(Patrol p) {
@@ -275,14 +268,17 @@ public class Patrol implements Comparable<Patrol> {
     }
 
 
+
+
+
     @ManyToOne
     @JoinColumn(name="fk_station")
-	public Station getStartStation() {
-		return startStation;
-	}
+    public Station getStartStation() {
+        return startStation;
+    }
 
 
-	public void setStartStation(Station startStation) {
-		this.startStation = startStation;
-	}
+    public void setStartStation(Station startStation) {
+        this.startStation = startStation;
+    }
 }
