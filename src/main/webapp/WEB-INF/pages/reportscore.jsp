@@ -94,6 +94,11 @@
             </rightpane>
           </panes>
         </div>
+        <c:if test="${score.station.waypoint }">
+        	<label for="visitedWaypoint">Patrullen har passerat</label>
+			<form:checkbox path="visitedWaypoint" id="visitedWaypoint" /> Ja
+        </c:if>
+        <c:if test="${not score.station.waypoint }">
         <div class="form-box">
           <fieldset>
             <label for="scorePoint">Poäng: </label>
@@ -116,6 +121,7 @@
             </form:select>
           </fieldset>
         </div>
+        </c:if>
         <div class="submit-area">
           <input type="submit" name="saveScore" value="Spara"/> | <a href="${pageContext.request.contextPath}/">Avbryt</a>
         </div>

@@ -46,9 +46,15 @@ Senast rapporterat: <fmt:formatDate pattern="yyyy-MM-dd H:mm" value="${patrol.la
 <c:forEach items="${patrol.scores}" var="score">
 <div class="scoreitem">
 	<a href="${pageContext.request.contextPath}/score/editscorefrompatrol/${score.scoreId}/returnto/${patrol.patrolId}">${score.station.stationNumber}. ${score.station.stationName}</a><br/>
-	Poäng: ${score.scorePoint }<br>
-	Stilpoäng: ${score.stylePoint }<br>
-	Sparat: <fmt:formatDate pattern="yyyy-MM-dd H:mm" value="${score.lastSaved}" /><br>
+	<c:if test="${score.visitedWaypoint }">
+		Passerat: <fmt:formatDate pattern="yyyy-MM-dd H:mm" value="${score.lastSaved}" /><br>
+	</c:if>
+	<c:if test="${not score.visitedWaypoint }">
+		Poäng: ${score.scorePoint }<br>
+		Stilpoäng: ${score.stylePoint }<br>
+		Sparat: <fmt:formatDate pattern="yyyy-MM-dd H:mm" value="${score.lastSaved}" /><br> 
+	</c:if>
+	
 </div>
 </c:forEach>
 </div>

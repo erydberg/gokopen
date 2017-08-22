@@ -20,6 +20,11 @@
 <form:input path="stationNumber" id="stationNumber"/>
 <label>Namn:</label>
 <form:input path="stationName" id="stationName"/>
+<p>
+<label>Milstolpe</label>
+För kontroller där patrullen bara anmäler sig och inte får några poäng
+<form:checkbox path="waypoint" id="waypoint"/>
+</p>
 <label>Minsta poäng: </label>
 <form:input path="minScore" id="minScore"/>
 <label>Max poäng: </label>

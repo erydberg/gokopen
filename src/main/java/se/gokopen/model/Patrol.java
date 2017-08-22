@@ -27,8 +27,8 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Cascade;
 
 @Entity
-@Table(name="patrol")
-@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
+@Table(name = "patrol")
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Patrol implements Comparable<Patrol> {
     private Integer patrolId;
     private String externalId;
@@ -39,23 +39,20 @@ public class Patrol implements Comparable<Patrol> {
     private String endTime;
     private String members;
     private String note;
-    private Set <Score> scores = new LinkedHashSet<Score>();
+    private Set<Score> scores = new LinkedHashSet<Score>();
     private String leaderContact;
     private Status status;
     private Boolean paid = false;
     private Score latestScore;
     private Station startStation;
 
-
-
-    public Patrol(){
+    public Patrol() {
 
     }
 
-
     @Id
     @GeneratedValue
-    @Column(name="patrolid", nullable=false)
+    @Column(name = "patrolid", nullable = false)
     public Integer getPatrolId() {
         return patrolId;
     }
@@ -64,18 +61,16 @@ public class Patrol implements Comparable<Patrol> {
         this.patrolId = patrolId;
     }
 
-    @Column(name="externalid")
+    @Column(name = "externalid")
     public String getExternalId() {
         return externalId;
     }
-
 
     public void setExternalId(String externalId) {
         this.externalId = externalId;
     }
 
-
-    @Column(name="patrolname", length=120)
+    @Column(name = "patrolname", length = 120)
     public String getPatrolName() {
         return patrolName;
     }
@@ -84,8 +79,7 @@ public class Patrol implements Comparable<Patrol> {
         this.patrolName = patrolName;
     }
 
-
-    @Column(name="troop", length=100)
+    @Column(name = "troop", length = 100)
     public String getTroop() {
         return troop;
     }
@@ -95,7 +89,7 @@ public class Patrol implements Comparable<Patrol> {
     }
 
     @ManyToOne
-    @JoinColumn(name="fk_track")
+    @JoinColumn(name = "fk_track")
     public Track getTrack() {
         return track;
     }
@@ -104,8 +98,7 @@ public class Patrol implements Comparable<Patrol> {
         this.track = track;
     }
 
-
-    @Column(name="starttime", length=10)
+    @Column(name = "starttime", length = 10)
     public String getStartTime() {
         return startTime;
     }
@@ -114,8 +107,7 @@ public class Patrol implements Comparable<Patrol> {
         this.startTime = startTime;
     }
 
-
-    @Column(name="endtime", length=10)
+    @Column(name = "endtime", length = 10)
     public String getEndTime() {
         return endTime;
     }
@@ -124,8 +116,7 @@ public class Patrol implements Comparable<Patrol> {
         this.endTime = endTime;
     }
 
-
-    @Column(name="members", length=500)
+    @Column(name = "members", length = 500)
     public String getMembers() {
         return members;
     }
@@ -134,8 +125,7 @@ public class Patrol implements Comparable<Patrol> {
         this.members = members;
     }
 
-
-    @Column(name="note", length=500)
+    @Column(name = "note", length = 500)
     public String getNote() {
         return note;
     }
@@ -144,34 +134,32 @@ public class Patrol implements Comparable<Patrol> {
         this.note = note;
     }
 
-
-    @OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER, orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     @Cascade(org.hibernate.annotations.CascadeType.DELETE)
-    //    @OrderBy("station asc")
+    // @OrderBy("station asc")
     @OrderBy("lastSaved desc")
-    @JoinColumn(name="fk_patrol")
+    @JoinColumn(name = "fk_patrol")
     public Set<Score> getScores() {
         return scores;
     }
+
     public void setScores(Set<Score> scores) {
         this.scores = scores;
     }
 
-
     public void deleteScore(Score scoreRemove) {
-        //find in set of scores and delete it
+        // find in set of scores and delete it
         Iterator<Score> itt = scores.iterator();
-        while(itt.hasNext()){
+        while (itt.hasNext()) {
             Score s = itt.next();
-            if(s.getScoreId().equals(scoreRemove.getScoreId())){
+            if (s.getScoreId().equals(scoreRemove.getScoreId())) {
                 System.out.println("found scoreID" + s.getScoreId() + " in scores and removed it");
                 itt.remove();
             }
         }
     }
 
-
-    @Column(name="leadercontact", length=100)
+    @Column(name = "leadercontact", length = 100)
     public String getLeaderContact() {
         return leaderContact;
     }
@@ -179,7 +167,6 @@ public class Patrol implements Comparable<Patrol> {
     public void setLeaderContact(String leaderContact) {
         this.leaderContact = leaderContact;
     }
-
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status")
@@ -191,52 +178,51 @@ public class Patrol implements Comparable<Patrol> {
         this.status = status;
     }
 
-    @Column(name="paid")
+    @Column(name = "paid")
     public Boolean getPaid() {
         return paid;
     }
-
 
     public void setPaid(Boolean paid) {
         this.paid = paid;
     }
 
-
     @Override
-    public String toString(){
+    public String toString() {
         return String.valueOf(patrolId);
     }
 
     @Transient
-    public String getPatrolInfo(){
-        return getPatrolName() + " (" + getPatrolId() + ") - " + (track != null ? track.getTrackName() : "(odefinierad klass)") + " (" + getTroop() + ")";
+    public String getPatrolInfo() {
+        return getPatrolName() + " (" + getPatrolId() + ") - "
+                + (track != null ? track.getTrackName() : "(odefinierad klass)") + " (" + getTroop() + ")";
     }
 
     @Transient
-    public Integer getTotalScorePoint(){
+    public Integer getTotalScorePoint() {
         Integer points = 0;
-        for (Score score:scores){
+        for (Score score : scores) {
             points = points + score.getScorePoint();
         }
         return points;
     }
 
     @Transient
-    public Integer getTotalStylePoint(){
+    public Integer getTotalStylePoint() {
         Integer points = 0;
-        for (Score score:scores){
+        for (Score score : scores) {
             points = points + score.getStylePoint();
         }
         return points;
     }
 
     @Transient
-    public Integer getTotalReportedStations(){
+    public Integer getTotalReportedStations() {
         return scores.size();
     }
 
     @Transient
-    public Integer getTotalScore(){
+    public Integer getTotalScore() {
         return this.getTotalStylePoint() + this.getTotalScorePoint();
 
     }
@@ -248,8 +234,8 @@ public class Patrol implements Comparable<Patrol> {
         Score lastSavedScore = new Score();
         lastSavedScore.setLastSaved(lastSaved);
 
-        for(Score score:scores) {
-            if (score.getLastSaved()!=null && score.getLastSaved().after(lastSaved)) {
+        for (Score score : scores) {
+            if (score.getLastSaved() != null && score.getLastSaved().after(lastSaved)) {
                 lastSaved = score.getLastSaved();
                 lastSavedScore = score;
             }
@@ -260,23 +246,18 @@ public class Patrol implements Comparable<Patrol> {
     @Override
     public int compareTo(Patrol p) {
         int comp = p.getTotalScore().compareTo(getTotalScore());
-        if (comp==0){
+        if (comp == 0) {
             comp = p.getTotalScorePoint().compareTo(getTotalScorePoint());
         }
-        //här borde finnas logik för att hitta flest högpoänger
+        // här borde finnas logik för att hitta flest högpoänger
         return comp;
     }
 
-
-
-
-
     @ManyToOne
-    @JoinColumn(name="fk_station")
+    @JoinColumn(name = "fk_station")
     public Station getStartStation() {
         return startStation;
     }
-
 
     public void setStartStation(Station startStation) {
         this.startStation = startStation;
