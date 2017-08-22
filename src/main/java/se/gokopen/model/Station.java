@@ -24,7 +24,7 @@ public class Station {
 	private String stationContact;
 	private String stationPhonenumber;
 	private String stationUser;
-	private boolean waypoint;
+	private Boolean waypoint = false; 
 	
 	public Station(){
 		
@@ -125,19 +125,16 @@ public class Station {
 	}
 	
 	@Column(name="waypoint")
-	public boolean isWaypoint() {
+	public Boolean getWaypoint() {
 		return waypoint;
 	}
 
-	public void setWaypoint(boolean waypoint) {
+	public void setWaypoint(Boolean waypoint) {
 		this.waypoint = waypoint;
 	}
 	
 	@Override
     public String toString() {
-        return "Station [stationId=" + stationId + ", stationNumber=" + stationNumber + ", stationName=" + stationName
-                + ", minScore=" + minScore + ", maxScore=" + maxScore + ", minStyleScore=" + minStyleScore
-                + ", maxStyleScore=" + maxStyleScore + ", stationContact=" + stationContact + ", stationPhonenumber="
-                + stationPhonenumber + ", stationUser=" + stationUser + ", waypoint=" + waypoint + "]";
+        return String.valueOf(stationId);
     }
 }

@@ -54,7 +54,7 @@ public class CorrectScoreController {
         List<Station> stations = stationService.getAllStations();
         ModelAndView model = new ModelAndView();
         try {
-            selectedStation = stationService.getStationById(selectedStation.getStationId());
+            //selectedStation = stationService.getStationById(selectedStation.getStationId());
             model.addObject("stations", stations);
             model.addObject("selectedstation",selectedStation);
 
@@ -65,7 +65,7 @@ public class CorrectScoreController {
             }else{
                 model.addObject("errormsg","Du kan inte ändra poäng på den här kontrollen.");
             }
-        } catch (NumberFormatException | StationNotFoundException e) {
+        } catch (NumberFormatException e) {
             model.addObject("selectedstation",new Station());
         } 
         model.setViewName("correctscorestartpage");
