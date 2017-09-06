@@ -153,36 +153,42 @@ public class ScoreController {
 	public ModelAndView saveScore(Score score, BindingResult errors,
 			HttpServletRequest request, HttpServletResponse response) {
 	    ModelAndView model = new ModelAndView();
+	    
 		if(score.getPatrol()==null){
 		    model.addObject("errormsg","Du måste välja en patrull innan du sparar poängen.");
 		}else{
 		try {
 		        score.setScoreId(null); //Tempfix då jag får in en befintlig böna
 				scoreService.saveScore(score);
-				model.addObject("alertmsg", "Sparat "+ score.getScorePoint() + " poäng och " + score.getStylePoint() + " stilpoäng till " + score.getPatrol().getPatrolName() + ".");
-				
-//				request.setAttribute("oldPatr", score.getPatrol());
-//				request.setAttribute("oldScore", score);
+				if(score.isVisitedWaypoint()) {
+				    model.addObject("alertmsg", "Sparat att patrull " + score.getPatrol().getPatrolName() + " har passerat kontrollen.");
+				}else {
+				    model.addObject("alertmsg", "Sparat "+ score.getScorePoint() + " poäng och " + score.getStylePoint() + " stilpoäng till " + score.getPatrol().getPatrolName() + ".");
+				}
 
 			} catch (ScoreNotSavedException e) {
 			    request.setAttribute("errormsg",e.getErrorMsg());
 			}
 		}
+		
+		
+		model.addObject("saved", true);
 
 		Score scorenew = new Score();
 		Station stationTest = new Station();
 		try {
 			stationTest = stationService.getStationById(score.getStation().getStationId());
+			
 		} catch (StationNotFoundException e) {
 			model.addObject("errormsg","Kunde inte hitta kontrollen");
 		}
+		
 		scorenew.setStation(stationTest);
-		List<Patrol> patrols = patrolService.getAllActivePatrolsLeftOnStation(score.getStation().getStationId());
+		List<Patrol> patrols = patrolService.getAllActivePatrolsLeftOnStation(stationTest.getStationId());
 		model.addObject("patrols",patrols);
 		model.addObject("score",scorenew);
 
 		model.setViewName("reportscore");
-		System.out.println("nu är vi här med scoreId: " + scorenew.getScoreId());
 		return model;
 	}
 

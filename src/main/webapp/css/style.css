@@ -334,3 +334,21 @@ quicknum button {
 	margin-left:10px;
 	margin-right:10px;
 }
+
+.radio-score input[type="radio"] {
+  display: none;
+}
+
+.radio-score label {
+  display: inline-block;
+  background-color: #eee;
+  padding: 4px 11px;
+  margin-bottom: 5px;
+  font-family: Arial;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.radio-score input[type="radio"]:checked+label {
+  background-color: #bbb;
+}

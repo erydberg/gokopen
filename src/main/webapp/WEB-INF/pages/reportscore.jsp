@@ -22,17 +22,14 @@
     </script>
   </head>
   <body>
-    <c:if test="${not empty oldPatr }">
-      <div class="statusrow">
-        Sparat ${oldScore.scorePoint} + ${oldScore.stylePoint} poäng till ${oldPatr.patrolName }.
-      </div>
-    </c:if>
     <c:if test="${not empty errormsg }">
       <div class="errorblock">
         ${errormsg}
       </div>
     </c:if>
     <h1>Rapportera poäng</h1>
+score: ${score }
+    
     <c:if test="${empty score.station }">
       <form:form commandName="score" method="post" action="${pageContext.request.contextPath}/score/selectstation" cssClass="form-general">
         <form:hidden path="scoreId" id="scoreId" />
@@ -94,34 +91,9 @@
             </rightpane>
           </panes>
         </div>
-        <c:if test="${score.station.waypoint }">
-        	<label for="visitedWaypoint">Patrullen har passerat</label>
-			<form:checkbox path="visitedWaypoint" id="visitedWaypoint" /> Ja
-        </c:if>
-        <c:if test="${not score.station.waypoint }">
-        <div class="form-box">
-          <fieldset>
-            <label for="scorePoint">Poäng: </label>
-            <form:select path="scorePoint" id="scorePoint">
-              <c:forEach var="j" begin="${score.station.minScore}" end="${score.station.maxScore}">
-              <c:if test="${score.scorePoint==j }"><option selected="selected" value="${j}">${j}</option></c:if>
-              <c:if test="${score.scorePoint!=j }"><option value="${j}">${j}</option></c:if>
-              </c:forEach>
-            </form:select>
-          </fieldset>
-        </div>
-        <div class="form-box">
-          <fieldset>
-            <label for="stylePoint">Stilpoäng: </label>
-            <form:select path="stylePoint" id="stylePoint">
-              <c:forEach var="i" begin="${score.station.minStyleScore}" end="${score.station.maxStyleScore}">
-              <c:if test="${score.stylePoint==i }"><option selected="selected" value="${i}">${i}</option></c:if>
-              <c:if test="${score.stylePoint!=i }"><option value="${i}">${i}</option></c:if>
-              </c:forEach>
-            </form:select>
-          </fieldset>
-        </div>
-        </c:if>
+      
+       <jsp:include page="include_editscore.jsp" flush="false"></jsp:include>
+       
         <div class="submit-area">
           <input type="submit" name="saveScore" value="Spara"/> | <a href="${pageContext.request.contextPath}/">Avbryt</a>
         </div>
