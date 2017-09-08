@@ -54,18 +54,18 @@ public class CorrectScoreController {
         List<Station> stations = stationService.getAllStations();
         ModelAndView model = new ModelAndView();
         try {
-            //selectedStation = stationService.getStationById(selectedStation.getStationId());
+            Station station = stationService.getStationById(selectedStation.getStationId());
             model.addObject("stations", stations);
-            model.addObject("selectedstation",selectedStation);
+            model.addObject("selectedstation",station);
 
             //hämta poäng för den kontrollen
-            if(SecurityChecker.isEditAllowedForCurrentUserOnStation(selectedStation)){
-                List<Score> scores = scoreService.getScoreOnStation(selectedStation.getStationId());
+            if(SecurityChecker.isEditAllowedForCurrentUserOnStation(station)){
+                List<Score> scores = scoreService.getScoreOnStation(station.getStationId());
                 model.addObject("scores",scores);    
             }else{
                 model.addObject("errormsg","Du kan inte ändra poäng på den här kontrollen.");
             }
-        } catch (NumberFormatException e) {
+        } catch (NumberFormatException | StationNotFoundException e) {
             model.addObject("selectedstation",new Station());
         } 
         model.setViewName("correctscorestartpage");

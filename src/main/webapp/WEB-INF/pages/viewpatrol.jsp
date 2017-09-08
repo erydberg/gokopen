@@ -43,8 +43,10 @@ Senast rapporterat: <fmt:formatDate pattern="yyyy-MM-dd H:mm" value="${patrol.la
 	</div>
 
 <div>
+<small>Sorterade med senaste poängen överst</small>
 <c:forEach items="${patrol.scores}" var="score">
 <div class="scoreitem">
+
 	<a href="${pageContext.request.contextPath}/score/editscorefrompatrol/${score.scoreId}/returnto/${patrol.patrolId}">${score.station.stationNumber}. ${score.station.stationName}</a><br/>
 	<c:if test="${score.visitedWaypoint }">
 		Passerat: <fmt:formatDate pattern="yyyy-MM-dd H:mm" value="${score.lastSaved}" /><br>

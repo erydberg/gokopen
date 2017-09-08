@@ -27,9 +27,7 @@
         ${errormsg}
       </div>
     </c:if>
-    <h1>Rapportera poäng</h1>
-score: ${score }
-    
+    <h1>Rapportera poäng</h1>   
     <c:if test="${empty score.station }">
       <form:form commandName="score" method="post" action="${pageContext.request.contextPath}/score/selectstation" cssClass="form-general">
         <form:hidden path="scoreId" id="scoreId" />

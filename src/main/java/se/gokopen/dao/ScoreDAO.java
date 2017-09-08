@@ -71,8 +71,6 @@ public class ScoreDAO {
 
 	@SuppressWarnings("unchecked")
     public List<Score> getAllScoresOnStation(Integer stationId) {
-	    List<Score> scores = sessionFactory.getCurrentSession().createQuery("from Score as score where score.station.stationId= :stationid order by score.patrol.patrolName").setParameter("stationid", stationId).list();
-	    
-        return scores;
+	    return sessionFactory.getCurrentSession().createQuery("from Score as score where score.station.stationId= :stationid order by score.lastSaved desc").setParameter("stationid", stationId).list();
     }
 }
