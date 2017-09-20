@@ -18,6 +18,7 @@
         	if(typeof msg !== 'undefined'){
         		alert(msg);
         		$("input:radio").removeAttr("checked");
+        		$("input:checkbox").removeAttr("checked");
         	}
         });
     </script>
