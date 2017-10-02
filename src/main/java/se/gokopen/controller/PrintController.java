@@ -74,10 +74,8 @@ public class PrintController {
 		try {
 			track = trackService.getTrackById(Integer.parseInt(id));
 		} catch (NumberFormatException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (TrackNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		request.setAttribute("selectedTrack", track.getTrackName());
@@ -90,16 +88,29 @@ public class PrintController {
 	
 	@RequestMapping(value="/patrolscorecards", method=RequestMethod.GET)
 	public ModelAndView printPatrolCards(){
-	    ModelAndView model = new ModelAndView();
+	    ModelAndView model = preparePatrolsForPrint();
+	    model.setViewName("printpatrolcards");
+	    return model;
+	}
+
+	@RequestMapping(value="/smallpatrolcards", method=RequestMethod.GET)
+    public ModelAndView printSmallPatrolCards() {
+        ModelAndView model = preparePatrolsForPrint();
+        model.setViewName("printsmallpatrolcards");
+        return model;
+    }
+	
+	private ModelAndView preparePatrolsForPrint() {
+        ModelAndView model = new ModelAndView();
 	    Config config = configService.getCurrentConfig();
 	    model.addObject("config",config);
 	    List<Station> stations = stationService.getAllStations();
 	    model.addObject("stations",stations);
 	    List<Patrol> patrols = patrolService.getAllPatrols();
 	    model.addObject("patrols",patrols);
-	    model.setViewName("printpatrolcards");
-	    return model;
-	}
+        return model;
+    }
+	
 	
 	@RequestMapping(value="/patrolstartonstation", method=RequestMethod.GET)
 	public ModelAndView printPatrolStartOnStation() {

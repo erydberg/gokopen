@@ -72,6 +72,41 @@ caption, th {
 	height: 60px;
 }
 
+.printpage{
+	height: 210mm;
+  	width: 297mm;
+}
+
+
+.smallcard{
+	border:1px solid black;
+	width:65mm;
+	height:108mm;
+	display:inline-block;
+	margin-right:5px;
+	margin-bottom:10px;	
+	text-align:center;
+	
+}
+.smallcard ul{
+	list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.stationlist{
+	padding-top:15px;
+}
+.stations li{
+	font-size:xxx-large;
+	display:inline;
+	float:left;
+	padding:10px;
+	margin:5px;
+	border:1px solid black;
+	
+}
+
 hidden {
     display: none;
 }

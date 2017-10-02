@@ -24,7 +24,8 @@ ${errormsg}
 <ul>
 <sec:authorize access="hasAnyRole('ROLE_ADMIN','ROLE_STARTFINISH')">
 <li class="nav-item"><a href="${pageContext.request.contextPath}/print/stationscorecards">Kontrollistor</a><br>Skriver ut listor där kontrollerna ska fylla i patrullernas poäng. En backupåtgärd ifall inrapporteringen slutar fungera.</li>
-<li class="nav-item"><a href="${pageContext.request.contextPath}/print/patrolscorecards">Startkort för patruller</a><br>Skriver ut startkort till alla patruller, sorterade i bokstavsordning. Testa att skriv ut 2 sidor på 1 sida för att få A5-format på startkorten.</li>
+<li class="nav-item"><a href="${pageContext.request.contextPath}/print/patrolscorecards">Kompletta startkort för patruller</a><br>Skriver ut startkort till alla patruller, sorterade i bokstavsordning. Startkorten innehåller patrullinformation samt kolumner för att fylla i poäng på alla kontroller. Testa att skriv ut 2 sidor på 1 sida för att få A5-format på startkorten.</li>
+<li class="nav-item"><a href="${pageContext.request.contextPath}/print/smallpatrolcards">Små startkort för patruller</a><br>Skriver ut startkort till alla patruller, sorterade i bokstavsordning. Startkorten innehåller patrullinformation samt små "kryssrutor" för kontrollerna. Inte meningen att fylla i poängen i dessa rutor.</li>
 <li class="nav-item"><a href="${pageContext.request.contextPath}/print/patrolstartonstation">Startlista per kontroll</a><br>Skriver ut en lista med alla patruller som ska starta på respektive kontroll.</li>
 </sec:authorize>
 </ul>
