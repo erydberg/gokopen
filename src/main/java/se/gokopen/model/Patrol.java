@@ -242,6 +242,25 @@ public class Patrol implements Comparable<Patrol> {
         }
         return lastSavedScore;
     }
+    
+    @Transient
+    public Integer getNumberOfMaxPoints() {
+        int numberOfMaxPoints = 0;
+        for(Score score:scores) {
+            Station currentStation = score.getStation();
+            if(null == currentStation.getWaypoint()) {
+                currentStation.setWaypoint(false);
+            }
+            if(!score.getStation().getWaypoint()) {
+                int maxScoreOnStation = score.getStation().getMaxScore();
+                if(score.getScorePoint() == maxScoreOnStation) {
+                    numberOfMaxPoints++;
+                }
+            }
+        }
+        System.out.println("antal max" + numberOfMaxPoints);
+        return numberOfMaxPoints;
+    }
 
     @Override
     public int compareTo(Patrol p) {
@@ -249,7 +268,10 @@ public class Patrol implements Comparable<Patrol> {
         if (comp == 0) {
             comp = p.getTotalScorePoint().compareTo(getTotalScorePoint());
         }
-        // här borde finnas logik för att hitta flest högpoänger
+        if(comp == 0) {
+            //samma antal poäng, samma antal stilpoäng, nu jämför vi antal 10-or
+            comp = p.getNumberOfMaxPoints().compareTo(getNumberOfMaxPoints());
+        }
         return comp;
     }
 

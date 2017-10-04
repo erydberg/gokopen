@@ -33,7 +33,8 @@
 	${patrol.troop }<br/>
 	<strong>Totalt: ${patrol.totalScore }</strong><br/>
 	(${patrol.totalScorePoint } poäng + ${patrol.totalStylePoint} stilpoäng)<br/>
-	Antal kontroller: ${patrol.totalReportedStations }
+	<small>Antal kontroller: ${patrol.totalReportedStations }</small><br>
+	<small>Antal kontroller med maxpoäng: ${patrol.numberOfMaxPoints }</small>
 	</div>
 	</c:forEach>
 	</c:if>
