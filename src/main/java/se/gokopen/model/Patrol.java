@@ -245,21 +245,25 @@ public class Patrol implements Comparable<Patrol> {
     
     @Transient
     public Integer getNumberOfMaxPoints() {
-        int numberOfMaxPoints = 0;
+        return getNumberOfXPoints(0);
+    }
+    
+    @Transient
+    public Integer getNumberOfXPoints(int x) {
+        int numberOfXPoints = 0;
         for(Score score:scores) {
             Station currentStation = score.getStation();
             if(null == currentStation.getWaypoint()) {
                 currentStation.setWaypoint(false);
             }
-            if(!score.getStation().getWaypoint()) {
-                int maxScoreOnStation = score.getStation().getMaxScore();
+            if((!score.getStation().getWaypoint()) && ((score.getStation().getMaxScore()-x>0))){
+                int maxScoreOnStation = score.getStation().getMaxScore()-x;
                 if(score.getScorePoint() == maxScoreOnStation) {
-                    numberOfMaxPoints++;
+                    numberOfXPoints++;
                 }
             }
         }
-        System.out.println("antal max" + numberOfMaxPoints);
-        return numberOfMaxPoints;
+        return numberOfXPoints;
     }
 
     @Override
@@ -268,9 +272,16 @@ public class Patrol implements Comparable<Patrol> {
         if (comp == 0) {
             comp = p.getTotalScorePoint().compareTo(getTotalScorePoint());
         }
+        
         if(comp == 0) {
-            //samma antal poäng, samma antal stilpoäng, nu jämför vi antal 10-or
-            comp = p.getNumberOfMaxPoints().compareTo(getNumberOfMaxPoints());
+            //loopar igenom så många poäng vi vill, satt till max 50
+            for(int i = 0;i<=50;i++) {
+                System.out.println("kollar om max-poäng - " + i);
+                comp = p.getNumberOfXPoints(i).compareTo(getNumberOfXPoints(i));
+                if(comp != 0) {
+                    break;
+                }
+            }
         }
         return comp;
     }
