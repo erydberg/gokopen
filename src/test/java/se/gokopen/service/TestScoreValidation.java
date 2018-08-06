@@ -4,6 +4,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,6 +47,7 @@ public class TestScoreValidation {
                
     }
 
+    @Ignore
     @Test
     public void shouldNotSaveIfScoreAlreadySaved() throws PatrolNotSavedException, StationNotSavedException{
         patrol1 = new Patrol();

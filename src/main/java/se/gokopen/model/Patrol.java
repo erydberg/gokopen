@@ -41,6 +41,7 @@ public class Patrol implements Comparable<Patrol> {
     private String note;
     private Set<Score> scores = new LinkedHashSet<Score>();
     private String leaderContact;
+    private String leaderContactMail;
     private Status status;
     private Boolean paid = false;
     private Score latestScore;
@@ -166,6 +167,15 @@ public class Patrol implements Comparable<Patrol> {
 
     public void setLeaderContact(String leaderContact) {
         this.leaderContact = leaderContact;
+    }
+
+    @Column(name = "contactmail", length = 250)
+    public String getLeaderContactMail() {
+        return leaderContactMail;
+    }
+
+    public void setLeaderContactMail(String leaderContactMail) {
+        this.leaderContactMail = leaderContactMail;
     }
 
     @Enumerated(EnumType.STRING)

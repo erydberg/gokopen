@@ -7,6 +7,9 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import static org.junit.Assert.assertNotNull;
+
+import org.junit.Ignore;
+
 import se.gokopen.dao.PatrolNotFoundException;
 import se.gokopen.dao.PatrolNotSavedException;
 import se.gokopen.model.Patrol;
@@ -22,6 +25,7 @@ public class TestCreatePatrol {
     @Autowired
     private PatrolService patrolService;
     
+    @Ignore
     @Test
     public void shouldCreatePatrolInDatabase() throws PatrolNotSavedException, PatrolNotFoundException{
         Patrol patrol = new Patrol();

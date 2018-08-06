@@ -13,6 +13,7 @@
 		<!-- <headers disabled="true" /> -->
 		<access-denied-handler error-page="/403" />
 		<intercept-url pattern="/login/**" access="permitAll" />
+		<intercept-url pattern="/register/**" access="permitAll" />
 		<intercept-url pattern="/loginfailed/**" access="permitAll" />
 		<intercept-url pattern="/public/**" access="permitAll" />
 		<intercept-url pattern="/403/**" access="permitAll" />

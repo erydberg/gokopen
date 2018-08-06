@@ -2,6 +2,7 @@ package se.gokopen.service;
 
 import static org.junit.Assert.assertNotNull;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,7 @@ public class TestUserService {
     @Autowired
     private UserService userService;
     
+    @Ignore
     @Test
     public void shouldCreateUserWithAdminRights(){
        User user = new User();
