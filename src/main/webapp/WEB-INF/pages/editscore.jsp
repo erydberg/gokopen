@@ -11,7 +11,11 @@
 <title>Ändra poäng</title>
 </head>
 <body>
-	<h1>Ändra poäng</h1>
+	<div class="nav-box">
+		<div class="page-head">
+			<h1>Ändra poäng</h1>
+		</div>
+	</div>
 	<c:if test="${not empty score.station }">
 		<form:form commandName="score" method="post"
 			action="${pageContext.request.contextPath}/score/savescorefrompatrol"
@@ -19,7 +23,8 @@
 			<form:hidden path="scoreId" id="scoreId" />
 				Kontroll: ${score.station.stationName }<br>
 				Patrull: ${score.patrol.patrolName }<br>
-				Sparat: <fmt:formatDate pattern="yyyy-MM-dd H:m" value="${score.lastSaved}" />
+				Sparat: <fmt:formatDate pattern="yyyy-MM-dd H:m"
+				value="${score.lastSaved}" />
 			<br>
 			<form:hidden path="patrol" id="patrol" />
 			<form:hidden path="station.stationId" id="station.stationId" />

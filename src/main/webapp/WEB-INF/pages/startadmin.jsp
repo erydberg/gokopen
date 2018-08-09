@@ -9,7 +9,9 @@
 </head>
 <body>
 <div class="nav-box">
+<div class="page-head">
 <h1>${config.name } administration</h1>
+</div>
 <ul>
 <li class="nav-item"><a href="${pageContext.request.contextPath}/patrol">Patruller</a></li>
 <li class="nav-item"><a href="${pageContext.request.contextPath}/admin/station">Kontroller</a></li>

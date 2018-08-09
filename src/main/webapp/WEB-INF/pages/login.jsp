@@ -11,11 +11,14 @@
 			<h1>${config.name }</h1>
 			</div>
 			</div>
+			<div class="ingress_background">
+
 			<div class="ingress">
 				Logga in för att rapportera poäng.<br>
 				<c:if test="${config.allowPublicResult}">
 					<p>Du kan titta på den aktuella <a href="${pageContext.request.contextPath}/public/">poängställningen</a> utan att logga in.</p>
 				</c:if>
+			</div>
 			</div>
 			
 <form name="f" action="${pageContext.request.contextPath}/login" method="POST" class="form-general">

@@ -17,7 +17,9 @@
 ${errormsg}
 </div>
 </c:if>
+<div class="page-head">
 <h1>${config.name }</h1>
+</div>
 <ul>
 <li class="nav-item"><a href="${pageContext.request.contextPath}/score/">Rapportera poäng</a></li>
 <li class="nav-item"><a href="${pageContext.request.contextPath}/correctscore">Ändra poäng</a></li>

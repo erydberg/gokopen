@@ -20,7 +20,9 @@ ${errormsg}
 <span class="toolbar">
 			<a class="toolitem" href="${pageContext.request.contextPath}/admin/"><img src="${pageContext.request.contextPath}/css/back2.png"></a>
 		</span>
+		<div class="page-head">
 <h1>Skriva ut</h1>
+</div>
 <ul>
 <sec:authorize access="hasAnyRole('ROLE_ADMIN','ROLE_STARTFINISH')">
 <li class="nav-item"><a href="${pageContext.request.contextPath}/print/stationscorecards">Kontrollistor</a><br>Skriver ut listor där kontrollerna ska fylla i patrullernas poäng. En backupåtgärd ifall inrapporteringen slutar fungera.</li>

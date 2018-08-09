@@ -2,6 +2,7 @@ package se.gokopen.service;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -21,75 +22,87 @@ import se.gokopen.model.Track;
 @Service
 public class PatrolServiceImpl implements PatrolService {
 
-	@Autowired
-	private PatrolDAO patrolDao;
-	
-	@Override
-	@Transactional
-	public void savePatrol(Patrol patrol) throws PatrolNotSavedException {
-		patrolDao.save(patrol);
-	}
+    @Autowired
+    private PatrolDAO patrolDao;
 
-	@Override
-	@Transactional
-	public List<Patrol> getAllPatrols() {
-		return patrolDao.getAllPatrols();
-	}
+    @Override
+    @Transactional
+    public void savePatrol(Patrol patrol) throws PatrolNotSavedException {
+        if(isNewPatrol(patrol)) {
+            Date registered = new Date();
+            patrol.setDateRegistered(registered);
+        }
+        patrolDao.save(patrol);
+    }
 
-	@Override
-	@Transactional
-	public void deletePatrol(Patrol patrol) throws PatrolNotFoundException {
-		patrolDao.delete(patrol);
+    private boolean isNewPatrol(Patrol patrol) {
+        if(patrol.getPatrolId()==null || patrol.getPatrolId()==0) {
+            return true;
+        }else {
+            return false;
+        }
+    }
 
-	}
+    @Override
+    @Transactional
+    public List<Patrol> getAllPatrols() {
+        return patrolDao.getAllPatrols();
+    }
 
-	@Override
-	@Transactional
-	public void deletePatrolById(Integer id) throws PatrolNotFoundException {
-		patrolDao.deleteById(id);
+    @Override
+    @Transactional
+    public void deletePatrol(Patrol patrol) throws PatrolNotFoundException {
+        patrolDao.delete(patrol);
 
-	}
+    }
 
-	@Override
-	@Transactional
-	public Patrol getPatrolById(Integer id) throws PatrolNotFoundException {
-		return patrolDao.getById(id);
-	}
-	
-	
-	@Override
-	@Transactional
-	public List<Patrol> getAllPatrolsByTrackId(Integer trackId) {
-		return patrolDao.getPatrolsByTrackId(trackId);
-	}
-	@Override
-	@Transactional
-	public List<Patrol> getAllPatrolsByTrack(Track track) {
-	    List<Patrol> patrols = patrolDao.getPatrolsByTrack(track);
-	    Collections.sort(patrols); //sorterar efter högst poäng (standardsortering för patrolsklassen)
-		return patrols;
-	}
+    @Override
+    @Transactional
+    public void deletePatrolById(Integer id) throws PatrolNotFoundException {
+        patrolDao.deleteById(id);
 
-	@Override
-	@Transactional
-	public List<Patrol> getAllPatrolsLeftOnStation(Integer stationId) {
-		List<Patrol> allPatrols = patrolDao.getAllPatrols();
+    }
 
-		Iterator<Patrol> itt = allPatrols.iterator();
-		while(itt.hasNext()){
-			Patrol patrol = (Patrol) itt.next();
-			Iterator<Score> scores = patrol.getScores().iterator();
-			while(scores.hasNext()){
-				Score score = scores.next();
-				if(score.getStation().getStationId()==stationId){
-					itt.remove();
-					break;
-				}
-			}
-		}
+    @Override
+    @Transactional
+    public Patrol getPatrolById(Integer id) throws PatrolNotFoundException {
+        return patrolDao.getById(id);
+    }
 
-		return allPatrols;
-	}
+
+    @Override
+    @Transactional
+    public List<Patrol> getAllPatrolsByTrackId(Integer trackId) {
+        return patrolDao.getPatrolsByTrackId(trackId);
+    }
+    @Override
+    @Transactional
+    public List<Patrol> getAllPatrolsByTrack(Track track) {
+        List<Patrol> patrols = patrolDao.getPatrolsByTrack(track);
+        Collections.sort(patrols); //sorterar efter högst poäng (standardsortering för patrolsklassen)
+        return patrols;
+    }
+
+    @Override
+    @Transactional
+    public List<Patrol> getAllPatrolsLeftOnStation(Integer stationId) {
+        List<Patrol> allPatrols = patrolDao.getAllPatrols();
+
+        Iterator<Patrol> itt = allPatrols.iterator();
+        while(itt.hasNext()){
+            Patrol patrol = (Patrol) itt.next();
+            Iterator<Score> scores = patrol.getScores().iterator();
+            while(scores.hasNext()){
+                Score score = scores.next();
+                if(score.getStation().getStationId()==stationId){
+                    itt.remove();
+                    break;
+                }
+            }
+        }
+
+        return allPatrols;
+    }
 
     @Override
     @Transactional
@@ -148,20 +161,20 @@ public class PatrolServiceImpl implements PatrolService {
     @Transactional
     public List<Patrol> getAllPatrolsCriteria() {
         return patrolDao.getAllPatrols();
+    }
+
+    @Override
+    @Transactional
+    public void saveAllpatrols(List<Patrol> patrols) throws PatrolNotSavedException {
+        for(Patrol patrol:patrols){
+            this.savePatrol(patrol);
         }
 
-	@Override
-	@Transactional
-	public void saveAllpatrols(List<Patrol> patrols) throws PatrolNotSavedException {
-		for(Patrol patrol:patrols){
-			this.savePatrol(patrol);
-		}
-		
-	}
+    }
 
-	@Override
-	@Transactional
-	public List<Patrol> getAllPatrolsByStartStation(Station station) {
-		return patrolDao.getAllPatrolsByStartStation(station);
-	}
+    @Override
+    @Transactional
+    public List<Patrol> getAllPatrolsByStartStation(Station station) {
+        return patrolDao.getAllPatrolsByStartStation(station);
+    }
 }

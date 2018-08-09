@@ -25,7 +25,9 @@ ${msg }
 <span class="toolbar">
 			<a class="toolitem" href="${pageContext.request.contextPath}/admin/"><img src="${pageContext.request.contextPath}/css/back2.png"></a>
 		</span>
+		<div class="page-head">
 <h1>Fördela patrullernas startkontroller</h1>
+</div>
 <ul>
 <sec:authorize access="hasAnyRole('ROLE_ADMIN')">
 <li class="nav-item"><a href="${pageContext.request.contextPath}/admin/distribute/all">Fördela alla patruller jämt över alla kontroller</a><br></li>

@@ -60,6 +60,14 @@
 					<label>Ledare: </label>
 					<form:input path="leaderContact" id="leaderContact" />
 				</div>
+				<div class="text size-3">
+					<label>E-post till ledare: </label>
+					<form:input path="leaderContactMail" id="leaderContactMail" />
+				</div>
+				<div class="text size-3">
+					<label>Mobiltelefonnummer till ledare: </label>
+					<form:input path="leaderContactPhone" id="leaderContactPhone" />
+				</div>
 				<div>
 					<label>Betalt:</label>
 					<form:checkbox path="paid" id="paid"/>

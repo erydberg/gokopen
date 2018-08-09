@@ -1,71 +1,85 @@
 package se.gokopen.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import se.gokopen.dao.PatrolNotSavedException;
+import se.gokopen.model.Config;
 import se.gokopen.model.Patrol;
 import se.gokopen.model.Track;
 import se.gokopen.service.ConfigService;
 import se.gokopen.service.PatrolService;
 import se.gokopen.service.TrackService;
 
-@RequestMapping("/register")
 @Controller
+@RequestMapping("/register")
 public class PublicRegisterPatrolController {
-    
+
     @Autowired
     private ConfigService configService;
-    
+
     @Autowired
     private TrackService trackService;
-    
+
     @Autowired
     private PatrolService patrolService;
-    
+
     @InitBinder
     protected void initBinder(WebDataBinder binder) {
         binder.registerCustomEditor(Track.class, new TrackEditor(this.trackService));
     }
     
-    @RequestMapping(method = RequestMethod.GET)
+    @ModelAttribute("tracks")
+    public List<Track> populateTracks() {
+        return trackService.getAllTracks();
+    }
+    
+    @ModelAttribute("config")
+    public Config loadConfiguration() {
+        return configService.getCurrentConfig();
+    }
+
+    @GetMapping
     public ModelAndView showRegisterPatrolForm(HttpServletRequest request) {
+        //TODO koll om registreringen är öppen, annars visa att det inte går att registrera
         ModelMap map = new ModelMap();
-        map.put("config", configService.getCurrentConfig());
-        map.put("tracks", trackService.getAllTracks());
         map.put("patrol", new Patrol());
         return new ModelAndView("publicregisterpatrol",map);
     }
-    
-    @RequestMapping(method = RequestMethod.POST)
-    public ModelAndView savePatrol(@ModelAttribute("patrol")Patrol patrol, ModelMap model) {
-        
+
+    @PostMapping
+    public String savePatrol(@Valid Patrol patrol, BindingResult bindingResult, ModelMap model) {
+        if(bindingResult.hasErrors()) {
+            model.addAttribute("errormsg","Ops, du missade visst att fylla i viktig information.");
+            return "publicregisterpatrol";
+        }
         try {
             patrolService.savePatrol(patrol);
+            return "publicregisterconfirmation";
         } catch (PatrolNotSavedException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
+            model.addAttribute("errormsg","Men nu gick det fel när din anmälan skulle sparas. Var snäll och försök igen.");
+            return "publicregisterpatrol";
         }
-        ModelMap map = new ModelMap();
-        map.put("status", "patrull: " + patrol.getPatrolName() + " klass: " + patrol.getTrack().getTrackName());
-        map.put("config", configService.getCurrentConfig());
-        map.put("tracks", trackService.getAllTracks());
-        map.put("patrol", new Patrol());
-        return new ModelAndView("publicregisterpatrol", map);
     }
-    
-    
+
+
     public ModelAndView changeRegisteredPatrol() {
-        
+
         return new ModelAndView("publicregisterpatrol");
     }
 

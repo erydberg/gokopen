@@ -1,6 +1,7 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -20,6 +21,8 @@
 			<th>Klass</th>
 			<th>Kår</th>
 			<th>Kontakt</th>
+			<th>Telefon</th>
+			<th>Registrerad</th>
 			<th>Betalt</th>
 		</tr>
 
@@ -33,9 +36,13 @@
 					href="${pageContext.request.contextPath}/patrol/viewpatrol/${patrol.patrolId}">${patrol.patrolName }</a></td>
 				<td>${patrol.track.trackName }</td>
 				<td>${patrol.troop }</td>
-				<td>${patrol.leaderContact}</td>
 				<td>
-				<c:if test="${patrol.paid }">ja</c:if>
+					<c:if test="${not empty patrol.leaderContactMail }"><a href="mailto:${patrol.leaderContactMail}"></c:if>${patrol.leaderContact}<c:if test="${not empty patrol.leaderContactMail }"></a></c:if>
+				</td>
+				<td>${patrol.leaderContactPhone }</td>
+				<td><fmt:formatDate pattern="yy-MM-dd HH:mm" value="${patrol.dateRegistered }" /></td>
+				<td>
+					<c:if test="${patrol.paid }">ja</c:if>
 				</td>
 				<td><a
 					href="${pageContext.request.contextPath}/patrol/admin/edit/${patrol.patrolId}">Redigera</a></td>

@@ -28,12 +28,21 @@ ${errormsg}
 	<small>Patrullnummer: ${patrol.patrolId }, externt id: ${patrol.externalId }</small>
 	<div class="form-box">
 		<p>${patrol.track.trackName } - ${patrol.troop }</p>
-		<p>Ledarkontakt:
-		${patrol.leaderContact }</p>
-		<p>Starttid: ${patrol.startTime }<br>
-		Sluttid: ${patrol.endTime }</p>
-		<p>Medlemmar:<br>
-		${patrol.members }</p>
+		<p>Ledarkontakt: ${patrol.leaderContact }<br>
+		<c:if test="${not empty patrol.leaderContactPhone }">
+		Telefon: ${patrol.leaderContactPhone }
+		</c:if>
+		</p>
+		<c:if test="${not empty patrol.startTime }">
+		Starttid: ${patrol.startTime }<br>
+		</c:if>
+		<c:if test="${not empty patrol.endTime }">
+		Sluttid: ${patrol.endTime }<br>
+		</c:if> 
+		<c:if test="${not empty patrol.members }">
+		Medlemmar:<br>
+		${patrol.members }<br>
+		</c:if>
 	</div>
 	<div class="form-box">
 	<h2>Poäng</h2>
@@ -56,7 +65,6 @@ Senast rapporterat: <fmt:formatDate pattern="yyyy-MM-dd H:mm" value="${patrol.la
 		Stilpoäng: ${score.stylePoint }<br>
 		Sparat: <fmt:formatDate pattern="yyyy-MM-dd H:mm" value="${score.lastSaved}" /><br> 
 	</c:if>
-	
 </div>
 </c:forEach>
 </div>

@@ -165,9 +165,9 @@ a:active {
 
 .form-general {
 	background: none repeat scroll 0 0 #F6F3EC;
-	border-bottom: 1px solid #E0D8C1;
+	#border-bottom: 1px solid #E0D8C1;
 	padding: 10px;
-	border-top: 1px solid #E0D8C1;
+	#border-top: 1px solid #E0D8C1;
 }
 
 .form-box {
@@ -222,9 +222,13 @@ quicknum button {
 }
 
 .size-3 input, .size-3 textarea, .size-3 select {
-	width: 200px;
+	width: 250px;
+	font-size:80%;
 }
-
+.size-4 input, .size-4 textarea, .size-4 select {
+	width: 350px;
+	font-size:80%;
+}
 .submit-area {
 	background: none repeat scroll 0 0 transparent;
 	border: 0 none;
@@ -253,9 +257,9 @@ quicknum button {
 }
 .nav-box {
 	background: none repeat scroll 0 0 #F6F3EC;
-	border-bottom: 1px solid #E0D8C1;
+	#border-bottom: 1px solid #E0D8C1;
 	padding: 4px;
-	border-top: 1px solid #E0D8C1;
+	#border-top: 1px solid #E0D8C1;
 }
 
 .nav-item {
@@ -296,6 +300,10 @@ quicknum button {
 	border: 3px solid #ff0000;
 	padding: 8px;
 	margin: 16px;
+}
+
+.errortext{
+	color:red;
 }
 
 .statusrow {
@@ -364,10 +372,17 @@ quicknum button {
 }
 .page-head{
 	padding:10px;
+	background: none repeat scroll 0 0 #F6F3EC;
+}
+
+.ingress_background{
+	background: none repeat scroll 0 0 #F6F3EC;
 }
 .ingress{
 	margin-left:10px;
 	margin-right:10px;
+	padding: 10px;	
+	background: none repeat scroll 0 0 #FFFFFF;
 }
 
 .radio-score input[type="radio"] {

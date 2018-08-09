@@ -9,7 +9,9 @@
 </head>
 <body>
 	<div class="nav-box">
+	<div class="page-head">
 		<h1>Appens konfiguration</h1>
+		</div>
 		<form:form commandName="config" method="post" action="${pageContext.request.contextPath}/admin/config">
 			<form:hidden path="id" id="id" />
 			<div class="form-box">
@@ -27,8 +29,8 @@
 				<label>Tillåt publik resultatsida (visar också länk från inloggningssidan):</label>
 				<form:checkbox path="allowPublicResult" id="allowPublicResult"/>
 				</div>
-			</div>
 			</fieldset>
+			</div>
 			<div class="submit-area">
 				<input type="submit" name="saveConfig" value="Spara" /> | <a href="${pageContext.request.contextPath}/admin">Tillbaka</a>
 			</div>

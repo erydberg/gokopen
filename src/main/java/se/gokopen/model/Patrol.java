@@ -24,6 +24,9 @@ import javax.persistence.Transient;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotEmpty;
+
 import org.hibernate.annotations.Cascade;
 
 @Entity
@@ -32,6 +35,7 @@ import org.hibernate.annotations.Cascade;
 public class Patrol implements Comparable<Patrol> {
     private Integer patrolId;
     private String externalId;
+    @NotEmpty(message = "Fyll i ett namn på patrullen")
     private String patrolName;
     private String troop;
     private Track track;
@@ -40,9 +44,14 @@ public class Patrol implements Comparable<Patrol> {
     private String members;
     private String note;
     private Set<Score> scores = new LinkedHashSet<Score>();
+    @NotEmpty (message = "Missa inte att fylla i kontaktperson")
     private String leaderContact;
+    @NotEmpty (message = "E-postadress krävs")
+    @Email (message = "Se till att e-postadressen är korrekt")
     private String leaderContactMail;
+    private String leaderContactPhone;
     private Status status;
+    private Date dateRegistered;
     private Boolean paid = false;
     private Score latestScore;
     private Station startStation;
@@ -178,6 +187,14 @@ public class Patrol implements Comparable<Patrol> {
         this.leaderContactMail = leaderContactMail;
     }
 
+    public String getLeaderContactPhone() {
+        return leaderContactPhone;
+    }
+
+    public void setLeaderContactPhone(String leaderContactPhone) {
+        this.leaderContactPhone = leaderContactPhone;
+    }
+
     @Enumerated(EnumType.STRING)
     @Column(name = "status")
     public Status getStatus() {
@@ -186,6 +203,15 @@ public class Patrol implements Comparable<Patrol> {
 
     public void setStatus(Status status) {
         this.status = status;
+    }
+
+    @Column(name="date_registered")
+    public Date getDateRegistered() {
+        return dateRegistered;
+    }
+
+    public void setDateRegistered(Date dateRegistered) {
+        this.dateRegistered = dateRegistered;
     }
 
     @Column(name = "paid")
