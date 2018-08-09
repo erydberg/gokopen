@@ -1,15 +1,31 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 <jsp:include page="include_metadata.jsp" flush="false"></jsp:include>
-<title>Patrull - ${patrol.patrolName }</title>
+<c:set var="rubrik" value="Ny patrull"/>
+<c:if test="${not empty patrol.patrolId }">
+	<c:set var="rubrik" value="Patrull - "/>
+</c:if>
+
+<title>${rubrik} ${patrol.patrolName }</title>
 </head>
 <body>
-	<h1>Patrull</h1>
+	<div class="nav-box">
+		<div class="page-head">
+			<h1>${rubrik} ${patrol.patrolName}</h1>
+		<c:if test="${not empty errormsg }">
+				<div class="errorblock">${errormsg}</div>
+			</c:if>
+			<c:if test="${not empty confirmmsg }">
+				<div class="confirmblock">${confirmmsg}</div>
+			</c:if>
+		</div>
+	</div>
 	<form:form commandName="patrol" method="post"
 		action="${pageContext.request.contextPath}/patrol"
 		cssClass="form-general">
@@ -18,8 +34,10 @@
 			<fieldset>
 				<div class="text size-3">
 					<label>Patrullens namn:</label>
-					<form:input path="patrolName" id="patrolName" /> 
-					<br><small>Patrullnummer: ${patrol.patrolId }</small>
+					<form:input path="patrolName" id="patrolName" />
+					<form:errors path="patrolName" cssClass="errortext" />
+					<br>
+					<small>Patrullnummer: ${patrol.patrolId }</small>
 				</div>
 				<div class="text size-3">
 					<label>Eventuellt externt id:</label>
@@ -35,15 +53,15 @@
 					<label>Kår</label>
 					<form:input path="troop" id="troop" />
 				</div>
-				
+
 				<div class="text size-3">
 					<label>Startar på kontroll:</label>
 					<form:select path="startStation">
-						<option value="Select" label="Välj en kontroll"/>
+						<option value="0" label="Välj kontroll" />
 						<form:options items="${stations}" itemLabel="stationName" />
 					</form:select>
 				</div>
-				
+
 				<div class="text size-3">
 					<label>Starttid: </label>
 					<form:input path="startTime" id="startTime" />
@@ -59,10 +77,12 @@
 				<div class="text size-3">
 					<label>Ledare: </label>
 					<form:input path="leaderContact" id="leaderContact" />
+					<form:errors path="leaderContact" cssClass="errortext" />
 				</div>
 				<div class="text size-3">
 					<label>E-post till ledare: </label>
 					<form:input path="leaderContactMail" id="leaderContactMail" />
+					<form:errors path="leaderContactMail" cssClass="errortext" />
 				</div>
 				<div class="text size-3">
 					<label>Mobiltelefonnummer till ledare: </label>
@@ -70,7 +90,7 @@
 				</div>
 				<div>
 					<label>Betalt:</label>
-					<form:checkbox path="paid" id="paid"/>
+					<form:checkbox path="paid" id="paid" />
 				</div>
 
 				<label>Anteckning: </label>
