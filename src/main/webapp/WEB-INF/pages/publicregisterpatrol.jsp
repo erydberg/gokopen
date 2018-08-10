@@ -27,7 +27,6 @@
 	Fyll i uppgifterna nedan. Sista anmälningsdag är DATUM. Max antal
 	patruller är: YYY Redan anmälda patruller är: PPP är jag här
 
-	<h2>${status }</h2>
 </div> 
 </div>
 	<form:form commandName="patrol" method="post"
