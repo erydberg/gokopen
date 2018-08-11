@@ -35,6 +35,6 @@ function confirmDelete(id){
 </c:forEach>
 </ul>
 </div>
-<div><a href="${pageContext.request.contextPath}/">Tillbaka</a></div>
+<div><a href="${pageContext.request.contextPath}/admin">Tillbaka</a></div>
 </body>
 </html>

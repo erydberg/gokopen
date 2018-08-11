@@ -50,7 +50,7 @@
 			</div>
 			<div class="submit-area">
 				<input type="submit" name="saveStation" value="Fortsätt" /> | <a
-					href="${pageContext.request.contextPath}/">Avbryt</a>
+					href="${pageContext.request.contextPath}/startmenu/">Avbryt</a>
 			</div>
 
 		</form:form>
@@ -104,7 +104,7 @@
 
 			<div class="submit-area">
 				<input type="submit" name="saveScore" value="Spara" /> | <a
-					href="${pageContext.request.contextPath}/">Avbryt</a>
+					href="${pageContext.request.contextPath}/startmenu/">Avbryt</a>
 			</div>
 		</form:form>
 	</c:if>

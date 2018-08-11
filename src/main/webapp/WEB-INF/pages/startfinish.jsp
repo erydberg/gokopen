@@ -25,7 +25,7 @@
 			<div class="errorblock">${errormsg}</div>
 		</c:if>
 		<span class="toolbar">
-			<a class="toolitem" href="${pageContext.request.contextPath}/"><img src="${pageContext.request.contextPath}/css/back2.png"></a>
+			<a class="toolitem" href="${pageContext.request.contextPath}/startmenu"><img src="${pageContext.request.contextPath}/css/back2.png"></a>
 			<a class="toolitem" href="#" onClick="reloadPage();"><img src="${pageContext.request.contextPath}/css/reload.png"></a>
 		</span>
 		<h1>Start och målgång</h1>
@@ -89,7 +89,7 @@
 		</table>
 	</div>
 	<div>
-		<a href="${pageContext.request.contextPath}/">Tillbaka</a>
+		<a href="${pageContext.request.contextPath}/startmenu">Tillbaka</a>
 	</div>
 </body>
 </html>

@@ -37,7 +37,7 @@
 			<div class="errorblock">${errormsg}</div>
 		</c:if>
 		<span class="toolbar"> <a class="toolitem"
-			href="${pageContext.request.contextPath}/"><img
+			href="${pageContext.request.contextPath}/startmenu"><img
 				src="${pageContext.request.contextPath}/css/back2.png"></a>
 		</span>
 
@@ -59,7 +59,7 @@
 		</form:form>
 	</div>
 	<c:if test="${not empty scores }">
-		<h3>${fn:length(scores)} rapporterade poäng</h3>
+		<h3>${fn:length(scores)}rapporterade poäng</h3>
 		<small>Sorteras med senaste poängen överst</small>
 		<c:forEach items="${scores }" var="score">
 			<div class="scoreitem">

@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -18,29 +20,31 @@ public class StartController {
     
     @Autowired
     private ConfigService configService;
+    
+    @ModelAttribute("config")
+    public Config loadConfig() {
+        return configService.getCurrentConfig();
+    }
 
 	@RequestMapping(method=RequestMethod.GET)
 	public String start(HttpServletRequest request){
-		User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-	    String name = user.getUsername(); 
-
-	    Config config = configService.getCurrentConfig();
-	    request.setAttribute("config", config);
-	    request.setAttribute("username", name);
-		return "start";
+		return "welcomepage";
+	}
+	
+	@GetMapping("/startmenu")
+	public String startMenu() {
+	    return "start";
 	}
 	
 	@RequestMapping(value="/admin",method=RequestMethod.GET)
 	public String startAdmin(HttpServletRequest request){
-	    Config config = configService.getCurrentConfig();
-        request.setAttribute("config", config);
+
 		return "startadmin";
 	}
 	
 	@RequestMapping(value="/login", method = RequestMethod.GET)
 	public String login(HttpServletRequest request) {
-	    Config config = configService.getCurrentConfig();
-        request.setAttribute("config", config);
+
 		return "login";
  
 	}
