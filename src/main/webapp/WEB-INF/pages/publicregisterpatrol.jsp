@@ -23,9 +23,16 @@
 	<c:if test="${not empty confirmmsg }">
 		<div class="confirmblock">${confirmmsg}</div>
 	</c:if>
-
-	Fyll i uppgifterna nedan. Sista anmälningsdag är DATUM. Max antal
-	patruller är: YYY Redan anmälda patruller är: PPP är jag här
+	<p>
+	${config.registerInfo }
+	</p>
+	<c:if test="${not empty config.lastRegisterDay }">
+	Sista anmälningsdag: ${config.lastRegisterDay }<br>
+	</c:if>
+	<c:if test="${not empty config.maxPatrols }">
+		Max antal patruller: ${config.maxPatrols } st<br>
+		Antal anmälda patruller just nu: ${registeredpatrols } st
+	</c:if>
 
 </div> 
 </div>

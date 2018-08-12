@@ -3,9 +3,8 @@ package se.gokopen.controller;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import se.gokopen.model.Config;
 import se.gokopen.service.ConfigService;
+import se.gokopen.service.PatrolService;
 
 @RequestMapping("/")
 @Controller
@@ -21,18 +21,24 @@ public class StartController {
     @Autowired
     private ConfigService configService;
     
+    @Autowired
+    private PatrolService patrolService;
+    
     @ModelAttribute("config")
     public Config loadConfig() {
         return configService.getCurrentConfig();
     }
+    
 
 	@RequestMapping(method=RequestMethod.GET)
-	public String start(HttpServletRequest request){
+	public String start(ModelMap map){
+	    map.addAttribute("registrationOpen",RegistrationChecker.isOpenForRegistration(loadConfig(), patrolService.getAllPatrols().size()));
 		return "welcomepage";
 	}
 	
 	@GetMapping("/startmenu")
 	public String startMenu() {
+	    
 	    return "start";
 	}
 	

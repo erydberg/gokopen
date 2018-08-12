@@ -1,7 +1,9 @@
 package se.gokopen.controller;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+
+import java.text.ParseException;
+
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,6 +23,7 @@ public class ConfigController {
     @Autowired
     private ConfigService configService;
     
+    
     @RequestMapping(method=RequestMethod.GET)
     public ModelAndView showConfig(){
         Config config = configService.getCurrentConfig();
@@ -30,7 +33,13 @@ public class ConfigController {
     }
     
     @RequestMapping(method=RequestMethod.POST)
-    public String save(Config config,BindingResult errors, HttpServletRequest request, HttpServletResponse response){
+    public String save(@Valid Config config, BindingResult errors, ModelMap model) throws ParseException{
+
+        if(errors.hasErrors()) {
+            model.addAttribute("errormsg","Det är något som inte är ifyllt korrekt. Kolla datumet.");
+            return "config";
+        }
+        model.addAttribute("confirmmsg", "Konfigurationen är sparad");
         configService.saveConfig(config);
         
         return "startadmin";

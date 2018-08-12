@@ -1,5 +1,6 @@
 package se.gokopen.controller;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -55,11 +56,18 @@ public class PublicRegisterPatrolController {
 
     @GetMapping
     public ModelAndView showRegisterPatrolForm(HttpServletRequest request) {
-        //TODO koll om registreringen är öppen, annars visa att det inte går att registrera
-        ModelMap map = new ModelMap();
-        map.put("patrol", new Patrol());
-        return new ModelAndView("publicregisterpatrol",map);
+        int noOfPatrols = patrolService.getAllPatrols().size();
+        if(RegistrationChecker.isOpenForRegistration(loadConfiguration(), noOfPatrols)) {
+            ModelMap map = new ModelMap();
+            map.put("patrol", new Patrol());
+            map.put("registeredpatrols", noOfPatrols);
+            return new ModelAndView("publicregisterpatrol",map);    
+        }else {
+            return new ModelAndView("publicregistrationnotopen");
+        }
+        
     }
+
 
     @PostMapping
     public String savePatrol(@Valid Patrol patrol, BindingResult bindingResult, ModelMap model) {

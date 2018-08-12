@@ -294,6 +294,15 @@ quicknum button {
 	padding: 5px;
 }
 
+.confirmblock {
+	color: #000000;
+	background-color: #ebfaeb;
+	border: 3px solid #196619;
+	padding: 8px;
+	margin-top: 16px;
+	margin-bottom: 16px;
+}
+
 .errorblock {
 	color: #ff0000;
 	background-color: #ffEEEE;
