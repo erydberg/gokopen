@@ -28,8 +28,8 @@ public class User {
     
     
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO, generator = "user_sequence")
-    @SequenceGenerator(name = "user_sequence", sequenceName = "USER_SEQUENCE")
+    @SequenceGenerator(name = "userSeqGen", sequenceName = "USER_SEQ", initialValue = 100, allocationSize = 5)
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "userSeqGen")
     @Column(name="userid", nullable=false)
     public Integer getId() {
         return id;

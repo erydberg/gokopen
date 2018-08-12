@@ -14,11 +14,13 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.JoinColumn;
 import javax.persistence.OrderBy;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import org.hibernate.annotations.Cache;
@@ -61,7 +63,8 @@ public class Patrol implements Comparable<Patrol> {
     }
 
     @Id
-    @GeneratedValue
+    @SequenceGenerator(name = "patrolSeqGen", sequenceName = "PATROL_SEQ", initialValue = 100, allocationSize = 5)
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "patrolSeqGen")
     @Column(name = "patrolid", nullable = false)
     public Integer getPatrolId() {
         return patrolId;
