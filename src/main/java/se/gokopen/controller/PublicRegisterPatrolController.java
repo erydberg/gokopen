@@ -21,6 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 import se.gokopen.dao.PatrolNotSavedException;
 import se.gokopen.model.Config;
 import se.gokopen.model.Patrol;
+import se.gokopen.model.Status;
 import se.gokopen.model.Track;
 import se.gokopen.service.ConfigService;
 import se.gokopen.service.PatrolService;
@@ -76,6 +77,7 @@ public class PublicRegisterPatrolController {
             return "publicregisterpatrol";
         }
         try {
+            patrol.setStatus(Status.REGISTERED);
             patrolService.savePatrol(patrol);
             return "publicregisterconfirmation";
         } catch (PatrolNotSavedException e) {

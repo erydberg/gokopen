@@ -6,8 +6,10 @@ import javax.persistence.Column;
 import javax.persistence.JoinColumn;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Cache;
@@ -26,13 +28,13 @@ public class Score {
 	private Date lastSaved;
 	private boolean visitedWaypoint;
 	
-
 	public Score(){
 		
 	}
 
 	@Id
-	@GeneratedValue
+	@SequenceGenerator(name = "scoreSeqGen", sequenceName = "SCORE_SEQ", initialValue = 1, allocationSize = 10)
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "scoreSeqGen")
 	@Column(name="scoreid", nullable=false)
 	public Integer getScoreId() {
 		return scoreId;

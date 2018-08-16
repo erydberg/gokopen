@@ -87,6 +87,7 @@
 				<div class="text size-3">
 					<label>Mobiltelefonnummer till ledare: </label>
 					<form:input path="leaderContactPhone" id="leaderContactPhone" />
+					<form:errors path="leaderContactPhone" cssClass="errortext" />
 				</div>
 				<div>
 					<label>Betalt:</label>

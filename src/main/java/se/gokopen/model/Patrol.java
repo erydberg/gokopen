@@ -51,6 +51,7 @@ public class Patrol implements Comparable<Patrol> {
     @NotEmpty (message = "E-postadress krävs")
     @Email (message = "Se till att e-postadressen är korrekt")
     private String leaderContactMail;
+    @NotEmpty(message = "Ett telefonnummer vill vi ha också")
     private String leaderContactPhone;
     private Status status;
     private Date dateRegistered;

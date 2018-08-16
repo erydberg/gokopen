@@ -70,6 +70,7 @@
 				<div class="text size-3">
 					<form:label path="leaderContactPhone">Mobiltelefonnummer till kontaktperson</form:label>
 					<form:input path="leaderContactPhone" />
+					<form:errors path="leaderContactPhone" cssClass="errortext" />
 				</div>
 				<div class="text size-3">
 					<form:label path="note">Eventuell kommentar: </form:label>
