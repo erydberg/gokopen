@@ -21,7 +21,18 @@
 		<c:if test="${not empty confirmmsg }">
 			<div class="confirmblock">${confirmmsg}</div>
 		</c:if>
+		<h2>Anmälningsbekräftelse</h2>
+		<p>
+		Patrullnamn: ${patrol.patrolName }<br/>
+		Patrullnummer: ${patrol.patrolId }<br/>
+		Klass/gren: ${patrol.track.trackName}<br/>
+		Scoutkår: ${patrol.troop }<br/>
+		Kontaktperson: ${patrol.leaderContact }<br/>
+		Telefon: ${patrol.leaderContactPhone }<br/>
+		E-post: ${patrol.leaderContactMail }<br/>
+		</p>
 		<p>${config.confirmMessage }</p>
+		
 		<a href="${pageContext.request.contextPath}/register">Klicka här
 			om du vill anmäla en patrull till.</a>
 	</div>

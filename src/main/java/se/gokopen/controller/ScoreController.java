@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -166,8 +167,8 @@ public class ScoreController {
 				    model.addObject("alertmsg", "Sparat "+ score.getScorePoint() + " poäng och " + score.getStylePoint() + " stilpoäng till " + score.getPatrol().getPatrolName() + ".");
 				}
 
-			} catch (ScoreNotSavedException e) {
-			    request.setAttribute("errormsg",e.getErrorMsg());
+			} catch (Exception e) {
+			    request.setAttribute("errormsg","Det gick inte att spara poängen. Det kanske behöver fixas av någon som kommer åt baksidan av systemet.");
 			}
 		}
 		
