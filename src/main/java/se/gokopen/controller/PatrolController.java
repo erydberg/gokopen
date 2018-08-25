@@ -7,6 +7,7 @@ import javax.validation.Valid;
 
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.ModelAndView;
 
 import se.gokopen.dao.PatrolNotFoundException;
@@ -180,5 +182,30 @@ public class PatrolController {
         // Return to list of existing patrols
         List<Patrol> patrols = patrolService.getAllPatrols();
         return new ModelAndView("patrollist", "patrols", patrols);
+    }
+    
+    //Resttjänster
+    @RequestMapping(value="/admin/setpaid/{id}", method=RequestMethod.PUT)
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void setPaid(@PathVariable String id) {
+        try {
+            Patrol patrol = patrolService.getPatrolById(Integer.parseInt(id));
+            patrol.setPaid(true);
+            patrolService.savePatrol(patrol);
+        }catch (PatrolNotSavedException | NumberFormatException | PatrolNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    @RequestMapping(value="/admin/setnotpaid/{id}", method=RequestMethod.PUT)
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void setNotPaid(@PathVariable String id) {
+        try {
+            Patrol patrol = patrolService.getPatrolById(Integer.parseInt(id));
+            patrol.setPaid(false);
+            patrolService.savePatrol(patrol);
+        }catch (PatrolNotSavedException | NumberFormatException | PatrolNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 }

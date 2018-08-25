@@ -3,6 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<spring:htmlEscape defaultHtmlEscape="true" />
 <!DOCTYPE html>
 <html>
 <head>
@@ -37,7 +38,7 @@
 </div> 
 </div>
 	<form:form commandName="patrol" method="post"
-		action="${pageContext.request.contextPath}/register"
+		action="${pageContext.request.contextPath}/register" htmlEscape="true"
 		cssClass="form-general">
 		<form:hidden path="patrolId" id="patrolId" />
 		<div class="form-box">

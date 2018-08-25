@@ -412,3 +412,8 @@ quicknum button {
 .radio-score input[type="radio"]:checked+label {
   background-color: #bbb;
 }
+
+.paid-action{
+	cursor:pointer;
+	text-decoration:underline;
+}

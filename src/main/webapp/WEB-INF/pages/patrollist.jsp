@@ -4,17 +4,24 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<spring:htmlEscape defaultHtmlEscape="true" />
 <!DOCTYPE html>
 <html>
 <head>
-<jsp:include page="include_metadata.jsp" flush="false"></jsp:include>
 <title>Patruller</title>
+<jsp:include page="include_metadata.jsp" flush="false"></jsp:include>
+<script>
+	var path = '${pageContext.request.contextPath}';
+</script>
+<script src="${pageContext.request.contextPath}/js/jquery-3.1.1.min.js"></script>
+<script src="${pageContext.request.contextPath}/js/gokopen-patroladmin.js"></script>
 </head>
 <body>
 	<p>
 		<a href="${pageContext.request.contextPath}/patrol/admin/newpatrol">Lägg
 			till ny patrull</a> | <a href="${pageContext.request.contextPath}/admin">Tillbaka</a>
 	</p>
+	<div class="switchstatus">
 	<table>
 		<tr>
 			<th>Patrullnamn</th>
@@ -41,16 +48,26 @@
 				</td>
 				<td>${patrol.leaderContactPhone }</td>
 				<td><fmt:formatDate pattern="yy-MM-dd HH:mm" value="${patrol.dateRegistered }" /></td>
-				<td>
-					<c:if test="${patrol.paid }">ja</c:if>
-				</td>
+				<c:if test="${patrol.paid }">
+				<td class="paidstatus">
+					
+						<span class="paid-action" data-status="paid" data-id="${patrol.patrolId}">ja</span>
+						</td>
+					</c:if>
+					
+					<c:if test="${not patrol.paid }">
+					<td class="paid">
+						<span class="paid-action" data-status="notpaid" data-id="${patrol.patrolId}">nej</span>
+					</td>
+					</c:if>
+				
 				<td><a
-					href="${pageContext.request.contextPath}/patrol/admin/edit/${patrol.patrolId}">Redigera</a></td>
+					href="${pageContext.request.contextPath}/patrol/admin/edit/${patrol.patrolId}"><img src="${pageContext.request.contextPath}/css/edit2.png"/></a></td>
 				<td><a
-					href="${pageContext.request.contextPath}/patrol/admin/delete/${patrol.patrolId}">Ta
-						bort</a></td>
+					href="${pageContext.request.contextPath}/patrol/admin/delete/${patrol.patrolId}"><img src="${pageContext.request.contextPath}/css/delete.png"/></a></td>
 			</tr>
 		</c:forEach>
 	</table>
+	</div>
 </body>
 </html>
