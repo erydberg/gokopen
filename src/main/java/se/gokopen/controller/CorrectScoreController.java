@@ -50,7 +50,6 @@ public class CorrectScoreController {
 
     @RequestMapping(path="/selectstation", method = RequestMethod.GET)
     public ModelAndView selectStation(Station selectedStation){
-        System.out.println("Select station");
         List<Station> stations = stationService.getAllStations();
         ModelAndView model = new ModelAndView();
         try {

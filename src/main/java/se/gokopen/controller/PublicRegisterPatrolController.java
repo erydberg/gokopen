@@ -1,6 +1,5 @@
 package se.gokopen.controller;
 
-import java.text.SimpleDateFormat;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -66,14 +65,15 @@ public class PublicRegisterPatrolController {
         }else {
             return new ModelAndView("publicregistrationnotopen");
         }
-        
     }
 
-
+    
     @PostMapping
     public String savePatrol(@Valid Patrol patrol, BindingResult bindingResult, ModelMap model) {
         if(bindingResult.hasErrors()) {
             model.addAttribute("errormsg","Ops, du missade visst att fylla i viktig information.");
+            int noOfPatrols = patrolService.getAllPatrols().size();
+            model.addAttribute("registeredpatrols", noOfPatrols);
             return "publicregisterpatrol";
         }
         try {

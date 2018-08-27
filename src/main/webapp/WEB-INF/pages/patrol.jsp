@@ -52,6 +52,7 @@
 				<div class="text size-3">
 					<label>Kår</label>
 					<form:input path="troop" id="troop" />
+					<form:errors path="troop" cssClass="errortext" />
 				</div>
 
 				<div class="text size-3">
@@ -96,6 +97,7 @@
 
 				<label>Anteckning: </label>
 				<form:textarea path="note" rows="7" cols="30" />
+				<form:errors path="patrolName" cssClass="errortext" />
 
 				<div class="text size-3">
 					<label>Status:</label>

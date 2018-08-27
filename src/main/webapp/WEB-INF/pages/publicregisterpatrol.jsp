@@ -46,11 +46,12 @@
 				<div class="text size-3">
 					<form:label path="patrolName">Patrullens namn:</form:label>
 					<form:input path="patrolName" />
-					<form:errors path="patrolName" cssClass="errortext" />
+					<div><form:errors path="patrolName" cssClass="errortext" /></div>
 				</div>
 				<div class="text size-3">
 					<form:label path="troop">Scoutkår</form:label>
 					<form:input path="troop" />
+					<div><form:errors path="troop" cssClass="errortext" /></div>
 				</div>
 				<div class="text size-3">
 					<form:label path="track">Klass:</form:label>
@@ -61,21 +62,22 @@
 				<div class="text size-3">
 					<form:label path="leaderContact">Kontaktperson (ledare)</form:label>
 					<form:input path="leaderContact" />
-					<form:errors path="leaderContact" cssClass="errortext" />
+					<div><form:errors path="leaderContact" cssClass="errortext" /></div>
 				</div>
 				<div class="text size-4">
 					<form:label path="leaderContactMail">E-post till kontaktperson</form:label>
 					<form:input path="leaderContactMail" />
-					<form:errors path="leaderContactMail" cssClass="errortext" />
+					<div><form:errors path="leaderContactMail" cssClass="errortext" /></div>
 				</div>
 				<div class="text size-3">
 					<form:label path="leaderContactPhone">Mobiltelefonnummer till kontaktperson</form:label>
 					<form:input path="leaderContactPhone" />
-					<form:errors path="leaderContactPhone" cssClass="errortext" />
+					<div><form:errors path="leaderContactPhone" cssClass="errortext" /></div>
 				</div>
 				<div class="text size-3">
 					<form:label path="note">Eventuell kommentar: </form:label>
 					<form:textarea path="note" rows="7" cols="30" />
+					<div><form:errors path="note" cssClass="errortext" /></div>
 				</div>
 		
 		</fieldset>

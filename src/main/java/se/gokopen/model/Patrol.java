@@ -28,7 +28,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
-
+import org.hibernate.validator.constraints.SafeHtml;
 import org.hibernate.annotations.Cascade;
 
 @Entity
@@ -38,20 +38,27 @@ public class Patrol implements Comparable<Patrol> {
     private Integer patrolId;
     private String externalId;
     @NotEmpty(message = "Fyll i ett namn på patrullen")
+    @SafeHtml(message = "ingen knepig html eller js tack")
     private String patrolName;
+    @NotEmpty(message = "Fyll i patrullens scoutkår")
+    @SafeHtml(message = "ingen knepig html eller js tack")
     private String troop;
     private Track track;
     private String startTime;
     private String endTime;
     private String members;
+    @SafeHtml(message = "ingen knepig html eller js tack")
     private String note;
     private Set<Score> scores = new LinkedHashSet<Score>();
     @NotEmpty (message = "Missa inte att fylla i kontaktperson")
+    @SafeHtml(message = "ingen knepig html eller js tack")
     private String leaderContact;
     @NotEmpty (message = "E-postadress krävs")
     @Email (message = "Se till att e-postadressen är korrekt")
+    @SafeHtml(message = "ingen knepig html eller js tack")
     private String leaderContactMail;
     @NotEmpty(message = "Ett telefonnummer vill vi ha också")
+    @SafeHtml(message = "ingen knepig html eller js tack")
     private String leaderContactPhone;
     private Status status;
     private Date dateRegistered;
@@ -59,7 +66,7 @@ public class Patrol implements Comparable<Patrol> {
     private Score latestScore;
     private Station startStation;
 
-    public Patrol() {
+    public Patrol() { 
 
     }
 
@@ -316,7 +323,6 @@ public class Patrol implements Comparable<Patrol> {
         if(comp == 0) {
             //loopar igenom så många poäng vi vill, satt till max 50
             for(int i = 0;i<=50;i++) {
-                System.out.println("kollar om max-poäng - " + i);
                 comp = p.getNumberOfXPoints(i).compareTo(getNumberOfXPoints(i));
                 if(comp != 0) {
                     break;
