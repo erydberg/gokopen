@@ -60,12 +60,6 @@ public class StartController {
 		request.setAttribute("error", "Felaktigt användarnamn eller lösenord");
 		return "login";
 	}
-	@RequestMapping(value="/logout", method = RequestMethod.GET)
-	public String logout() {
- 
-		return "login";
- 
-	}
 	
 	@RequestMapping(value="/403", method = RequestMethod.GET)
 	public String accessDenied(HttpServletRequest request){

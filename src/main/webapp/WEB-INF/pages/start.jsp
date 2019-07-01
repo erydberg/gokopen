@@ -10,7 +10,6 @@
 <jsp:include page="include_metadata.jsp" flush="false"></jsp:include>
 </head>
 <body>
-
 <div class="nav-box">
 <c:if test="${not empty errormsg }">
 <div class="errorblock">
@@ -31,9 +30,14 @@ ${errormsg}
 <sec:authorize access="hasRole('ROLE_ADMIN')">
 <li class="nav-item"><a href="${pageContext.request.contextPath}/admin/">Administration</a></li>
 </sec:authorize>
+    <c:url var="logoutUrl" value="/logout" />
+    <form action="${logoutUrl}" id="logout" method="post">
+        <input type="hidden" name="${_csrf.parameterName}"
+               value="${_csrf.token}" />
+    </form>
+    <li class="nav-item"><a href="#" onclick="document.getElementById('logout').submit();">Logga ut</a></li>
 </ul>
 <c:if test="${not empty config.phone }">Telefon till start/mål: <a href="tel:${config.phone }">${config.phone }</a><br></c:if>
-Inloggad användare: ${username }
 </div>
 </body>
 </html>

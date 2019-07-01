@@ -24,7 +24,7 @@
 		<intercept-url pattern="/**" access="hasAnyRole('ROLE_USER','ROLE_ADMIN','ROLE_STARTFINISH')" />
 			<form-login login-page="/login" username-parameter="ssoId" password-parameter="password" authentication-failure-url="/loginfailed" />
        
-		<logout logout-success-url="/login" />
+		<logout logout-url="/logout" logout-success-url="/" invalidate-session="true"/>
 	</http>
 	<authentication-manager>
 		<authentication-provider>
