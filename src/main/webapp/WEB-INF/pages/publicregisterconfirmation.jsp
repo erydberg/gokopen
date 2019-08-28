@@ -31,7 +31,7 @@
 		Telefon: ${patrol.leaderContactPhone }<br/>
 		E-post: ${patrol.leaderContactMail }<br/>
 		</p>
-		<p>${config.confirmMessage }</p>
+		<p>${configregistration.confirmMessage }</p>
 		
 		<a href="${pageContext.request.contextPath}/register">Klicka här
 			om du vill anmäla en patrull till.</a>

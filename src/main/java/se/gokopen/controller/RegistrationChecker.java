@@ -4,15 +4,14 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import se.gokopen.model.Config;
+import se.gokopen.model.ConfigRegistration;
 
 public class RegistrationChecker {
 
-    public RegistrationChecker() {
-        // TODO Auto-generated constructor stub
+    private RegistrationChecker() {
     }
 
-    public static boolean isOpenForRegistration(Config config, int noOfRegisteredPatrolsNow) {
+    public static boolean isOpenForRegistration(ConfigRegistration config, int noOfRegisteredPatrolsNow) {
         try {
             int maxPatrols;
             boolean allowRegistration = false;
@@ -31,11 +30,6 @@ public class RegistrationChecker {
             }else {
                 return allowRegistration && checkDate(config.getLastRegisterDay()) && isItSeatsLeft(maxPatrols, noOfRegisteredPatrolsNow);
             }
-//            if (allowRegistration && checkDate(config.getLastRegisterDay()) && isItSeatsLeft(maxPatrols, noOfRegisteredPatrolsNow)) {
-//                return true;
-//            } else {
-//                return false;
-//            }
         } catch (ParseException e) {
             return false;
         }

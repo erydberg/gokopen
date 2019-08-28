@@ -9,5 +9,6 @@
         <mapping class="se.gokopen.model.Track" />
         <mapping class="se.gokopen.model.Config"/>
         <mapping class="se.gokopen.model.User"/>
+        <mapping class="se.gokopen.model.ConfigRegistration"/>
     </session-factory>	
 </hibernate-configuration>

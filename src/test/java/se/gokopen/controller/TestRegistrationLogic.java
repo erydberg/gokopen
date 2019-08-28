@@ -7,16 +7,22 @@ import java.text.ParseException;
 import java.util.Calendar;
 import java.util.Date;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import se.gokopen.model.Config;
+import se.gokopen.model.ConfigRegistration;
 
 public class TestRegistrationLogic {
+    private ConfigRegistration config;
 
+    @Before
+    public void init(){
+        config = new ConfigRegistration();
+    }
     
     @Test
     public void shouldReturnTrueIfAllParametersAreGood() throws ParseException {
-        Config config = new Config();
         config.setAllowPublicRegistration(true);      
         config.setLastRegisterDay(new Date()); 
         config.setMaxPatrols(200);
@@ -28,7 +34,6 @@ public class TestRegistrationLogic {
     
     @Test
     public void shouldReturnFalseSinceRegistrationIsOff() throws ParseException {
-        Config config = new Config();
         config.setAllowPublicRegistration(false);
         config.setLastRegisterDay(new Date()); 
         int noOfPatrols = 100;
@@ -38,7 +43,6 @@ public class TestRegistrationLogic {
     
     @Test
     public void shouldReturnFalseSinceDateIsHistory() throws ParseException {
-        Config config = new Config();
         config.setAllowPublicRegistration(true);
         config.setLastRegisterDay(yesterday()); 
         int noOfPatrols = 100;
@@ -48,7 +52,6 @@ public class TestRegistrationLogic {
     
     @Test
     public void shouldReturnTrueSinceDateIsTomorrow() throws ParseException {
-        Config config = new Config();
         config.setAllowPublicRegistration(true);
         config.setLastRegisterDay(tomorrow()); 
         config.setMaxPatrols(200);
@@ -59,7 +62,6 @@ public class TestRegistrationLogic {
     
     @Test
     public void shouldReturnFalseSinceFull() throws ParseException {
-        Config config = new Config();
         config.setAllowPublicRegistration(true);
         config.setLastRegisterDay(tomorrow()); 
         config.setMaxPatrols(200);
@@ -70,7 +72,6 @@ public class TestRegistrationLogic {
     
     @Test
     public void shouldReturnTrueSinceFull() throws ParseException {
-        Config config = new Config();
         config.setAllowPublicRegistration(true);
         config.setLastRegisterDay(tomorrow()); 
         config.setMaxPatrols(300);
@@ -82,7 +83,6 @@ public class TestRegistrationLogic {
     //Test där inte alla värden är satta
     @Test
     public void shouldReturnTrueSinceNoEndDateIsSet() {
-        Config config = new Config();
         config.setAllowPublicRegistration(true);
         int noOfPatrols = 200;
         assertTrue(RegistrationChecker.isOpenForRegistration(config, noOfPatrols));
@@ -90,7 +90,6 @@ public class TestRegistrationLogic {
     
     @Test
     public void shouldReturnFalseSinceNoAllowIsSet() {
-        Config config = new Config();
         int noOfPatrols = 200;
         assertFalse(RegistrationChecker.isOpenForRegistration(config, noOfPatrols));
     }

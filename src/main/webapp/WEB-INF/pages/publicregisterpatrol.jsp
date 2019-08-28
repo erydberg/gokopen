@@ -25,13 +25,13 @@
 		<div class="confirmblock">${confirmmsg}</div>
 	</c:if>
 	<p>
-	${config.registerInfo }
+	${configregistration.registerInfo }
 	</p>
-	<c:if test="${not empty config.lastRegisterDay }">
-	Sista anmälningsdag: ${config.lastRegisterDay }<br>
+	<c:if test="${not empty configregistration.lastRegisterDay }">
+	Sista anmälningsdag: ${configregistration.lastRegisterDay }<br>
 	</c:if>
-	<c:if test="${not empty config.maxPatrols }">
-		Max antal patruller: ${config.maxPatrols } st<br>
+	<c:if test="${not empty configregistration.maxPatrols }">
+		Max antal patruller: ${configregistration.maxPatrols } st<br>
 		Antal anmälda patruller just nu: ${registeredpatrols } st
 	</c:if>
 

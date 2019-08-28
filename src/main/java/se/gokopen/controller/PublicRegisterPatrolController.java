@@ -19,9 +19,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 import se.gokopen.dao.PatrolNotSavedException;
 import se.gokopen.model.Config;
+import se.gokopen.model.ConfigRegistration;
 import se.gokopen.model.Patrol;
 import se.gokopen.model.Status;
 import se.gokopen.model.Track;
+import se.gokopen.service.ConfigRegistrationService;
 import se.gokopen.service.ConfigService;
 import se.gokopen.service.PatrolService;
 import se.gokopen.service.TrackService;
@@ -34,6 +36,9 @@ public class PublicRegisterPatrolController {
     private ConfigService configService;
 
     @Autowired
+    private ConfigRegistrationService configRegistrationService;
+
+    @Autowired
     private TrackService trackService;
 
     @Autowired
@@ -43,12 +48,12 @@ public class PublicRegisterPatrolController {
     protected void initBinder(WebDataBinder binder) {
         binder.registerCustomEditor(Track.class, new TrackEditor(this.trackService));
     }
-    
+
     @ModelAttribute("tracks")
     public List<Track> populateTracks() {
         return trackService.getAllTracks();
     }
-    
+
     @ModelAttribute("config")
     public Config loadConfiguration() {
         return configService.getCurrentConfig();
@@ -56,22 +61,25 @@ public class PublicRegisterPatrolController {
 
     @GetMapping
     public ModelAndView showRegisterPatrolForm(HttpServletRequest request) {
+        ConfigRegistration configRegistration = configRegistrationService.getCurrentConfig();
         int noOfPatrols = patrolService.getAllPatrols().size();
-        if(RegistrationChecker.isOpenForRegistration(loadConfiguration(), noOfPatrols)) {
+        if (RegistrationChecker.isOpenForRegistration(configRegistration, noOfPatrols)) {
             ModelMap map = new ModelMap();
+            map.put("configregistration", configRegistration);
             map.put("patrol", new Patrol());
             map.put("registeredpatrols", noOfPatrols);
-            return new ModelAndView("publicregisterpatrol",map);    
-        }else {
+            return new ModelAndView("publicregisterpatrol", map);
+        } else {
             return new ModelAndView("publicregistrationnotopen");
         }
     }
 
-    
     @PostMapping
     public String savePatrol(@Valid Patrol patrol, BindingResult bindingResult, ModelMap model) {
-        if(bindingResult.hasErrors()) {
-            model.addAttribute("errormsg","Ops, du missade visst att fylla i viktig information.");
+        ConfigRegistration configRegistration = configRegistrationService.getCurrentConfig();
+        model.addAttribute("configregistration", configRegistration);
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("errormsg", "Ops, du missade visst att fylla i viktig information.");
             int noOfPatrols = patrolService.getAllPatrols().size();
             model.addAttribute("registeredpatrols", noOfPatrols);
             return "publicregisterpatrol";
@@ -82,15 +90,10 @@ public class PublicRegisterPatrolController {
             return "publicregisterconfirmation";
         } catch (PatrolNotSavedException e) {
             e.printStackTrace();
-            model.addAttribute("errormsg","Men nu gick det fel när din anmälan skulle sparas. Var snäll och försök igen.");
+            model.addAttribute(
+                    "errormsg",
+                    "Men nu gick det fel när din anmälan skulle sparas. Var snäll och försök igen.");
             return "publicregisterpatrol";
         }
     }
-
-
-    public ModelAndView changeRegisteredPatrol() {
-
-        return new ModelAndView("publicregisterpatrol");
-    }
-
 }

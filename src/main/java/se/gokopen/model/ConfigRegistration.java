@@ -26,21 +26,20 @@ public class ConfigRegistration {
     private Integer maxPatrols;
     private String confirmMessage;
 
-
     @Id
     @GeneratedValue
-    @Column(name="id", nullable=false)
-    public Integer getId(){
+    @Column(name = "id", nullable = false)
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Integer id){
+    public void setId(Integer id) {
         this.id = id;
     }
 
     @Temporal(TemporalType.DATE)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @Column (name="lastregisterday")
+    @Column(name = "lastregisterday")
     public Date getLastRegisterDay() {
         return lastRegisterDay;
     }
@@ -49,7 +48,7 @@ public class ConfigRegistration {
         this.lastRegisterDay = lastRegisterDay;
     }
 
-    @Column (name="registerinfo", length=600)
+    @Column(name = "registerinfo", length = 600)
     public String getRegisterInfo() {
         return registerInfo;
     }
@@ -58,7 +57,7 @@ public class ConfigRegistration {
         this.registerInfo = registerInfo;
     }
 
-    @Column (name="maxpatrols")
+    @Column(name = "maxpatrols")
     public Integer getMaxPatrols() {
         return maxPatrols;
     }
@@ -67,7 +66,7 @@ public class ConfigRegistration {
         this.maxPatrols = maxPatrols;
     }
 
-    @Column (name="confirmmessage", length=600)
+    @Column(name = "confirmmessage", length = 600)
     public String getConfirmMessage() {
         return confirmMessage;
     }
@@ -76,8 +75,7 @@ public class ConfigRegistration {
         this.confirmMessage = confirmMessage;
     }
 
-
-    @Column (name="allowpublicregistration")
+    @Column(name = "allowpublicregistration")
     public Boolean getAllowPublicRegistration() {
         return allowPublicRegistration;
     }

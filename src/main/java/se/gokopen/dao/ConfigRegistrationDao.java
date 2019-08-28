@@ -1,5 +1,6 @@
 package se.gokopen.dao;
 
+import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -19,7 +20,9 @@ public class ConfigRegistrationDao {
 
     public ConfigRegistration getCurrentConfigRegistration(){
         ConfigRegistration configRegistration;
-        List<ConfigRegistration> configs = sessionFactory.getCurrentSession().createQuery("from configregistration").list();
+        Criteria criteria = sessionFactory.getCurrentSession().createCriteria(ConfigRegistration.class);
+        List<ConfigRegistration> configs = criteria.list();
+        //List<ConfigRegistration> configs = sessionFactory.getCurrentSession().createQuery("from configRegistration").list();
         if(configs.isEmpty()){
             configRegistration = new ConfigRegistration();
         }else{
