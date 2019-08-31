@@ -12,7 +12,7 @@
 <body>
 <div class="nav-box">
     <div class="page-head">
-        <h1>${config.name }administration</h1>
+        <h1>${config.name } administration</h1>
     </div>
 </div>
 <c:if test="${not empty errormsg }">
