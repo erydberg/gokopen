@@ -25,6 +25,7 @@ public class ConfigRegistration {
     private String registerInfo;
     private Integer maxPatrols;
     private String confirmMessage;
+    private String registrationNotOpen;
 
     @Id
     @GeneratedValue
@@ -82,5 +83,14 @@ public class ConfigRegistration {
 
     public void setAllowPublicRegistration(Boolean allowPublicRegistration) {
         this.allowPublicRegistration = allowPublicRegistration;
+    }
+
+    @Column(name = "regnotopenmsg")
+    public String getRegistrationNotOpen() {
+        return registrationNotOpen;
+    }
+
+    public void setRegistrationNotOpen(String msg) {
+        this.registrationNotOpen = msg;
     }
 }

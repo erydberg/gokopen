@@ -63,14 +63,14 @@ public class PublicRegisterPatrolController {
     public ModelAndView showRegisterPatrolForm(HttpServletRequest request) {
         ConfigRegistration configRegistration = configRegistrationService.getCurrentConfig();
         int noOfPatrols = patrolService.getAllPatrols().size();
+        ModelMap map = new ModelMap();
+        map.put("configregistration", configRegistration);
         if (RegistrationChecker.isOpenForRegistration(configRegistration, noOfPatrols)) {
-            ModelMap map = new ModelMap();
-            map.put("configregistration", configRegistration);
             map.put("patrol", new Patrol());
             map.put("registeredpatrols", noOfPatrols);
             return new ModelAndView("publicregisterpatrol", map);
         } else {
-            return new ModelAndView("publicregistrationnotopen");
+            return new ModelAndView("publicregistrationnotopen", map);
         }
     }
 

@@ -57,7 +57,10 @@
 					<form:label path="confirmMessage">Text till sidan som visas när någon anmält en patrull</form:label>
 					<form:textarea path="confirmMessage" rows="7" cols="30" />
 				</div>
-
+				<div class="text size-3">
+					<form:label path="registrationNotOpen">Text till sidan som visas när anmälan inte är öppen, till exempel om det är fullt.</form:label>
+					<form:textarea path="registrationNotOpen" rows="7" cols="30" />
+				</div>
 
 			</fieldset>
 		</div>

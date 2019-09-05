@@ -21,7 +21,14 @@
 		<c:if test="${not empty confirmmsg }">
 			<div class="confirmblock">${confirmmsg}</div>
 		</c:if>
-		<p>Det går inte att registrera några patruller för tävlingen. Anmälan är stängd, sista dagen har passerat och/eller antalet anmälda patruller har nått max-gränsen.</p>
+        <c:choose>
+            <c:when test="${not empty configregistration.registrationNotOpen}">
+                <p>${configregistration.registrationNotOpen}</p>
+            </c:when>
+            <c:otherwise>
+                <p>Det går inte att registrera några patruller för tävlingen. Anmälan är stängd, sista dagen har passerat och/eller antalet anmälda patruller har nått max-gränsen.</p>
+            </c:otherwise>
+        </c:choose>
 		<a href="${pageContext.request.contextPath}/">Till startsidan</a>
 	</div>
 </body>
