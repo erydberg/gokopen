@@ -16,6 +16,8 @@ import se.gokopen.service.ConfigRegistrationService;
 import se.gokopen.service.ConfigService;
 import se.gokopen.service.PatrolService;
 
+import java.text.ParseException;
+
 @RequestMapping("/")
 @Controller
 public class StartController {
@@ -34,16 +36,19 @@ public class StartController {
         return configService.getCurrentConfig();
     }
 
-
     @RequestMapping(method = RequestMethod.GET)
     public String start(ModelMap map) {
     	ConfigRegistration configRegistration = configRegistrationService.getCurrentConfig();
-    	if(RegistrationChecker.isOpenForRegistration(configRegistration, patrolService.getAllPatrols().size())){
-    		map.addAttribute("registrationOpen",true);
-    		map.addAttribute("configRegistration", configRegistration);
-		}else{
-    		map.addAttribute("registrationOpen",false);
-		}
+        try {
+            if (RegistrationChecker.isOpenToday(configRegistration.getLastRegisterDay())){
+                map.addAttribute("registrationOpen",true);
+                map.addAttribute("configRegistration", configRegistration);
+            }else{
+                map.addAttribute("registrationOpen",false);
+            }
+        } catch (ParseException e) {
+            map.addAttribute("registrationOpen",false);
+        }
 
         return "welcomepage";
     }
