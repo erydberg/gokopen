@@ -28,14 +28,14 @@ public class RegistrationChecker {
             if(null == config.getLastRegisterDay()) {
                 return allowRegistration && isItSeatsLeft(maxPatrols, noOfRegisteredPatrolsNow);
             }else {
-                return allowRegistration && checkDate(config.getLastRegisterDay()) && isItSeatsLeft(maxPatrols, noOfRegisteredPatrolsNow);
+                return allowRegistration && isOpenToday(config.getLastRegisterDay()) && isItSeatsLeft(maxPatrols, noOfRegisteredPatrolsNow);
             }
         } catch (ParseException e) {
             return false;
         }
     }
 
-    private static boolean checkDate(Date lastRegisterDate) throws ParseException {
+    public static boolean isOpenToday(Date lastRegisterDate) throws ParseException {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         String lastRegister = sdf.format(lastRegisterDate);
         String today = sdf.format(new Date());
