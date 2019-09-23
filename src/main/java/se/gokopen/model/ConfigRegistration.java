@@ -20,7 +20,7 @@ import javax.persistence.TemporalType;
 public class ConfigRegistration {
 
     private Integer id;
-    private Boolean allowPublicRegistration;
+    private Boolean allowPublicRegistration = false;
     private Date lastRegisterDay;
     private String registerInfo;
     private Integer maxPatrols;

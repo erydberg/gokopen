@@ -36,6 +36,9 @@ public class RegistrationChecker {
     }
 
     public static boolean isOpenToday(Date lastRegisterDate) throws ParseException {
+        if(lastRegisterDate==null){
+            return false;
+        }
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         String lastRegister = sdf.format(lastRegisterDate);
         String today = sdf.format(new Date());
