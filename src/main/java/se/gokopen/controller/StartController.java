@@ -40,7 +40,7 @@ public class StartController {
     public String start(ModelMap map) {
     	ConfigRegistration configRegistration = configRegistrationService.getCurrentConfig();
         try {
-            if (RegistrationChecker.isOpenToday(configRegistration.getLastRegisterDay())){
+            if (configRegistration.getAllowPublicRegistration() && RegistrationChecker.isOpenToday(configRegistration.getLastRegisterDay())){
                 map.addAttribute("registrationOpen",true);
                 map.addAttribute("configRegistration", configRegistration);
             }else{
