@@ -24,6 +24,7 @@
 	<table>
 		<tr>
 			<th>Patrullnamn</th>
+			<th>Nummer</th>
 			<th>Klass</th>
 			<th>Kår</th>
 			<th>Kontakt</th>
@@ -40,6 +41,7 @@
 			<tr ${trclass}>
 				<td><a
 					href="${pageContext.request.contextPath}/patrol/viewpatrol/${patrol.patrolId}">${patrol.patrolName }</a></td>
+				<td>${patrol.patrolId}</td>
 				<td>${patrol.track.trackName }</td>
 				<td>${patrol.troop }</td>
 				<td>
