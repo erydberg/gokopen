@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>se.scout.gokopen</groupId>
 	<artifactId>gokopen</artifactId>
-	<version>3.4.3</version>
+	<version>3.4.4</version>
 	<packaging>war</packaging>
 	<name>gokopen</name>
 
@@ -45,8 +45,6 @@
 			<scope>test</scope>
 		</dependency>
 
-		<!-- <dependency> <groupId>javax.validation</groupId> <artifactId>validation-api</artifactId> 
-			</dependency> -->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-webmvc</artifactId>
