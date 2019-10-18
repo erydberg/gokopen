@@ -27,6 +27,7 @@ import se.gokopen.model.StartStation;
 import se.gokopen.model.Station;
 import se.gokopen.model.Track;
 import se.gokopen.service.ConfigService;
+import se.gokopen.service.ExportService;
 import se.gokopen.service.PatrolService;
 import se.gokopen.service.StationService;
 import se.gokopen.service.TrackService;
@@ -72,15 +73,15 @@ public class PrintController {
         try {
             Track track = trackService.getTrackById(Integer.parseInt(id));
             modelMap.addAttribute("selectedTrack", track.getTrackName());
-			List<Patrol> patrols = patrolService.getAllPatrolsByTrack(track);
-			List<Station> stations = stationService.getAllStations();
-			modelMap.addAttribute("stations", stations);
-			modelMap.addAttribute("patrols", patrols);
+            List<Patrol> patrols = patrolService.getAllPatrolsByTrack(track);
+            List<Station> stations = stationService.getAllStations();
+            modelMap.addAttribute("stations", stations);
+            modelMap.addAttribute("patrols", patrols);
         } catch (NumberFormatException | TrackNotFoundException e) {
-			e.printStackTrace();
-			modelMap.addAttribute("stations", Collections.emptyList());
-			modelMap.addAttribute("patrols", Collections.emptyList());
-		}
+            e.printStackTrace();
+            modelMap.addAttribute("stations", Collections.emptyList());
+            modelMap.addAttribute("patrols", Collections.emptyList());
+        }
         return new ModelAndView("printscorecardstations", modelMap);
     }
 
@@ -109,7 +110,7 @@ public class PrintController {
         return model;
     }
 
-	@GetMapping (value = "/patrolstartonstation")
+    @GetMapping(value = "/patrolstartonstation")
     public ModelAndView printPatrolStartOnStation() {
         ModelAndView model = new ModelAndView();
         List<Station> stations = stationService.getAllStations();
@@ -125,12 +126,15 @@ public class PrintController {
         return model;
     }
 
+    //TODO kunna anpassa avgränsningstecken så det fungerar bättre med olika språk i excel
     @GetMapping(value = "/export/shortreport")
     public void getShortReport(HttpServletResponse response) throws IOException {
         List<Track> tracks = trackService.getAllTracks();
         response.setContentType("text/csv");
 
-        response.setHeader("Content-Disposition", "attachment;filename=resultat.csv");
+        response.setHeader(
+                "Content-Disposition",
+                "attachment;filename=resultat-" + configService.getCurrentConfig().getName() + ".csv");
         ServletOutputStream out = response.getOutputStream();
         for (Track track : tracks) {
             out.println("Gren " + track.getTrackName());
@@ -143,6 +147,34 @@ public class PrintController {
                                 + ";" + patrol.getTotalStylePoint() + ";" + patrol.getTotalScore());
                 i = i + 1;
             }
+        }
+        out.flush();
+        out.close();
+    }
+
+    //TODO kunna anpassa avgränsningstecken så det fungerar bättre med olika språk i excel
+    @GetMapping(value = "/export/bigreport")
+    public void getBigReport(HttpServletResponse response) throws IOException {
+        List<Track> tracks = trackService.getAllTracks();
+        List<Station> stations = stationService.getAllStations();
+        response.setContentType("text/csv");
+
+        response.setHeader(
+                "Content-Disposition",
+                "attachment;filename=resultat " + configService.getCurrentConfig().getName() + " alla kontroller" + ".csv");
+        ServletOutputStream out = response.getOutputStream();
+        ExportService exportService = new ExportService(stations);
+
+        for (Track track : tracks) {
+            out.println("Gren " + track.getTrackName());
+            out.println(exportService.generateHeadlineFromStations());
+            List<Patrol> patrols = patrolService.getAllPatrolsByTrack(track);
+            int position = 1;
+            for (Patrol patrol : patrols) {
+                out.println(exportService.generateRowFor(position, patrol));
+                position++;
+            }
+            out.println(";");
         }
         out.flush();
         out.close();
