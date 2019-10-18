@@ -1,21 +1,17 @@
 package se.gokopen.controller;
 
-import java.io.IOException;
 import java.util.List;
 
-import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import se.gokopen.dao.TrackNotFoundException;
@@ -31,7 +27,6 @@ import se.gokopen.service.TrackService;
 @Controller
 public class ReportsController {
 
-    // Skjuter in PatrolService
     @Autowired
     private PatrolService patrolService;
     @Autowired
@@ -66,21 +61,16 @@ public class ReportsController {
 
     @RequestMapping(value = "/bytrack/{id}")
     public ModelAndView startPatrolsByTrack(@PathVariable String id, HttpServletRequest request) {
-
-        Track track = null;
         try {
-            track = trackService.getTrackById(Integer.parseInt(id));
-        } catch (NumberFormatException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (TrackNotFoundException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            Track track = trackService.getTrackById(Integer.parseInt(id));
+            request.setAttribute("trackid", track.getTrackId());
+            request.setAttribute("selectedTrack", track.getTrackName());
+            request.setAttribute("backurl", request.getContextPath() + "/reports/bytrack/" + track.getTrackId());
+            List<Patrol> patrols = patrolService.getAllPatrolsByTrack(track);
+            return new ModelAndView("viewpatrolsbytrack", "patrols", patrols);
+        } catch (NumberFormatException | TrackNotFoundException e) {
+            request.setAttribute("errormsg", "Kunde inte hitta rätt gren");
+            return new ModelAndView("generalerror");
         }
-        request.setAttribute("trackid", track.getTrackId());
-        request.setAttribute("selectedTrack", track.getTrackName());
-        request.setAttribute("backurl", request.getContextPath() + "/reports/bytrack/" + track.getTrackId());
-        List<Patrol> patrols = patrolService.getAllPatrolsByTrack(track);
-        return new ModelAndView("viewpatrolsbytrack", "patrols", patrols);
     }
 }

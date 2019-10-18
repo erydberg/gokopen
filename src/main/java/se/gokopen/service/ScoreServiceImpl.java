@@ -70,7 +70,6 @@ public class ScoreServiceImpl implements ScoreService {
         try{
             Score prevscore = scoreDao.getScoreForPatrolOnStation(patrolId, stationId);   
         }catch(ScoreNotFoundException e){
-            System.out.println("Hittar inget poäng, ok att spara");
             return false;
         }
         

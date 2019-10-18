@@ -48,6 +48,10 @@
                 kort</a><br>Exporterar resultatlistan till excel (csv-fil). Sammanställningen innehåller en ordnad lista
                 per gren och placering med patrullnamn, kår, poäng, stilpoäng och totala poängen.
             </li>
+            <li class="nav-item"><a href="${pageContext.request.contextPath}/print/export/bigreport">Resultatlista -
+                stor</a><br>Exporterar resultatlistan till excel (csv-fil). Sammanställningen innehåller en ordnad lista
+                per gren och placering med patrullnamn, kår, poäng på alla kontroller samt den totala poängen.
+            </li>
         </sec:authorize>
     </ul>
 </div>

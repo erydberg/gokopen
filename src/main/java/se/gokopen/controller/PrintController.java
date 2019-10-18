@@ -9,7 +9,6 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.WebDataBinder;
@@ -27,6 +26,7 @@ import se.gokopen.model.StartStation;
 import se.gokopen.model.Station;
 import se.gokopen.model.Track;
 import se.gokopen.service.ConfigService;
+import se.gokopen.service.ExportService;
 import se.gokopen.service.PatrolService;
 import se.gokopen.service.StationService;
 import se.gokopen.service.TrackService;
@@ -35,14 +35,21 @@ import se.gokopen.service.TrackService;
 @Controller
 public class PrintController {
 
-    @Autowired
-    private PatrolService patrolService;
-    @Autowired
-    private TrackService trackService;
-    @Autowired
-    private StationService stationService;
-    @Autowired
-    private ConfigService configService;
+    public static final String STATIONS = "stations";
+    public static final String PATROLS = "patrols";
+    public static final String CONFIG = "config";
+    private final PatrolService patrolService;
+    private final TrackService trackService;
+    private final StationService stationService;
+    private final ConfigService configService;
+
+    public PrintController(PatrolService patrolService, TrackService trackService, StationService stationService,
+            ConfigService configService) {
+        this.patrolService = patrolService;
+        this.trackService = trackService;
+        this.stationService = stationService;
+        this.configService = configService;
+    }
 
     @InitBinder
     protected void initBinder(WebDataBinder binder) {
@@ -56,31 +63,31 @@ public class PrintController {
         return trackService.getAllTracks();
     }
 
-    @RequestMapping(value = "")
+    @GetMapping(value = "")
     public String printStart(HttpServletRequest request) {
         return "printstart";
     }
 
-    @RequestMapping(value = "/stationscorecards")
+    @GetMapping(value = "/stationscorecards")
     public String printScoreCardsStart(HttpServletRequest request) {
         return "printstationscorecardsstart";
     }
 
-    @RequestMapping(value = "/bytrack/{id}")
+    @GetMapping(value = "/bytrack/{id}")
     public ModelAndView printScoreCardForTrack(@PathVariable String id, HttpServletRequest request) {
         ModelMap modelMap = new ModelMap();
         try {
             Track track = trackService.getTrackById(Integer.parseInt(id));
             modelMap.addAttribute("selectedTrack", track.getTrackName());
-			List<Patrol> patrols = patrolService.getAllPatrolsByTrack(track);
-			List<Station> stations = stationService.getAllStations();
-			modelMap.addAttribute("stations", stations);
-			modelMap.addAttribute("patrols", patrols);
+            List<Patrol> patrols = patrolService.getAllPatrolsByTrack(track);
+            List<Station> stations = stationService.getAllStations();
+            modelMap.addAttribute(STATIONS, stations);
+            modelMap.addAttribute(PATROLS, patrols);
         } catch (NumberFormatException | TrackNotFoundException e) {
-			e.printStackTrace();
-			modelMap.addAttribute("stations", Collections.emptyList());
-			modelMap.addAttribute("patrols", Collections.emptyList());
-		}
+            e.printStackTrace();
+            modelMap.addAttribute(STATIONS, Collections.emptyList());
+            modelMap.addAttribute(PATROLS, Collections.emptyList());
+        }
         return new ModelAndView("printscorecardstations", modelMap);
     }
 
@@ -91,7 +98,7 @@ public class PrintController {
         return model;
     }
 
-    @RequestMapping(value = "/smallpatrolcards")
+    @GetMapping(value = "/smallpatrolcards")
     public ModelAndView printSmallPatrolCards() {
         ModelAndView model = preparePatrolsForPrint();
         model.setViewName("printsmallpatrolcards");
@@ -101,15 +108,15 @@ public class PrintController {
     private ModelAndView preparePatrolsForPrint() {
         ModelAndView model = new ModelAndView();
         Config config = configService.getCurrentConfig();
-        model.addObject("config", config);
+        model.addObject(CONFIG, config);
         List<Station> stations = stationService.getAllStations();
-        model.addObject("stations", stations);
+        model.addObject(STATIONS, stations);
         List<Patrol> patrols = patrolService.getAllPatrols();
-        model.addObject("patrols", patrols);
+        model.addObject(PATROLS, patrols);
         return model;
     }
 
-	@GetMapping (value = "/patrolstartonstation")
+    @GetMapping(value = "/patrolstartonstation")
     public ModelAndView printPatrolStartOnStation() {
         ModelAndView model = new ModelAndView();
         List<Station> stations = stationService.getAllStations();
@@ -130,19 +137,48 @@ public class PrintController {
         List<Track> tracks = trackService.getAllTracks();
         response.setContentType("text/csv");
 
-        response.setHeader("Content-Disposition", "attachment;filename=resultat.csv");
+        response.setHeader(
+                "Content-Disposition",
+                "attachment;filename=resultat-" + configService.getCurrentConfig().getName() + ".csv");
         ServletOutputStream out = response.getOutputStream();
+        ExportService exportService = new ExportService(Collections.<Station>emptyList());
         for (Track track : tracks) {
             out.println("Gren " + track.getTrackName());
             List<Patrol> patrols = patrolService.getAllPatrolsByTrack(track);
-            out.println("Plats;Patrull;Kår;Poäng;stilpoäng;totalt poäng");
-            int i = 1;
+            out.println(exportService.generateHeadlineShort());
+            int position = 1;
             for (Patrol patrol : patrols) {
-                out.println(
-                        i + ";" + patrol.getPatrolName() + ";" + patrol.getTroop() + ";" + patrol.getTotalScorePoint()
-                                + ";" + patrol.getTotalStylePoint() + ";" + patrol.getTotalScore());
-                i = i + 1;
+                out.println(exportService.generateRowFor(position, patrol));
+                position++;
             }
+            out.println(";");
+        }
+        out.flush();
+        out.close();
+    }
+
+    @GetMapping(value = "/export/bigreport")
+    public void getBigReport(HttpServletResponse response) throws IOException {
+        List<Track> tracks = trackService.getAllTracks();
+        List<Station> stations = stationService.getAllStations();
+        response.setContentType("text/csv");
+
+        response.setHeader(
+                "Content-Disposition",
+                "attachment;filename=resultat " + configService.getCurrentConfig().getName() + " alla kontroller" + ".csv");
+        ServletOutputStream out = response.getOutputStream();
+        ExportService exportService = new ExportService(stations);
+
+        for (Track track : tracks) {
+            out.println("Gren " + track.getTrackName());
+            out.println(exportService.generateHeadlineFromStations());
+            List<Patrol> patrols = patrolService.getAllPatrolsByTrack(track);
+            int position = 1;
+            for (Patrol patrol : patrols) {
+                out.println(exportService.generateRowFor(position, patrol));
+                position++;
+            }
+            out.println(";");
         }
         out.flush();
         out.close();
