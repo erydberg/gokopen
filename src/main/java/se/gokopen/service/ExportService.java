@@ -14,6 +14,12 @@ public class ExportService {
         this.stations = stations;
     }
 
+    public String generateSumHeadlines(){
+        StringBuilder headline = new StringBuilder();
+        addSumHeadlinesTo(headline);
+        return headline.toString();
+    }
+
     public String generateHeadlineFromStations() {
         StringBuilder headline = new StringBuilder();
         headline.append("Plats");
@@ -23,21 +29,21 @@ public class ExportService {
         headline.append("Scoutkår");
         headline.append(DELIMITER);
 
+        //TODO om waypoint, 1 kolumn med rubriken Passerat och Ja / nej som alternativ
+        //kanske W1, W2 osv för waypoints?
+        // (eller inte ha med dessa kontroller alls)
         for (Station station : stations) {
             headline.append("K" + station.getStationNumber() + "-poäng");
             headline.append(DELIMITER);
             headline.append("K" + station.getStationNumber() + "-stil");
             headline.append(DELIMITER);
         }
-        headline.append("Poäng");
-        headline.append(DELIMITER);
-        headline.append("Stilpoäng");
-        headline.append(DELIMITER);
-        headline.append("Poäng totalt");
-        headline.append(DELIMITER);
+        addSumHeadlinesTo(headline);
 
         return headline.toString();
     }
+
+
 
     public String generateRowFor(int position, Patrol patrol) {
         StringBuilder row = new StringBuilder();
@@ -75,6 +81,15 @@ public class ExportService {
 
 
         return row.toString();
+    }
+
+    private void addSumHeadlinesTo(StringBuilder headline) {
+        headline.append("Poäng");
+        headline.append(DELIMITER);
+        headline.append("Stilpoäng");
+        headline.append(DELIMITER);
+        headline.append("Poäng totalt");
+        headline.append(DELIMITER);
     }
 
     String escapeCsv(String text){
