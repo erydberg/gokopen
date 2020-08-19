@@ -21,6 +21,7 @@ public class ConfigRegistration {
 
     private Integer id;
     private Boolean allowPublicRegistration = false;
+    private Date firstRegisterDay;
     private Date lastRegisterDay;
     private String registerInfo;
     private Integer maxPatrols;
@@ -38,6 +39,7 @@ public class ConfigRegistration {
         this.id = id;
     }
 
+
     @Temporal(TemporalType.DATE)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(name = "lastregisterday")
@@ -49,7 +51,19 @@ public class ConfigRegistration {
         this.lastRegisterDay = lastRegisterDay;
     }
 
-    @Column(name = "registerinfo", length = 600)
+    @Temporal(TemporalType.DATE)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @Column(name = "firstregisterday")
+    public Date getFirstRegisterDay() {
+        return firstRegisterDay;
+    }
+
+    public void setFirstRegisterDay(Date firstRegisterDay) {
+        this.firstRegisterDay = firstRegisterDay;
+    }
+
+    @Column(name = "registerinfo", length = 900)
+
     public String getRegisterInfo() {
         return registerInfo;
     }
@@ -67,7 +81,7 @@ public class ConfigRegistration {
         this.maxPatrols = maxPatrols;
     }
 
-    @Column(name = "confirmmessage", length = 600)
+    @Column(name = "confirmmessage", length = 900)
     public String getConfirmMessage() {
         return confirmMessage;
     }

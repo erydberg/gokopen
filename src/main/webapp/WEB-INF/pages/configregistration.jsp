@@ -42,7 +42,11 @@
 					<form:checkbox path="allowPublicRegistration" />
 				</div>
 				<div class="text size-3">
-					<form:label path="lastRegisterDay">Sista anmälningsdag (YYYY-MM-DD)</form:label>
+					<form:label path="firstRegisterDay">Första anmälningsdag (startar vid midnatt) (YYYY-MM-DD) (behöver finnas om publik registrering ska kunna visas)</form:label>
+					<form:input path="firstRegisterDay" />
+				</div>
+				<div class="text size-3">
+					<form:label path="lastRegisterDay">Sista anmälningsdag (YYYY-MM-DD) (behöver finnas om publik registrering ska kunna visas)</form:label>
 					<form:input path="lastRegisterDay" />
 				</div>
 				<div class="text size-3">

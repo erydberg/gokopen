@@ -16,8 +16,6 @@ import se.gokopen.service.ConfigRegistrationService;
 import se.gokopen.service.ConfigService;
 import se.gokopen.service.PatrolService;
 
-import java.text.ParseException;
-
 @RequestMapping("/")
 @Controller
 public class StartController {
@@ -40,13 +38,13 @@ public class StartController {
     public String start(ModelMap map) {
     	ConfigRegistration configRegistration = configRegistrationService.getCurrentConfig();
         try {
-            if (configRegistration.getAllowPublicRegistration() && RegistrationChecker.isOpenToday(configRegistration.getLastRegisterDay())){
+            if (configRegistration.getAllowPublicRegistration() && RegistrationChecker.isOpenToday(configRegistration.getFirstRegisterDay(), configRegistration.getLastRegisterDay())){
                 map.addAttribute("registrationOpen",true);
                 map.addAttribute("configRegistration", configRegistration);
             }else{
                 map.addAttribute("registrationOpen",false);
             }
-        } catch (ParseException e) {
+        } catch (Exception e) {
             map.addAttribute("registrationOpen",false);
         }
 
@@ -67,9 +65,7 @@ public class StartController {
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String login(HttpServletRequest request) {
-
         return "login";
-
     }
 
     @RequestMapping(value = "/loginfailed", method = RequestMethod.GET)

@@ -10,7 +10,6 @@ import java.util.Date;
 import org.junit.Before;
 import org.junit.Test;
 
-import se.gokopen.model.Config;
 import se.gokopen.model.ConfigRegistration;
 
 public class TestRegistrationLogic {
@@ -22,9 +21,10 @@ public class TestRegistrationLogic {
     }
     
     @Test
-    public void shouldReturnTrueIfAllParametersAreGood() throws ParseException {
-        config.setAllowPublicRegistration(true);      
-        config.setLastRegisterDay(new Date()); 
+    public void shouldReturnTrueIfAllParametersAreGood() {
+        config.setAllowPublicRegistration(true);
+        config.setFirstRegisterDay(yesterday());
+        config.setLastRegisterDay(tomorrow());
         config.setMaxPatrols(200);
         int noOfPatrols = 100;
         
@@ -33,17 +33,19 @@ public class TestRegistrationLogic {
     
     
     @Test
-    public void shouldReturnFalseSinceRegistrationIsOff() throws ParseException {
+    public void shouldReturnFalseSinceRegistrationIsOff() {
         config.setAllowPublicRegistration(false);
-        config.setLastRegisterDay(new Date()); 
+        config.setFirstRegisterDay(yesterday());
+        config.setLastRegisterDay(tomorrow());
         int noOfPatrols = 100;
         
         assertFalse(RegistrationChecker.isOpenForRegistration(config, noOfPatrols));
     }
     
     @Test
-    public void shouldReturnFalseSinceDateIsHistory() throws ParseException {
+    public void shouldReturnFalseSinceDateIsHistory() {
         config.setAllowPublicRegistration(true);
+        config.setFirstRegisterDay(yesterday());
         config.setLastRegisterDay(yesterday()); 
         int noOfPatrols = 100;
         
@@ -51,18 +53,31 @@ public class TestRegistrationLogic {
     }
     
     @Test
-    public void shouldReturnTrueSinceDateIsTomorrow() throws ParseException {
+    public void shouldReturnTrueSinceEndDateIsTomorrow() {
         config.setAllowPublicRegistration(true);
+        config.setFirstRegisterDay(yesterday());
         config.setLastRegisterDay(tomorrow()); 
         config.setMaxPatrols(200);
         int noOfPatrols = 100;
         
         assertTrue(RegistrationChecker.isOpenForRegistration(config, noOfPatrols));
     }
-    
+
     @Test
-    public void shouldReturnFalseSinceFull() throws ParseException {
+    public void shouldReturnFalseSinceStartDateIsTomorrow() {
         config.setAllowPublicRegistration(true);
+        config.setFirstRegisterDay(tomorrow());
+        config.setLastRegisterDay(tomorrow());
+        config.setMaxPatrols(200);
+        int noOfPatrols = 100;
+
+        assertFalse(RegistrationChecker.isOpenForRegistration(config, noOfPatrols));
+    }
+
+    @Test
+    public void shouldReturnFalseSinceFull() {
+        config.setAllowPublicRegistration(true);
+        config.setFirstRegisterDay(yesterday());
         config.setLastRegisterDay(tomorrow()); 
         config.setMaxPatrols(200);
         int noOfPatrols = 200;
@@ -71,8 +86,9 @@ public class TestRegistrationLogic {
     }
     
     @Test
-    public void shouldReturnTrueSinceFull() throws ParseException {
+    public void shouldReturnTrueSinceNotFull() {
         config.setAllowPublicRegistration(true);
+        config.setFirstRegisterDay(yesterday());
         config.setLastRegisterDay(tomorrow()); 
         config.setMaxPatrols(300);
         int noOfPatrols = 200;
@@ -80,10 +96,11 @@ public class TestRegistrationLogic {
         assertTrue(RegistrationChecker.isOpenForRegistration(config, noOfPatrols));
     }
     
-    //Test där inte alla värden är satta
     @Test
-    public void shouldReturnTrueSinceNoEndDateIsSet() {
+    public void shouldReturnTrueSinceStartsToday() {
         config.setAllowPublicRegistration(true);
+        config.setFirstRegisterDay(new Date());
+        config.setLastRegisterDay(tomorrow());
         int noOfPatrols = 200;
         assertTrue(RegistrationChecker.isOpenForRegistration(config, noOfPatrols));
     }

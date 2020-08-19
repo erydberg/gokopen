@@ -22,7 +22,6 @@ public class ConfigRegistrationDao {
         ConfigRegistration configRegistration;
         Criteria criteria = sessionFactory.getCurrentSession().createCriteria(ConfigRegistration.class);
         List<ConfigRegistration> configs = criteria.list();
-        //List<ConfigRegistration> configs = sessionFactory.getCurrentSession().createQuery("from configRegistration").list();
         if(configs.isEmpty()){
             configRegistration = new ConfigRegistration();
         }else{
