@@ -98,13 +98,12 @@ caption, th {
 	padding-top:15px;
 }
 .stations li{
-	font-size:xxx-large;
+	font-size:xx-large;
 	display:inline;
 	float:left;
-	padding:10px;
+	padding:8px;
 	margin:5px;
 	border:1px solid black;
-	
 }
 
 hidden {
