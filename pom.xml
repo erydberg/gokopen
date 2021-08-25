@@ -4,13 +4,13 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>se.scout.gokopen</groupId>
 	<artifactId>gokopen</artifactId>
-	<version>3.4.6</version>
+	<version>3.4.7</version>
 	<packaging>war</packaging>
 	<name>gokopen</name>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<jdk.version>1.7</jdk.version>
+		<jdk.version>1.8</jdk.version>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 	</properties>
 
