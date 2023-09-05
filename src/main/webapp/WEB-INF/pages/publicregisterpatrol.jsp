@@ -56,8 +56,10 @@
 				<div class="text size-3">
 					<form:label path="track">Klass:</form:label>
 					<form:select path="track">
+					    <form:option value="0">Välj en klass</form:option>
 						<form:options items="${tracks}" itemLabel="trackName" />
 					</form:select>
+					<div><form:errors path="track" cssClass="errortext" /></div>
 				</div>
 				<div class="text size-3">
 					<form:label path="leaderContact">Kontaktperson (ledare)</form:label>

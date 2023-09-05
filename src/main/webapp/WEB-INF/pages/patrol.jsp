@@ -46,8 +46,10 @@
 				<div class="text size-3">
 					<label>Klass:</label>
 					<form:select path="track" id="track">
+				    	<form:option value="0">Välj en klass</form:option>
 						<form:options items="${tracks}" itemLabel="trackName" />
 					</form:select>
+					<form:errors path="track" cssClass="errortext" />
 				</div>
 				<div class="text size-3">
 					<label>Kår</label>

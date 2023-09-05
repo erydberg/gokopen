@@ -61,12 +61,14 @@ public class PatrolController {
             throws PatrolNotSavedException {
         if (bindingResult.hasErrors()) {
             model.addAttribute("errormsg", "Några fält till behöver fyllas i.");
+
             return "patrol";
         }
-        // Check to see if there is a saved patrol already since we otherwise empty the scores
+        // Check to see if there is a saved patrol already since we otherwise empty values
         try {
             Patrol patrolOnDisc = patrolService.getPatrolById(patrol.getPatrolId());
             patrol.setScores(patrolOnDisc.getScores());
+            patrol.setDateRegistered(patrolOnDisc.getDateRegistered());
 
         } catch (PatrolNotFoundException e) {
             // not really a problem, just saving the new patrol

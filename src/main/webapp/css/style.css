@@ -94,6 +94,17 @@ caption, th {
     padding: 0;
 }
 
+.patrolName {
+    display: block;
+	font-weight: bold;
+    height: 70px;
+    margin-top:5px;
+}
+
+.small-text {
+    font-size:14px;
+}
+
 .stationlist{
 	padding-top:15px;
 }

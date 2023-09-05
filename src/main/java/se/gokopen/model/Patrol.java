@@ -23,6 +23,8 @@ import javax.persistence.OrderBy;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.validation.constraints.NotNull;
+
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -38,11 +40,12 @@ public class Patrol implements Comparable<Patrol> {
     private Integer patrolId;
     private String externalId;
     @NotEmpty(message = "Fyll i ett namn på patrullen")
-    @SafeHtml(message = "ingen knepig html eller js tack")
+    @SafeHtml(message = "ingen knepig html eller js tack" )
     private String patrolName;
     @NotEmpty(message = "Fyll i patrullens scoutkår")
     @SafeHtml(message = "ingen knepig html eller js tack")
     private String troop;
+    @NotNull(message = "Välj en klass")
     private Track track;
     private String startTime;
     private String endTime;
