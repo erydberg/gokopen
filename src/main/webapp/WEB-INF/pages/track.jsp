@@ -3,7 +3,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html>
+<html lang="sv">
 <head>
 <jsp:include page="include_metadata.jsp" flush="false"></jsp:include>
 <title>Klass - ${track.trackName }</title>

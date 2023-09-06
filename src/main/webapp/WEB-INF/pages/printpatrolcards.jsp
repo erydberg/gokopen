@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html>
+<html lang="sv">
 <head>
 <jsp:include page="include_metadata.jsp" flush="false"></jsp:include>
 <title>Skriv ut startkort för alla patruller</title>

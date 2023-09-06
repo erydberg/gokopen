@@ -5,7 +5,7 @@
 	pageEncoding="UTF-8"%>
 <spring:htmlEscape defaultHtmlEscape="true" />
 <!DOCTYPE html>
-<html>
+<html lang="sv">
 <head>
 <jsp:include page="include_metadata.jsp" flush="false"></jsp:include>
 <title>Anmäl patrull till ${config.name }</title>

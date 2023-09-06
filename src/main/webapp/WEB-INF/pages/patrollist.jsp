@@ -5,7 +5,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html>
+<html lang="sv">
 <head>
 <title>Patruller</title>
 <jsp:include page="include_metadata.jsp" flush="false"></jsp:include>
@@ -65,7 +65,7 @@
 				<td><a
 					href="${pageContext.request.contextPath}/patrol/admin/edit/${patrol.patrolId}"><img src="${pageContext.request.contextPath}/css/edit2.png"/></a></td>
 				<td><a
-					href="${pageContext.request.contextPath}/patrol/admin/delete/${patrol.patrolId}"><img src="${pageContext.request.contextPath}/css/delete.png"/></a></td>
+					href="${pageContext.request.contextPath}/patrol/admin/delete/${patrol.patrolId}" onclick="return (confirm('Vill du ta bort patrullen?'))"><img src="${pageContext.request.contextPath}/css/delete.png"/></a></td>
 			</tr>
 		</c:forEach>
 	</table>

@@ -31,7 +31,7 @@ ${errormsg}
 <td><a href="${pageContext.request.contextPath}/admin/station/edit/${station.stationId}">${station.stationName }</a></td>
 <td>${station.stationContact }</td>
 <td>${station.stationPhonenumber }</td>
-<td><a href="${pageContext.request.contextPath}/admin/station/delete/${station.stationId}"><img src="${pageContext.request.contextPath}/css/delete.png"></a></td>
+<td><a href="${pageContext.request.contextPath}/admin/station/delete/${station.stationId}" onclick="return (confirm('Vill du ta bort kontrollen?'))"><img src="${pageContext.request.contextPath}/css/delete.png"></a></td>
 </tr>
 </c:forEach>
 </table>

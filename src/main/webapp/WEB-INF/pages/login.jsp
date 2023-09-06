@@ -1,7 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<html>
+<html lang="sv">
 <head>
 <jsp:include page="include_metadata.jsp" flush="false"></jsp:include>
 <title>Logga in till ${config.name }</title>
