@@ -164,7 +164,7 @@ public class ScoreController {
 				if(score.isVisitedWaypoint()) {
 				    model.addObject("alertmsg", "Sparat att patrull " + score.getPatrol().getPatrolName() + " har passerat kontrollen.");
 				}else {
-				    model.addObject("alertmsg", "Sparat "+ score.getScorePoint() + " poäng och " + score.getStylePoint() + " stilpoäng till " + score.getPatrol().getPatrolName() + ".");
+				    model.addObject("alertmsg", "Sparat "+ score.getScorePoint() + " poäng och " + score.getStylePoint() + " stilpoäng till " + score.getPatrol().getPatrolName() + " från " + score.getPatrol().getTroop() + ".");
 				}
 
 			} catch (Exception e) {
