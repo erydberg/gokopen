@@ -125,6 +125,6 @@ public class ExportService {
     }
 
     String escapeCsv(String text){
-        return text.replace(";"," ");
+        return text.replace(";"," ").replace(",", " ").replace("'"," ");
     }
 }
